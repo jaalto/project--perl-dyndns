@@ -4,7 +4,7 @@ Perl dyndns - A Perl Dynamic DNS (DDNS) update client
 Map dynamic IP address into your.hostname.example.org. A
 cross-platform solution for DHCP ISP-connected users to obtain
 permanent DNS, MX, and Web hosting service from a DDNS provider (e.g.
-syndns.org). Works anywhere where Perl is installed.
+dyndns.org). Works anywhere where Perl is installed.
 
 bin/            The program, ChangeLog
                 and helper bash setup for project administration
