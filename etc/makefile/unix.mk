@@ -1,13 +1,24 @@
-# $Id: unix.mk,v 1.8 2004/04/05 00:31:46 jaalto Exp $
+#!/usr/bin/makefile -f
+# -*- makefile -*-
 #
-#	Copyright (C)  2003 Jari Aalto
-#	Keywords:      Makefile, cygbuild, Cygwin
+#	Copyright (C) 2003-2007 Jari Aalto
 #
 #	This program is free software; you can redistribute it and/or
 #	modify it under the terms of the GNU General Public License as
 #	published by the Free Software Foundation; either version 2 of the
 #	License, or (at your option) any later version
-
+#
+#	This program is distributed in the hope that it will be useful, but
+#	WITHOUT ANY WARRANTY; without even the implied warranty of
+#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+#	General Public License for more details.
+#
+#	You should have received a copy of the GNU General Public License
+#	along with program; see the file COPYING. If not, write to the
+#	Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+#	Boston, MA 02110-1301, USA.
+#
+#	Visit <http://www.gnu.org/copyleft/gpl.html>
 
 # ######################################################### &targets ###
 
@@ -16,7 +27,6 @@ install-log:
 
 install-make-etc-dir:
 	$(INSTALL) $(INSTALL_DATA) -d $(ETCDIR)
-
 
 install-etc: install-make-etc-dir
 	@for file in $(OBJS_ETC);					\
@@ -42,7 +52,9 @@ install-bin:
 	$(INSTALL) -d $(BINDIR)
 	@for file in  $(SRCS);						\
 	do								\
-	    $(INSTALL) $(INSTALL_BIN) $$file $(BINDIR);			\
+	    name=$$(echo $$file|					\
+		 sed 's/.*\///; s/.pl$$// ; s/.sh$$//');		\
+	    $(INSTALL) $(INSTALL_BIN) $$file $(BINDIR)/$$name;		\
 	done;
 
 install-bin-symlink:
@@ -61,10 +73,8 @@ install-bin-symlink:
 	    ln -sf $$file $$to;						\
 	done;
 
-
 # Rule: install - Install files. Run rule 'doc' first
 install-unix: install-man install-bin
-
 
 # Rule: install-clean - Purge executables from the system
 install-clean:
@@ -96,17 +106,15 @@ help: help-makefile
 	    egrep -e '# +Rule:' $$file | sed -e 's/.*Rule://';	    \
 	done;
 
-
 # Rule: release-world - [maintenance] Make a world release
 release-world:
 	@$(INSTALL) $(INSTALL_DATA) -d $(RELEASEDIR)
 	@rm -rf $(RELEASEDIR)/*
-	@tar $(TAR_OPT_NO) -zcf - . | ( cd $(RELEASEDIR); tar -zxf - )
+	@$(TAR) $(TAR_OPT_NO) -zcf - . | ( cd $(RELEASEDIR); tar -zxf - )
 	@cd $(BUILDDIR) &&						    \
 	$(TAR) $(TAR_OPT_WORLD) -zcf $(RELEASE_FILE) $(PACKAGEVER)
-	@echo $(RELEASE_FILE_PATH)
+	@echo Releasing from directory $(RELEASE_FILE_PATH)
 	@tar -ztvf $(RELEASE_FILE_PATH)
-
 
 # Rule: list-world - [maintenance] List content of world release.
 list-world:

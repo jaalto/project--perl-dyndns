@@ -1,12 +1,24 @@
-# $Id: cygwin.mk,v 1.4 2004/04/05 00:31:46 jaalto Exp $
+#!/usr/bin/makefile -f
+# -*- makefile -*-
 #
-#	Copyright (C)  2003 Jari Aalto
-#	Keywords:      Makefile, cygbuild, Cygwin
+#	Copyright (C) 2003-2007 Jari Aalto
 #
 #	This program is free software; you can redistribute it and/or
 #	modify it under the terms of the GNU General Public License as
 #	published by the Free Software Foundation; either version 2 of the
 #	License, or (at your option) any later version
+#
+#	This program is distributed in the hope that it will be useful, but
+#	WITHOUT ANY WARRANTY; without even the implied warranty of
+#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+#	General Public License for more details.
+#
+#	You should have received a copy of the GNU General Public License
+#	along with program; see the file COPYING. If not, write to the
+#	Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+#	Boston, MA 02110-1301, USA.
+#
+#	Visit <http://www.gnu.org/copyleft/gpl.html>
 #
 #    To make a Cygwin Net release
 #
@@ -40,31 +52,29 @@
 #	destination directory. This directory is usually configured to Web server
 #	and it is seen to the outside world.
 
-
 CYGBUILD	= cygbuild.sh
 CYGBUILDBIN	= $(CYGBUILD)
 
 TAR_FILE_CYGWIN_LS = `ls -t1 $(BUILDDIR)/*[0-9].tar.bz2 | sort -r | head -1`
 TAR_FILE_CYGWIN	   = $(BUILDDIR)/$(PACKAGEVER)-$(RELEASE)
 
-
 # ######################################################### &targets ###
 
 # Rule: release-cygwin - [maintenance] Make a Cygwin Net releases. Call: make RELEASE=1 ...
 release-cygwin: release-cygwin-bin release-cygwin-source
 
-# Rule: release-cygwin-source - [maintenance] Make only 'install' 'readmefix'
+# Rule: release-cygwin-bin-fix - [maintenance] Make only 'install' 'readmefix'
 release-cygwin-bin-fix:
 	@cd $(RELEASEDIR) &&					    \
 	$(CYGBUILDBIN) -r $(RELEASE) -x install package &&	    \
 	$(CYGBUILDBIN) -r $(RELEASE) -x readmefix &&
 
-# Rule: release-cygwin-source - [maintenance] Make only 'install' and 'package'
+# Rule: release-cygwin-bin-only - [maintenance] Make only 'install' and 'package'
 release-cygwin-bin-only:
 	@cd $(RELEASEDIR) &&					    \
 	$(CYGBUILDBIN) -r $(RELEASE) -x install package
 
-# Rule: release-cygwin-source - [maintenance] Make everything for binary package
+# Rule: release-cygwin-bin - [maintenance] Make everything for binary package
 release-cygwin-bin: release-cygwin-bin-fix release-cygwin-bin-only
 	@ls $(TAR_FILE_CYGWIN).tar.bz2
 	@tar -jtvf $(TAR_FILE_CYGWIN).tar.bz2
@@ -81,7 +91,6 @@ release-cygwin-source-verify:
 	cd $(RELEASEDIR) &&					    \
 	$(CYGBUILDBIN) -r $(RELEASE) mkdirs source-package-verify
 
-
 # This simply copies the cygwin binary and source packages made after target 'kit'
 # to the Web server publishing are from where they are available.
 # Rule: publish-cygwin - [maintenance] Publish Cygwin net release
@@ -89,10 +98,8 @@ publish-cygwin:
 	cd $(RELEASEDIR) && \
 	$(CYGBUILD) publish
 
-
 # Rule: release-cygwin - [maintenance] List content of Cygwin Net release.
 list-cygwin:
 	$(TAR) -jtvf $(TAR_FILE_CYGWIN_LS)
-
 
 # End of file
