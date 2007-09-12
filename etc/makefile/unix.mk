@@ -123,11 +123,12 @@ list-world:
 # Rule: manifest-make: Make list of files in this project into file MANIFEST
 # Rule: manifest-make: files matching regexps in MANIFEST.SKIP are skipped.
 manifest-make:
-	$(PERL) -MExtUtils::Manifest=mkmanifest -e 'mkmanifest()'
+	rm -f MANIFEST
+	LC_ALL=C $(PERL) -MExtUtils::Manifest=mkmanifest -e 'mkmanifest()'
 
 # Rule: manifest-check: checks if MANIFEST files really do exist.
 manifest-check:
-	perl -MExtUtils::Manifest=manicheck -e \
+	LC_ALL=C $(PERL) -MExtUtils::Manifest=manicheck -e \
 	     'exit 1 if manicheck()';
 
 # End of file
