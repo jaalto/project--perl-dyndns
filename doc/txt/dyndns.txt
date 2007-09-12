@@ -18,9 +18,9 @@ OPTIONS
 
         The FILE part wll go through Perl's "glob()" function, meaning that
         the filenames are expanded if you supply standard shell wild cards.
-        I Series of configuration files can be run at once e.g. within
-        directory "/etc/dyndns/conf.d" with a single option. The order of
-        the files processed is alphabetical:
+        Series of configuration files can be run at once e.g. within
+        directory "/etc/dyndns/" with a single option. The order of the
+        files processed is alphabetical:
 
             --Config='/etc/dyndns/*'
 
@@ -28,7 +28,7 @@ OPTIONS
         files.
 
     --Host=host1 [--Host=host2 ...]
-        Update account information for registered HOSTs.
+        Use registered HOST(s).
 
     --group GROUP
         This option is only for --Provider noip
@@ -37,7 +37,7 @@ OPTIONS
         same IP address? Update a group instead of a many hosts.
 
     --login LOGIN
-        Your DDNS account's LOGIN name.
+        DDNS account's LOGIN name.
 
     --mxhost MX-HOST-NAME
         This option is only for --Provider dyndns
@@ -81,9 +81,9 @@ OPTIONS
         your old IP address.
 
     --password PASSWORD
-        Your DDNS account's PASSWORD.
+        DDNS account's PASSWORD.
 
-    --system dyndns|statdns|custom
+    --system {dyndns|statdns|custom}
         This option is only for --Provider dyndns
 
         The system you wish to use for this update. "dyndns" will update a
@@ -99,11 +99,17 @@ OPTIONS
 
   Additional options
     --Daemon [WAIT-MINUTES]
-        Enter daemon mode. The term "daemon" refers a standalone processes
-        which keep serving until killed. In daemon mode program program
+        Enter daemon mode. The term "daemon" refers to a standalone
+        processes which keep serving until killed. In daemon mode program
         enters into infinite loop where IP address changes are checked
         periodically. For each new ip address check, program waits for
         WAIT-MINUTES. Messages in this mode are reported using syslog(3).
+
+        This option is designed to be used in systems that do not provide
+        Unix-like cron capabilities (e.g under Win32 OS). It is better to
+        use cron(8) and define an entry using crontab(5) notation to run the
+        update in periodic intervals. This will use less memory when Perl is
+        not permanently kept in memory like it would with option --Daemon.
 
         The update to DDNS provider happens only if
 
@@ -112,7 +118,7 @@ OPTIONS
                (See DDNS providers' account expiration time documentation)
 
         The minumum sleep time is 5 minutes. Program will not allow faster
-        wake up times. The value can be expressed in formats:
+        wake up times(*). The value can be expressed in formats:
 
             15      Plain number, minutes
             15m     (m)inutes. Same sa above
@@ -124,7 +130,13 @@ OPTIONS
         same time when the connection happens. In Linux this would happen
         during ifup(1).
 
-    --ethernet CARD
+        (*) Perl language is CPU intensive so any faster check would put
+        considerable strain on system resources. Normally a value of 30 or
+        60 minutes will work fine in most of the ADSL lines. Monitor the
+        ISP's IP rotation time to adjust the time in to use correct (long)
+        wake up times.
+
+    --ethernet [CARD]
         In Linux system, the automatic IP detection uses program
         ifconfig(1). If you have multiple network cards, select the correct
         card with this option. The default device queried is "eth0".
@@ -137,11 +149,11 @@ OPTIONS
         within a short period - according to www.dyndns.org FAQ - your
         address may be blocked.
 
-        Windows users note: all filenames must use forward slashs like
-        C:/somedir/more/, not C:\somedir\more.
+        On Windows platform all filenames must use forward slashs like
+        C:/somedir/to/, not C:\somedir\to.
 
-        This PREFIX is only used as a basename for supported DDNS accounts
-        (see --Provider). The saved filename is contructed like this:
+        The PREFIX is only used as a basename for supported DDNS accounts
+        (see --Provider). The saved filename is constructed like this:
 
            PREFIX<ethernet-card>-<update-system>-<host>-<provider>.log
                                   |
@@ -154,10 +166,11 @@ OPTIONS
 
     --file-default|-f
         Use reasonable default for saved IP file PREFIX (see --file). Under
-        windows, %WINDIR% is used. Under Linux the PRERIXes searched are
+        Windows, %WINDIR% is used. Under Linux the PREFIXes searched are
 
             /var/log/dyndns/     (if directory exists)
             /var/log/            (system's standard)
+            $HOME/tmp or $HOME   if process is not running under root
 
     --proxy HOST
         Use HOST as outgoing HTTP proxy.
@@ -196,7 +209,7 @@ OPTIONS
             100.197.1.6 100.197.1.7
             100.197.1.6 nochange 18
                                  |
-                                 How many days since last daved IP
+                                 How many days since last saved IP
 
         Note for tool developers: additional information may be provided in
         future. Don't rely on the count of the output words, but instead
@@ -349,10 +362,10 @@ OPTIONS
 
         This is what you need. To automate the lookup from web page, you
         need to instruct the program to connect to URL page and tell how to
-        read the ip from page by using a regular expression. Youneed to
-        consult Perl's manual page "perldoc perlre" if you are unfamiliar
-        with the regular expressions. For the above fictional service, the
-        options needed would be:
+        read the ip from page by using a regular expression. Consult Perl's
+        manual page "perlre" if you are unfamiliar with the regular
+        expressions. For the above fictional service, the options needed
+        would be:
 
             --urlping         "http://showip.org/?showit.pl"
             --urlping-regexp  "address is:\s+([\d.]+)"
@@ -363,6 +376,10 @@ OPTIONS
                                           |
                                           +- expect any number of whitespaces
 
+        NOTE: The text to match from web page is not text/plain, but
+        text/html, so you must look at the HTML page's sources to match the
+        IP address correctly without the bold <b> tags etc.
+
     --urlping URL
         Web page where world known IP address can be read. If you find a Web
         server that is running some program, which can show your IP addres,
@@ -372,25 +389,34 @@ OPTIONS
 
             http://www.dyndns.org/cgi-bin/check_ip.cgi
 
+        Be sure to use period of 60 minutes or more with --Daemon option to
+        not increase the load in the "ping" site and cause admin's to shut
+        down the service.
+
     --urlping-dyndns
         Contact to www.dyndns.org service to obtain IP address information.
+        This is shorthand to more general optiopn --urlping.
 
-    --urlping-linksys4 [PASSWORD]
-        Specialized router option only for Linksys product owners.
+    --urlping-linksys [TYPE]
+        Specialized router option for Linksys products.
 
         This option connects to Linksys Wireless LAN 4-point router, whose
         page is by default at local network address
         -<http://192.168.1.1/Status.htm>. The world known IP address (which
-        is provided by your ISP) is parsed from that page. The product is
+        is provided by ISP) is parsed from that page. The product is
         typically connected to the cable or DSL modem. Refer to routing
         picture presented previously.
 
-        If you have changed the default PASSWORD, supply it with this
-        option.
+        If the default login and password has been changed, options
+        --urlping-login and --urlping-password must be supplied
 
-        For more information, See <http://www.linksys.com/> and product
-        Wireless Access Point Router with 4-Port Switch - Version N,
-        BEFW11S4.
+        For TYPE information, See <http://www.linksys.com/>. Products codes
+        currently supported include:
+
+         - BEFW11S4, Wireless Access Point Router with 4-Port Switch.
+           Page: http://192.168.1.1/Status.htm
+         - WRT54GL, Wireless WRT54GL Wireless-G Broadband Router.
+           Page: http://192.168.1.1/Status_Router.asp
 
     --urlping-login LOGIN
         If "--urlping" web page requires authentication, supply user name
@@ -426,7 +452,7 @@ OPTIONS
     --debug [LEVEL]
         Turn on debug with optional positive LEVEL. Use this if you want to
         know details how the program initiates connection or if you
-        experience trouble contacting your DDNS.
+        experience trouble contacting DDNS provider.
 
     --help
         Print help
@@ -493,26 +519,27 @@ README
     on top of windws and makes it possible to use cron jobs etc. just like
     in Linux systems. If you have no prior experience on Unix/Linux, then
     the Activestate Perl might be better for Windows. Activestate includes a
-    Winodws installer, but the Perl programs must be run through Åerl
+    Winodws installer, but the Perl programs must be run through Perl
     interpreter, instead of just typing "program.pl". For Activestate, put
-    programs along PATH and use command line call:
+    programs along PATH and use command line call with option -S to instruct
+    to search PATH:
 
         perl -S dyndns.pl [options]
 
 EXAMPLES
-    To check your current IP address:
+    To check current IP address:
 
       dyndns.pl --Query [--urlping...]
                         |
                         Select correct option to do the "ping" for IP
 
-    Show where the ip file is/would be stored with given connect options:
+    Show where the ip file is/would be stored with given connect options.
+    The option --file-default uses OS's default directory structure.
 
-      dyndns.pl --file-default --Query-ipfile --Provider dyndns --Host xxx.dyndns.org
-                |
-                Suppose OS's default directory structure
+      dyndns.pl --file-default --Query-ipfile --Provider dyndns \
+                --Host xxx.dyndns.org
 
-    To upate your account information to your DDNS provider:
+    To upate account information to DDNS provider:
 
       dyndns.pl --login LOGIN --password PASS --Host your.dyndns.org
 
@@ -552,7 +579,7 @@ CONFIGURATION FILE
     take multple values seprated by colons. On/Off options take values [1/0]
     respectively. All host name values below are fictional.
 
-        # /etc/dyndns/conf.d/example
+        # /etc/dyndns/dyndns.conf
 
         #  Set to "yes" to make this configuration file excluded
         #  from updates.
@@ -576,7 +603,7 @@ CONFIGURATION FILE
         #   not use all these options. E.g. [urlping-linksys4] is alternate
         #   to [urlping] etc. See documentation.
 
-        urlping-linksys4 = 1
+        urlping-linksys  = BEFW11S4
         urlping-login    = joe
         urlping-password = mypass
 
@@ -614,9 +641,9 @@ CONFIGURATION FILE
     See the details of all of these options from the corresponding command
     line option descriptions. E.g. option 'ethernet' in configuration file
     corresponds to --ethernet command line option. The normal configuration
-    file for average user would include something like:
+    file for average user would only include few lines:
 
-        #   /etc/dyndns/conf.d/myhost.dyndns.org
+        #   /etc/dyndns/myhost.dyndns.org.conf
 
         host             = myhost.dyndns.org
         file             = default      # Use OS's default location
@@ -628,7 +655,7 @@ CONFIGURATION FILE
 
         # End of cnfiguration file
 
-    FIXME:
+    TODO (write Debian daemon scripts) FIXME:
 
         update-rc.d dyndns start 3 4 5 6    # Debian
 
@@ -637,9 +664,9 @@ SUPPORT REQUESTS
     examples and their output which answer to following questions. The items
     in parentheses are examples from Linux:
 
-        - How is the OS detected? (id -a, or if file/dire can be used
+        - How is the OS detected? (id -a, or if file/dir structure can be used
           to detect the system. In Lunux the existence of /boot/vmlinuz
-          tells that "this is a Linux OS").
+          could indicate that "this is a Linux OS").
         - What is the command to get network information ('ifconfig')
         - Where are the system configuration files stored (/etc)
         - Where are the log files stored (/var/log)
@@ -647,7 +674,7 @@ SUPPORT REQUESTS
     To add support for routers that can be connected through HTTP protocol
     or with some other commands (to get ISP provided IP address), please
     provide connection details and full HTTP response (lynx -dump
-    http://example.com/your/router).
+    http://192.168.1.0/your-network/router).
 
 TROUBLESHOOTING
     1. Turn on --debug to see exact details how the program runs and what
@@ -673,7 +700,7 @@ FILES
     configuration files. At installation, configuration examples are put in
     directory "/etc/dyndns/examples". It is recommended that the examples
     are modified and copied one directorory up in order to use option
-    --Config /etc/dyndns/conf.d/*.
+    --Config /etc/dyndns/*.
 
     If program is run with Win32 Activestate Perl, the log file is stored to
     file "C:/syslog.txt".
@@ -689,18 +716,17 @@ BUGS
     takes care about syslog requests. On NT and above systems it logs to the
     Windows's event manager, on Win9x and ME a file is created in the root
     of drive "C:". See message
-    http://cygwin.com/ml/cygwin/2002-10/msg00219.html for more details.
+    <http://cygwin.com/ml/cygwin/2002-10/msg00219.html> for more details.
 
     You can see the entries in W2K Start => Settings => Administrative Tools
-    => Computer Management: [System Tools / Event Viewer / Application ]
+    => Computer Management: [ System Tools / Event Viewer / Application ]
 
   Debugging errors
     Please use option --debug 2 and save the result. Contact maintainer if
     you find bugs or need new features.
 
 AVAILABILITY
-    Project homepage is at http://perl-dyndns.sourceforge.net/ and you can
-    find the latest version in the CVS tree.
+    http://freshmeat.net/projects/perl-dyndns
 
 STANDARDS
     The client specification is at
@@ -710,7 +736,7 @@ SCRIPT CATEGORIES
     "CPAN/Administrative" "CPAN/Networking"
 
 PREREQUISITES
-    HTTP::Request::Common
+    HTTP::Request::Common LWP
 
 COREQUISITES
     None.
@@ -718,12 +744,8 @@ COREQUISITES
 OSNAMES
     "any"
 
-VERSION
-    $Id: dyndns.txt,v 1.16 2006/02/19 14:57:10 jaalto Exp $
-
 AUTHOR
     Copyright (C) 1999-2006 Jari Aalto. All rights reserved. This program is
-    free software; you can redistribute and/or modify program under the same
-    terms as Perl itself or in terms of Gnu General Public license v2 or
-    later.
+    free software; you can redistribute and/or modify program under the
+    terms of GNU General Public license v2 or later.
 

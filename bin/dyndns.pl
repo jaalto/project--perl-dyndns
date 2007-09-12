@@ -4,7 +4,7 @@
 #
 #   File id
 #
-#       Copyright (C) 2000-2007 Jari Aalto
+#       Copyright (C) 1999-2007 Jari Aalto
 #
 #       This program is free software; you can redistribute it and/or
 #       modify it under the terms of the GNU General Public License as
@@ -99,7 +99,7 @@ IMPORT:                     # This is just syntactic sugar: actually no-op
     #   The following variable is updated by Emacs setup whenever
     #   this file is saved.
 
-    $VERSION = '2007.0912.0813';
+    $VERSION = '2007.0912.0848';
 }
 
 # }}}
@@ -1127,8 +1127,7 @@ you find bugs or need new features.
 
 =head1 AVAILABILITY
 
-Project homepage is at http://perl-dyndns.sourceforge.net/ and
-you can find the latest version in the CVS tree.
+http://freshmeat.net/projects/perl-dyndns
 
 =head1 STANDARDS
 
@@ -1153,15 +1152,11 @@ None.
 
 C<any>
 
-=head1 VERSION
-
-$Id: dyndns.pl,v 1.129 2007/09/12 07:36:11 jaalto Exp $
-
 =head1 AUTHOR
 
-Copyright (C) 1999-2006 Jari Aalto. All rights reserved. This program is
-free software; you can redistribute and/or modify program under the same
-terms as Perl itself or in terms of Gnu General Public license v2 or later.
+Copyright (C) 1999-2006 Jari Aalto. All rights reserved. This program
+is free software; you can redistribute and/or modify program under the
+terms of GNU General Public license v2 or later.
 
 =cut
 
