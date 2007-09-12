@@ -2,10 +2,7 @@
 #
 #   File id
 #
-#       $Id: admin.bashrc,v 1.18 2006/02/19 14:57:10 jaalto Exp $
-#
-#       Copyright (C)   2000-2006 Jari Aalto
-#       Keywords:       Bash, administrative
+#       Copyright (C) 2000-2007 Jari Aalto
 #
 #       This program is free software; you can redistribute it and/or
 #       modify it under the terms of the GNU General Public License as
@@ -17,38 +14,31 @@
 #       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #       General Public License for more details.
 #
-#       You should have received a copy of the GNU General Public License along
-#       with this program; if not, write to the Free Software Foundation,
-#       Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#       You should have received a copy of the GNU General Public License
+#       along with program; see the file COPYING. If not, write to the
+#       Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+#       Boston, MA 02110-1301, USA.
 #
-#       Visit http://www.gnu.org/copyleft/gpl.html
+#       Visit <http://www.gnu.org/copyleft/gpl.html>
 #
 #   Documentation
 #
-#       These bash functions will help managing Sourceforge project. You need:
+#       This file is of interest only for the Admin or Co-Developer of
+#       project. These bash functions will help maintaining the project.
+#       You need:
 #
-#       Unix        (Unix)  http://www.fsf.org/directory/bash.html
-#                   (Win32) http://www.cygwin.com/
-#       Perl 5.4+   (Unix)  http://www.perl.org
-#                   (Win32) http://www.ativestate.com
+#       Bash        any version
+#       Perl        5.004 or any later version
 #       t2html.pl   Perl program to convert text -> HTML
-#                   http://perl-text2html.sourceforge.net/
+#                   http://freshmeat.net/projects/perl-text2html
 #
-#       This file is for the Admin or Co-Developer of the project:
+#       Variables to set
 #
-#           http://sourceforge.net/projects/perl-dyndns
-#           http://perl-dyndns.sourceforge.net/
-#
-#       Include this file to your $HOME/.bashrc and make the necessary
-#       modifications:
-#
-#           SF_PERL_DYNDNS_USER=<sourceforge-login-name>
-#           SF_PERL_DYNDNS_USER_NAME="FirstName LastName"
-#           SF_PERL_DYNDNS_EMAIL=<email address>
-#           SF_PERL_DYNDNS_ROOT=~/cvs-projects/perl-dyndns
-#           SF_PERL_DYNDNS_HTML_TARGET=http://perl-dyndns.sourceforge.net/
-#
-#           source ~/sforge/devel/perl-dyndns/bin/admin.bashrc
+#       SF_PERL_DYNDNS_USER=<sourceforge-login-name>
+#       SF_PERL_DYNDNS_USER_NAME="FirstName LastName"
+#       SF_PERL_DYNDNS_EMAIL=<email address>
+#       SF_PERL_DYNDNS_ROOT=~/cvs-projects/perl-dyndns
+#       SF_PERL_DYNDNS_HTML_TARGET=http://freshmeat.net/projects/perl-dyndns
 
 function sfperldyn_init ()
 {
@@ -80,8 +70,6 @@ Perl, HTML, CSS2, conversion, text2html"}
     fi
 }
 
-
-
 function sfperldyn_date ()
 {
     date "+%Y.%m%d"
@@ -103,7 +91,6 @@ function sfperldyn_ask ()
         *)          return 1 ;;
     esac
 }
-
 
 function sfperldyn_FileSize ()
 {
@@ -130,8 +117,6 @@ function sfperldyn_CheckRoot ()
     return 1
 }
 
-
-
 function sfperldyn_VersionUpdate ()
 {
     #   Update Version: field.
@@ -150,7 +135,6 @@ function sfperldyn_VersionUpdate ()
         echo "$id: Aborted. Problem reading [$source], arg 2"
         return
     fi
-
 
     #  Update the Version field.
 
@@ -182,10 +166,8 @@ function sfperldyn_VersionUpdate ()
 
 }
 
-
 function sfperldynscp ()
 {
-
     #   To upload file to project, call from shell prompt
     #
     #       bash$ sfperldynscp <FILE>
@@ -201,8 +183,6 @@ function sfperldynscp ()
     scp $* $sfuser@shell.sourceforge.net:/home/groups/$sfproject/htdocs/
 }
 
-
-
 function sfperldyn_doc ()
 {
     #   Generate documentation.
@@ -214,7 +194,6 @@ function sfperldyn_doc ()
        echo "$id: aborted."
        return
     fi
-
 
     cd $dir/bin
 
@@ -230,17 +209,14 @@ function sfperldyn_doc ()
         rm $file
     done
 
-
     echo "$id: Documentation updated."
 }
-
 
 function sfperldyn_IsDebian ()
 {
     local id="sfperldyn_IsDebian"
     test -f /usr/bin/dpkg-deb
 }
-
 
 function sfperldyn_MakeFilename ()
 {
@@ -267,7 +243,6 @@ function sfperldyn_MakeFilename ()
 
 }
 
-
 function sfperldyn_version ()
 {
     # Read current version infromation.
@@ -287,7 +262,6 @@ function sfperldyn_DebianControlGetVersion ()
 
     awk -F" " '/Version:/ { print $2; exit}'  $source
 }
-
 
 function sfperldyn_DebianControlGetVersionNew ()
 {
@@ -309,9 +283,7 @@ function sfperldyn_DebianControlGetVersionNew ()
     fi
 
     echo $ver-$patch
-
 }
-
 
 function sfperldyn_DebianControl ()
 {
@@ -325,7 +297,6 @@ function sfperldyn_DebianControl ()
 
     echo "$id: updated $source $version"
 }
-
 
 function sfperldyn_ReleaseDebian ()
 {
@@ -393,7 +364,6 @@ function sfperldyn_ReleaseDebian ()
     local bin="$root/bin/$file"
     cp  --verbose $bin $install/$file || return
 
-
     perl $bin --Help-man > $man/dyndns.1
 
     cp  $root/doc/txt/*.txt   $doc/
@@ -403,7 +373,6 @@ function sfperldyn_ReleaseDebian ()
     cp $root/debian/$file $control/$file  || return
 
     cp $root/debian/{prerm,postrm} $control
-
 
     #  Now update version information in 'control' file
     sfperldyn_DebianControl
@@ -426,7 +395,6 @@ function sfperldyn_ReleaseDebian ()
         fi
 
     )
-
 }
 
 function sfperldyn_release_check ()
@@ -445,9 +413,7 @@ function sfperldyn_release_check ()
     then
         sfperldyn_ReleaseDebian
     fi
-
 }
-
 
 function sfperldyn_release ()
 {
@@ -467,7 +433,6 @@ function sfperldyn_release ()
 
     sfperldyn_release_check
 
-
     local opt=-9
     local cmd=gzip
     local ext1=.tar
@@ -482,7 +447,6 @@ function sfperldyn_release ()
         echo "$id: Removing old archive $dir/$file"
         rm $dir/$file
     fi
-
 
     (
 
@@ -521,17 +485,14 @@ function sfperldyn_release ()
     )
 
     echo "$id: Call ncftpput upload.sourceforge.net /incoming $dir/$file"
-
 }
 
 sfperldyn_init                  # Run initializer
-
 
 export SF_PERL_DYNDNS_HTML_TARGET
 export SF_PERL_DYNDNS_KWD
 export SF_PERL_DYNDNS_DESC
 export SF_PERL_DYNDNS_TITLE
 export SF_PERL_DYNDNS_ROOT
-
 
 # End of file

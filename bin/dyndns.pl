@@ -1,13 +1,10 @@
 #!/usr/bin/perl
 #
-# dyndns.pl - Update Your Dynamic DNS address.
-# $Id: dyndns.pl,v 1.129 2007/09/12 07:36:11 jaalto Exp $
-#
-# {{{ Documentation
+# dyndns.pl - Update Dynamic DNS address to DDNS provider
 #
 #   File id
 #
-#       Keywords: Perl, dynamic DNS IP update, dyndns.org, no-ip.com
+#       Copyright (C) 2000-2007 Jari Aalto
 #
 #       This program is free software; you can redistribute it and/or
 #       modify it under the terms of the GNU General Public License as
@@ -19,19 +16,12 @@
 #       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 #       General Public License for more details.
 #
-#       You should have received a copy of the GNU General Public License along
-#       with this program; if not, write to the Free Software Foundation,
-#       Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#       You should have received a copy of the GNU General Public License
+#       along with program; see the file COPYING. If not, write to the
+#       Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+#       Boston, MA 02110-1301, USA.
 #
-#       Visit http://www.gnu.org/copyleft/copyright.html
-#
-#   About program layout
-#
-#       This file was edited and developed with Emacs. More info at
-#       http://tiny-tools.sourceforge.net => Emacs Resources
-#
-#       The {{ }}} marks you see in this file are party of Emacs file fold
-#       control package called folding.el
+#       Visit <http://www.gnu.org/copyleft/gpl.html>
 #
 #   Details how to update dyndns.org account
 #
@@ -65,12 +55,7 @@
 #   Test commands (developer only information)
 #
 #       dyndns.pl --system custom --Test-account --urlping-linksys4 -d 4 2>&1 | tee ~/dyndns-custom.log
-#
-#   Change Log:
-#
-#       None. See separate project file for changes.
 
-# }}}
 # {{{ Import
 
 use 5.004;
@@ -112,11 +97,9 @@ IMPORT:                     # This is just syntactic sugar: actually no-op
     #   So that it puts the tardist number in format YYYY.MMDD
     #
     #   The following variable is updated by Emacs setup whenever
-    #   this file is saved. See Tiny Tools Emacs library collection
-    #   at http://tiny-tools.sourceforge.net/ and Emacs
-    #   lisp package tinyperl.el
+    #   this file is saved.
 
-    $VERSION = '2006.0104';
+    $VERSION = '2007.0912.0813';
 }
 
 # }}}
@@ -1508,7 +1491,7 @@ sub HandleCommandLineArgsMain ()
 
 
    if ( ($OPT_QUERY_IP_FILE || $OPT_QUERY_IP_SAVED)
-         and  
+         and
 	 not defined @OPT_HOST
        )
     {
@@ -2522,9 +2505,9 @@ sub IPfileNameGlobbed ()
 	           . "OPT_QUERY_IP_SAVED [$OPT_QUERY_IP_SAVED] "
 		   . "OPT_QUERY_IP_CHANGED [$OPT_QUERY_IP_CHANGED]\n";
 
-    if ( not $file 
-	 and not ($OPT_QUERY_IP_FILE 
-		  or $OPT_QUERY_IP_SAVED 
+    if ( not $file
+	 and not ($OPT_QUERY_IP_FILE
+		  or $OPT_QUERY_IP_SAVED
 		  or ($OPT_QUERY_IP_CHANGED eq -undef) )
        )
     {
@@ -3074,7 +3057,7 @@ sub HttpPingWlanLinksysBEFW11S4 (; $$)
     $debug  and  print "$id: INPUT login [$login] pass [$pass]\n";
 
     #   It is not a password, if there is are no alphanumeric characters
-    #   in it. 
+    #   in it.
 
     unless ( $pass =~ /[a-z]/i )
     {
@@ -3129,7 +3112,7 @@ sub HttpPingWlanLinksysWRT54GL (; $$)
     $debug  and  print "$id: INPUT login [$login] pass [$pass]\n";
 
     #   It is not a password, if there is are no alphanumeric characters
-    #   in it. 
+    #   in it.
 
     unless ( $pass =~ /[a-z]/i )
     {
@@ -3937,14 +3920,14 @@ sub GetIpAddress ()
 
 	local $ARG = $OPT_HTTP_PING_LINKSYS;
 
-	if ( /BEFW11S4/i ) 
+	if ( /BEFW11S4/i )
 	{
-	    $ret = HttpPingWlanLinksysBEFW11S4 
+	    $ret = HttpPingWlanLinksysBEFW11S4
 		     $OPT_HTTP_PING_LOGIN, $OPT_HTTP_PING_PASSWORD;
 	}
-	if ( /WRT54GL/i ) 
+	if ( /WRT54GL/i )
 	{
-	    $ret = HttpPingWlanLinksysWRT54GL 
+	    $ret = HttpPingWlanLinksysWRT54GL
 		     $OPT_HTTP_PING_LOGIN, $OPT_HTTP_PING_PASSWORD;
 	}
 	else
@@ -4541,7 +4524,7 @@ function Connect(F,I)
 }
 function init()
 {
-	
+
 }
 function ShowAlert(M)
 {
@@ -4584,7 +4567,7 @@ function ShowAlert(M)
         else if(M == "TCP_FAIL" || (M == "TIMEOUT" && wan_ip != "0.0.0.0" && wan_proto == "heartbeat"))
                 str = hstatrouter2.tcpfail + mode + hstatrouter2.server;
 //              str = "Can not build a TCP connection to " + mode + " server";
-	else 
+	else
                 str = hstatrouter2.noconn + mode + hstatrouter2.server;
 //              str = "Can not connect to " + mode + " server";
 
@@ -4631,45 +4614,45 @@ function localtime()
   <TBODY>
   <TR>
     <TD width=95><IMG src="image/UI_Linksys.gif" border=0 width="165" height="57"></TD>
-    <TD vAlign=bottom align=right width=714 bgColor=#6666cc><FONT 
+    <TD vAlign=bottom align=right width=714 bgColor=#6666cc><FONT
       style="FONT-SIZE: 7pt" color=#ffffff><FONT face=Arial><script>Capture(share.firmwarever)</script>:&nbsp;v4.30.7&nbsp;&nbsp;&nbsp;</FONT></FONT></TD></TR>
   <TR>
-    <TD width=808 bgColor=#6666cc colSpan=2><IMG height=11 
-      src="image/UI_10.gif" width=809 
+    <TD width=808 bgColor=#6666cc colSpan=2><IMG height=11
+      src="image/UI_10.gif" width=809
 border=0></TD></TR></TBODY></TABLE>
 <TABLE height=77 cellSpacing=0 cellPadding=0 width=809 bgColor=black border=0>
   <TBODY>
   <TR>
-    <TD 
-    style="FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal" 
+    <TD
+    style="FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal"
     borderColor=#000000 align=middle width=163 height=49>
-      <H3 style="MARGIN-TOP: 1px; MARGIN-BOTTOM: 1px"><FONT 
+      <H3 style="MARGIN-TOP: 1px; MARGIN-BOTTOM: 1px"><FONT
       style="FONT-SIZE: 15pt" face=Arial color=#ffffff><script>Capture(bmenu.statu)</script></FONT></H3></TD>
-    <TD 
-    style="FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal" 
+    <TD
+    style="FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal"
     vAlign=center borderColor=#000000 width=646 bgColor=#000000 height=49>
-      <TABLE 
-      style="FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; BORDER-COLLAPSE: collapse; FONT-VARIANT: normal" 
+      <TABLE
+      style="FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; BORDER-COLLAPSE: collapse; FONT-VARIANT: normal"
       height=33 cellSpacing=0 cellPadding=0 bgColor=#6666cc border=0>
         <TBODY>
         <TR>
-          <TD style="FONT-WEIGHT: bolder; FONT-SIZE: 10pt" align=right 
+          <TD style="FONT-WEIGHT: bolder; FONT-SIZE: 10pt" align=right
           bgColor=#6666cc height=33><FONT color=#ffffff><script>productname()</script>&nbsp;&nbsp;</FONT></TD>
-          <TD borderColor=#000000 borderColorLight=#000000 align=middle 
-          width=109 bgColor=#000000 borderColorDark=#000000 height=12 
-            rowSpan=2><FONT color=#ffffff><SPAN 
+          <TD borderColor=#000000 borderColorLight=#000000 align=middle
+          width=109 bgColor=#000000 borderColorDark=#000000 height=12
+            rowSpan=2><FONT color=#ffffff><SPAN
             style="FONT-SIZE: 8pt"><B>WRT54GL</B></SPAN></FONT></TD></TR>
         <TR>
-          <TD 
-          style="FONT-WEIGHT: normal; FONT-SIZE: 1pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal" 
+          <TD
+          style="FONT-WEIGHT: normal; FONT-SIZE: 1pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal"
           width=537 bgColor=#000000 height=1>&nbsp;</TD></TR>
         <TR>
           <TD width=646 bgColor=#000000 colSpan=2 height=32>
-            <TABLE id=AutoNumber1 
-            style="FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; BORDER-COLLAPSE: collapse; FONT-VARIANT: normal" 
+            <TABLE id=AutoNumber1
+            style="FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; BORDER-COLLAPSE: collapse; FONT-VARIANT: normal"
             height=6 cellSpacing=0 cellPadding=0 width=646 border=0>
               <TBODY>
-              <TR 
+              <TR
               style="BORDER-RIGHT: medium none; BORDER-TOP: medium none; FONT-WEIGHT: normal; FONT-SIZE: 1pt; BORDER-LEFT: medium none; COLOR: black; BORDER-BOTTOM: medium none; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal" align=middle bgColor=#6666cc>
 
 <!--
@@ -4691,29 +4674,29 @@ border=0></TD></TR></TBODY></TABLE>
 
               </TR>
               <TR>
-                <TD align=middle bgColor=#000000 height=20><FONT 
-                  style="FONT-WEIGHT: 700" color=#ffffff><A 
-                  style="TEXT-DECORATION: none" 
+                <TD align=middle bgColor=#000000 height=20><FONT
+                  style="FONT-WEIGHT: 700" color=#ffffff><A
+                  style="TEXT-DECORATION: none"
                   href="index.asp"><script>Capture(bmenu.setup)</script></A></FONT></TD>
-                <TD align=middle bgColor=#000000 height=20><FONT 
+                <TD align=middle bgColor=#000000 height=20><FONT
                   style="FONT-WEIGHT: 700" color=#ffffff>
                 <a style="TEXT-DECORATION: none" href="Wireless_Basic.asp"><script>Capture(bmenu.wireless)</script></a></FONT></TD>
-                <TD align=middle bgColor=#000000 height=20><FONT 
+                <TD align=middle bgColor=#000000 height=20><FONT
                   style="FONT-WEIGHT: 700" color=#ffffff>
                 <a style="TEXT-DECORATION: none" href="Firewall.asp"><script>Capture(bmenu.security)</script></a></FONT></TD>
-                <TD align=middle bgColor=#000000 height=20><FONT 
+                <TD align=middle bgColor=#000000 height=20><FONT
                   style="FONT-WEIGHT: 700" color=#ffffff>
                 <a style="TEXT-DECORATION: none" href="Filters.asp"><script>Capture(bmenu.accrestriction)</script></a></FONT></TD>
                 <TD align=middle bgColor=#000000 height=20>
-                  <P style="MARGIN-BOTTOM: 4px"><FONT style="FONT-WEIGHT: 700" 
+                  <P style="MARGIN-BOTTOM: 4px"><FONT style="FONT-WEIGHT: 700"
                   color=#ffffff>
                   <a style="TEXT-DECORATION: none" href="Forward.asp"><script>Capture(bmenu.applications)</script> <BR>&amp; <script>Capture(bmenu.gaming)</script></a>&nbsp;&nbsp;&nbsp;&nbsp;</FONT></P></TD>
                 <TD align=middle bgColor=#000000 height=20>
-                  <P style="MARGIN-BOTTOM: 4px"><FONT style="FONT-WEIGHT: 700" 
+                  <P style="MARGIN-BOTTOM: 4px"><FONT style="FONT-WEIGHT: 700"
                   color=#ffffff>
                   <a style="TEXT-DECORATION: none" href="Management.asp"><script>Capture(bmenu.admin)</script></a>&nbsp;&nbsp;&nbsp;&nbsp;</FONT></P></TD>
                 <TD align=middle bgColor=#6666cc height=20>
-                  <P style="MARGIN-BOTTOM: 4px"><FONT style="FONT-WEIGHT: 700" 
+                  <P style="MARGIN-BOTTOM: 4px"><FONT style="FONT-WEIGHT: 700"
                   color=#ffffff><script>Capture(bmenu.statu)</script>&nbsp;&nbsp;&nbsp;&nbsp;</FONT></P></TD>
               </TR>
               <TR>
@@ -4723,35 +4706,35 @@ border=0></TD></TR></TBODY></TABLE>
                     <TR align=left>
 
                       <!-- TD width=25></TD -->
-                      <script>document.write("<TD width=" + sta_width.w1 + "></TD>")</script>  
+                      <script>document.write("<TD width=" + sta_width.w1 + "></TD>")</script>
 
                       <!-- TD width=65 -->
-                      <script>document.write("<TD width=" + sta_width.w2 + ">")</script>  
+                      <script>document.write("<TD width=" + sta_width.w2 + ">")</script>
                       <FONT style="COLOR: white"><script>Capture(share.router)</script></FONT></TD>
 
                       <TD width=1 align=center><P class=bar><font color='white'><b>|</b></font></P></TD>
 
                       <!-- TD width=25></TD -->
-                      <script>document.write("<TD width=" + sta_width.w3 + "></TD>")</script>  
+                      <script>document.write("<TD width=" + sta_width.w3 + "></TD>")</script>
 
                       <!-- TD class=small width=100 -->
-                      <script>document.write("<TD class=small width=" + sta_width.w4 + ">")</script>  
+                      <script>document.write("<TD class=small width=" + sta_width.w4 + ">")</script>
                       <A href="Status_Lan.asp"><script>Capture(statopmenu.localnet)</script></A></TD>
 
                       <TD width=1 align=center><P class=bar><font color='white'><b>|</b></font></P></TD>
 
                       <!-- TD width=25></TD -->
-                      <script>document.write("<TD width=" + sta_width.w5 + "></TD>")</script>  
+                      <script>document.write("<TD width=" + sta_width.w5 + "></TD>")</script>
 
                       <!-- TD class=small width=100 -->
-                      <script>document.write("<TD class=small width=" + sta_width.w6 + ">")</script>  
+                      <script>document.write("<TD class=small width=" + sta_width.w6 + ">")</script>
                       <span >&nbsp;</span><A href="Status_Wireless.asp"><script>Capture(bmenu.wireless)</script></A></TD>
 <!--
                       <TD width=1 align=center><P class=bar><font color='white'><b>|</b></font></P></TD>
 
-                      <script>document.write("<TD width=" + sta_width.w7 + "></TD>")</script>  
+                      <script>document.write("<TD width=" + sta_width.w7 + "></TD>")</script>
 
-                      <script>document.write("<TD class=small width=" + sta_width.w8 + ">")</script>  
+                      <script>document.write("<TD class=small width=" + sta_width.w8 + ">")</script>
                       <A href="Status_Performance.asp">System Performance</A></TD>
 -->
                       <TD>&nbsp;</TD>
@@ -4763,15 +4746,15 @@ border=0></TD></TR></TBODY></TABLE>
 <TABLE height=5 cellSpacing=0 cellPadding=0 width=806 bgColor=black border=0>
   <TBODY>
   <TR bgColor=black>
-    <TD 
-    style="FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal" 
-    borderColor=#e7e7e7 width=163 bgColor=#e7e7e7 height=1><IMG height=15 
+    <TD
+    style="FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal"
+    borderColor=#e7e7e7 width=163 bgColor=#e7e7e7 height=1><IMG height=15
       src="image/UI_03.gif" width=164 border=0></TD>
-    <TD 
-    style="FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal" 
-    width=646 height=1><IMG height=15 src="image/UI_02.gif" 
+    <TD
+    style="FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal"
+    width=646 height=1><IMG height=15 src="image/UI_02.gif"
       width=645 border=0></TD></TR></TBODY></TABLE>
-<TABLE id=AutoNumber9 style="BORDER-COLLAPSE: collapse" borderColor=#111111 
+<TABLE id=AutoNumber9 style="BORDER-COLLAPSE: collapse" borderColor=#111111
 height=23 cellSpacing=0 cellPadding=0 width=809 border=0>
   <TBODY>
   <TR>
@@ -4780,7 +4763,7 @@ height=23 cellSpacing=0 cellPadding=0 width=809 border=0>
         <TBODY>
         <TR>
           <TD width=156 bgColor=#000000 height=25>
-            <P align=right><B><FONT style="FONT-SIZE: 9pt" face=Arial 
+            <P align=right><B><FONT style="FONT-SIZE: 9pt" face=Arial
             color=#ffffff><script>Capture(staleftmenu.routerinfo)</script></B></P></TD>
           <TD width=8 bgColor=#000000 height=25>&nbsp;</TD>
           <TD width=14 height=25>&nbsp;</TD>
@@ -4851,17 +4834,17 @@ else {
           <TD width=15 background=image/UI_05.gif height=25>&nbsp;</TD></TR>
         <TR>
           <TD width=156 bgColor=#000000 height=25>
-            <P align=right><B><FONT style="FONT-SIZE: 9pt" 
+            <P align=right><B><FONT style="FONT-SIZE: 9pt"
             color=#ffffff><span ><script>Capture(share.internet)</script></span></FONT></B></P></TD>
           <TD width=8 bgColor=#000000 height=25>&nbsp;</TD>
           <TD colSpan=6>&nbsp;</TD>
-          <TD width=15 background=image/UI_05.gif 
+          <TD width=15 background=image/UI_05.gif
           height=25>&nbsp;</TD></TR>
         <TR>
           <TD width=156 bgColor=#e7e7e7 height=25>
-          <p align="right"><FONT 
+          <p align="right"><FONT
 style='FONT-WEIGHT: 700'><span ><script>Capture(share.cfgtype)</script></span></FONT></TD>
-          <TD width=8 background=image/UI_04.gif 
+          <TD width=8 background=image/UI_04.gif
           height=25>&nbsp;</TD>
           <TD colSpan=3 height=25>&nbsp;</TD>
           <TD width=101 height=25><span><script>Capture(stacontent.logtype)</script></span>:&nbsp;</TD>
@@ -4917,7 +4900,7 @@ FOR A SPECIFIC PURPOSE OR NONINFRINGEMENT CONCERNING THIS SOFTWARE
 </B></FONT></TD>
           <TD width=13 height=25>&nbsp;</TD>
           <TD width=15 background=image/UI_05.gif height=25>&nbsp;</TD></TR>
--->        
+-->
         <TR>
           <TD width=156 bgColor=#e7e7e7 height=25>&nbsp;</TD>
           <TD width=8 background=image/UI_04.gif height=25>&nbsp;</TD>
@@ -4928,66 +4911,66 @@ FOR A SPECIFIC PURPOSE OR NONINFRINGEMENT CONCERNING THIS SOFTWARE
           <TD width=15 background=image/UI_05.gif height=25>&nbsp;</TD></TR>
         <TR>
           <TD width=156 bgColor=#e7e7e7 height=25>&nbsp;</TD>
-          <TD width=8 height=25><IMG height=30 
+          <TD width=8 height=25><IMG height=30
             src="image/UI_04.gif" width=8 border=0></TD>
           <TD bgColor=#ffffff colSpan=3 height=25>&nbsp;</TD>
-          <TD width=101 bgColor=#ffffff height=25><FONT 
+          <TD width=101 bgColor=#ffffff height=25><FONT
             style="FONT-SIZE: 8pt"><script>Capture(share.submask)</script>:&nbsp;</FONT></TD>
-          <TD width=296 bgColor=#ffffff height=25><FONT 
+          <TD width=296 bgColor=#ffffff height=25><FONT
             style="FONT-SIZE: 8pt"><B>255.255.192.0</B></FONT></TD>
           <TD width=13 bgColor=#ffffff height=25>&nbsp;</TD>
-          <TD width=15 bgColor=#ffffff height=25><IMG height=30 
+          <TD width=15 bgColor=#ffffff height=25><IMG height=30
             src="image/UI_05.gif" width=15 border=0></TD></TR>
         <TR>
           <TD width=156 bgColor=#e7e7e7 height=25>&nbsp;</TD>
-          <TD width=8 height=25><IMG height=30 
+          <TD width=8 height=25><IMG height=30
             src="image/UI_04.gif" width=8 border=0></TD>
           <TD bgColor=#ffffff colSpan=3 height=25>&nbsp;</TD>
-          <TD width=101 bgColor=#ffffff height=25><FONT 
+          <TD width=101 bgColor=#ffffff height=25><FONT
             style="FONT-SIZE: 8pt"><script>Capture(share.defgateway)</script>:&nbsp;</FONT></TD>
-          <TD width=296 bgColor=#ffffff height=25><FONT 
+          <TD width=296 bgColor=#ffffff height=25><FONT
             style="FONT-SIZE: 8pt"><B>81.197.128.1</B></FONT></TD>
           <TD width=13 bgColor=#ffffff height=25>&nbsp;</TD>
-          <TD width=15 bgColor=#ffffff height=25><IMG height=30 
+          <TD width=15 bgColor=#ffffff height=25><IMG height=30
             src="image/UI_05.gif" width=15 border=0></TD></TR>
         <TR>
           <TD width=156 bgColor=#e7e7e7 height=25>&nbsp;</TD>
-          <TD width=8 background=image/UI_04.gif 
+          <TD width=8 background=image/UI_04.gif
           height=25>&nbsp;</TD>
           <TD colSpan=3 height=25>&nbsp;</TD>
           <TD><FONT style="FONT-SIZE: 8pt"><script>Capture(share.dns)</script> 1:&nbsp;</FONT></TD>
           <TD><FONT style="FONT-SIZE: 8pt"><B>193.229.0.40</B></FONT></TD>
           <TD width=13 height=25>&nbsp;</TD>
-          <TD width=15 background=image/UI_05.gif 
+          <TD width=15 background=image/UI_05.gif
           height=25>&nbsp;</TD></TR>
         <TR>
           <TD width=156 bgColor=#e7e7e7 height=25>&nbsp;</TD>
-          <TD width=8 background=image/UI_04.gif 
+          <TD width=8 background=image/UI_04.gif
           height=25>&nbsp;</TD>
           <TD colSpan=3 height=25>&nbsp;</TD>
           <TD height=25><FONT style="FONT-SIZE: 8pt"><script>Capture(share.dns)</script> 2:&nbsp;</FONT></TD>
           <TD height=25><FONT style="FONT-SIZE: 8pt"><B>193.229.0.42</B></FONT></TD>
           <TD width=13 height=25>&nbsp;</TD>
-          <TD width=15 background=image/UI_05.gif 
+          <TD width=15 background=image/UI_05.gif
           height=25>&nbsp;</TD></TR>
         <TR>
           <TD width=156 bgColor=#e7e7e7 height=25>&nbsp;</TD>
-          <TD width=8 background=image/UI_04.gif 
+          <TD width=8 background=image/UI_04.gif
           height=25>&nbsp;</TD>
           <TD colSpan=3 height=25>&nbsp;</TD>
           <TD height=25><FONT style="FONT-SIZE: 8pt"><script>Capture(share.dns)</script> 3:&nbsp;</FONT></TD>
           <TD height=25><FONT style="FONT-SIZE: 8pt"><B></B></FONT></TD>
           <TD width=13 height=25>&nbsp;</TD>
-          <TD width=15 background=image/UI_05.gif height=25>&nbsp;</TD></TR>        
+          <TD width=15 background=image/UI_05.gif height=25>&nbsp;</TD></TR>
         <TR>
           <TD width=156 bgColor=#e7e7e7 height=25>&nbsp;</TD>
-          <TD width=8 background=image/UI_04.gif 
+          <TD width=8 background=image/UI_04.gif
           height=25>&nbsp;</TD>
           <TD colSpan=3 height=25>&nbsp;</TD>
           <TD height=25><FONT style="FONT-SIZE: 8pt"><script>Capture(share.mtu)</script>:&nbsp;</FONT></TD>
           <TD height=25><FONT style="FONT-SIZE: 8pt"><B>1492</B></FONT></TD>
           <TD width=13 height=25>&nbsp;</TD>
-          <TD width=15 background=image/UI_05.gif height=25>&nbsp;</TD></TR>        
+          <TD width=15 background=image/UI_05.gif height=25>&nbsp;</TD></TR>
 
 
         <TR>
@@ -4996,7 +4979,7 @@ FOR A SPECIFIC PURPOSE OR NONINFRINGEMENT CONCERNING THIS SOFTWARE
 	  <TD width=14 height=25></TD>
           <TD colSpan=4 height=25><HR color=#b5b5e6 SIZE=1></TD>
           <TD width=13 height=25>&nbsp;</TD>
-          <TD width=15 background=image/UI_05.gif height=25>&nbsp;</TD></TR>                
+          <TD width=15 background=image/UI_05.gif height=25>&nbsp;</TD></TR>
 
         <TR>
           <TD width=156 bgColor=#e7e7e7 height=25>&nbsp;</TD>
@@ -5006,17 +4989,17 @@ FOR A SPECIFIC PURPOSE OR NONINFRINGEMENT CONCERNING THIS SOFTWARE
 
 <!-- % nvram_match("wan_proto", "dhcp", "<INPUT onclick=DHCPAction(this.form,'release') type=button value='DHCP Release'>&nbsp;&nbsp;&nbsp;&nbsp;<INPUT onclick=DHCPAction(this.form,'renew') type=button value='DHCP Renew'>"); % -->
 
- 
+
 
 <script>document.write("<INPUT onclick=DHCPAction(this.form,\'release\') type=button name=dhcp_release value=\"" + stabutton.dhcprelease + "\">");</script>
 
 <script>document.write("<INPUT onclick=DHCPAction(this.form,\'renew\') type=button name=dhcp_renew value=\"" + stabutton.dhcprenew + "\">");</script>
 
- 
+
 
     &nbsp;</TD>
           <TD width=13 height=25>&nbsp;</TD>
-          <TD width=15 background=image/UI_05.gif height=25>&nbsp;</TD></TR>  
+          <TD width=15 background=image/UI_05.gif height=25>&nbsp;</TD></TR>
         <TR>
           <TD width=156 bgColor=#e7e7e7>&nbsp;</TD>
           <TD width=8 background=image/UI_04.gif>&nbsp;</TD>
@@ -5036,7 +5019,7 @@ FOR A SPECIFIC PURPOSE OR NONINFRINGEMENT CONCERNING THIS SOFTWARE
 <b><a target="_blank" href="help/HStatus.asp"><script>Capture(share.more)</script></a></b></span><br><br>
 <script>Capture(hstatrouter2.right5)</script><br>
 <b><a target="_blank" href="help/HStatus.asp"><script>Capture(share.more)</script></a></b></span></font></TD>
-          <TD width=9 bgColor=#6666cc 
+          <TD width=9 bgColor=#6666cc
   height=25>&nbsp;</TD></TR></TBODY></TABLE></TD></TR>
   <TR>
     <TD width=809 colSpan=2>
