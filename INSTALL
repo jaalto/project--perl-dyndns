@@ -1,0 +1,22 @@
+Perl dyndns - A Perl Dynamic DNS (DDNS) update client
+-----------------------------------------------------
+
+System wide install
+
+        Run makefile with appropriate parameters. The program is
+        installed without any file extension.
+
+            make help
+            make DESTDIR= prefix=/usr/local install
+
+Manual install:
+
+        1. Copy bin/*.pl somewhere along $PATH
+        2. Look at etc/template/*conf and apply ideas there and write your
+           own configuration file (optional; not required)
+
+How to use
+
+        Run program with option --help or -h
+
+End of file
