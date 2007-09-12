@@ -1,0 +1,29 @@
+# Ignore file extensions
+\.bak
+\.bz2
+\.diff
+\.gz
+\.log
+\.old
+\.patch
+\.rej
+\.svn
+
+#  Emacs backup files
+[#~]
+
+# Version control files or dirs
+,v
+\bCVS\b
+\bRCS\b
+\bSVN\b
+
+# Ignore build and install directories
+\.build
+\.s?inst
+
+# Perl's MakeMaker
+\bblib\b
+
+# Temp dirs
+/tmp\b

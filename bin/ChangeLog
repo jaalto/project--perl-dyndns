@@ -1,0 +1,655 @@
+2006-09-06  root  <jaalto@w2kpicasso.cante.net>
+
+	* dyndns.pl (SystemLogDir): Added check for non-root
+	user. The saved ip is put under $HOME/tmp.
+	(IPfileNamePath): Renamed. Was `IPfileName'.
+
+2006-08-30  Jari Aalto  <jari dot aalto A T cante dot net>
+
+	* dyndns.pl (Initialize): (Help::PREREQUISITES): added
+	'LWP' to list of required modules from CPAN.
+	 (HttpPingDyndns): Added parameter LOGIN.
+	(HttpPingWlanLinksysWRT54GL): New.
+	(GetIpAddress): Added support for WRT54GL.
+	(HandleCommandLineArgsMain): Changed command line option
+	--urlping-linksys4 to --urlping-linksys TYPE, where TYPE is model
+	code of product.
+	(TestDriverLinksysWRT54GL): New.
+
+2006-02-03  Jari Aalto  <jari dot aalto A T cante dot net>
+
+	* dyndns.pl (HandleCommandLineArgsMain): Typo in variable:
+	$t2htmlOPT_IP_FILE => $OPT_IP_FILE.
+
+2005-11-30 Wed  Jari Aalto  <jari dot aalto A T cante dot net>
+
+        * dyndns.pl (sub Version): 1.125 New.
+        (sub VersionInfo): 1.125 New.
+        (sub Main): 1.125 if debug is on, print version information.
+        (sub HandleCommandLineArgsMain): 1.125 Added 'OPT_DAEMON',
+        OPT_ETHERNET, OPT_PROXY
+        variable to @CONFIG_COMMAND_LINE_TABLE, so that --Daemon
+        option setting is preserved even if configuration file does
+        not define it. Bug reported by Thomas Gutzler <tgutzler ee uwa edu
+        au>
+        (sub main): 1.125 Added loop debug message.
+        Removed else-statement (Added 'next')
+        (sub UpdateDynDns): 1.125 Under --test mode show that this is
+        test from messages.
+        (HELP::OPTIONS::--Daemon): Explain why it is better to use cron(8)
+        than use --Daemon option.
+
+2005-11-24  Jari Aalto  <jari dot aalto A T cante dot net>
+
+        * dyndns.pl (HELP::OPTIONS::--Config): Corrected wording and
+        removed conf.d/ reference.
+        dyndns.pl (HELP::OPTIONS::--login): Removed word 'Your'.
+        dyndns.pl (HELP::OPTIONS::--password): Removed word 'Your'.
+        dyndns.pl (HELP::OPTIONS::--system): Added {}'s to indicate
+        that one of the items is required.
+        dyndns.pl (HELP::OPTIONS::--Daemon): Grammar fixes. Added
+        new chaper to talk about system resources and Perl language.
+        dyndns.pl (HELP::OPTIONS::--ethernet): Added []. The parameter
+        is optional.
+        dyndns.pl (HELP::OPTIONS::--Query): Grammar fixes
+        dyndns.pl (HELP::OPTIONS::Cable, DSL and router options): Added
+        NOTE to warn about HTML tags.
+        dyndns.pl (HELP::OPTIONS::--urlping): Added warning about
+        --Daemon mode.
+
+2005-05-16 Mon  Jari Aalto  <jari dot aalto A T cante dot net>
+
+        * dyndns.pl
+        - command line arguments --urlping-* were not preserved,
+          but cleared when reading configuration files.
+        (sub ConfigFileProcess): 1.122 Parameters are now
+        passed in HASH, instead of @ARG. Added parameter -global.
+        (sub ConfigFileRead): 1.122 Added %global to record user
+        given command line arguments.
+        (sub HandleCommandLineArgsMain): 1.122 Added
+        @CONFIG_COMMAND_LINE_TABLE.
+
+2005-02-27 Sun  Jari Aalto  <jari dot aalto A T cante dot net>
+
+        * dyndns.pl (sub GetIpAddress): 1.121 Wrong variable passed to
+        `HttpPingWlanLinksysBEFW11S4'. Did not send password. Fixed.
+
+2005-02-15 Tue  Jari Aalto  <jari dot aalto A T cante dot net>
+
+        * dyndns.pl (sub ProcessQueryRequests): 1.117 Changed output
+        format. Added IP address in case of changed.
+        (Getopt::Long): 1.117 Corrected OPT_QUERY_IP_CHANGED bug, which
+        caused script to always complain about missing --Host even
+        with update requests.
+        (sub HandleCommandLineArgsMain::%CONFIG_FILE_MAP_TABLE): 1.117
+        Added new user option `disable' to make the configuration file
+        disabled.
+        (Help::CONFIGURATION FILE): Documented new option `disable'.
+        (sub HandleCommandLineArgsMain): 1.117 New global
+        `$OPT_IGNORE_CONFIG'.
+        (sub ConfigFileRead): 1.117 Added check for new `disable' option
+        in configuration file.
+        (sub Initialize): 1.117 Small changes to texts in
+        `%STATUS_CODE_NOIP_HASH'. Confirmed that they are still the same
+        as in official noip-2.1.1 C-source.
+
+2005-01-19 Wed  Jari  <jari dot aalto A T cante dot net>
+
+        * dyndns.pl (Getopt::Long): 1.117 Require --Host option for queries,
+        because the file name cannot be constructed otherwise.
+
+2004-12-19 Sun  Jari  <jari dot aalto A T cante dot net>
+
+        * dyndns.pl (sub ProcessUpdateOne): 1.117 Added missing newline to
+        'It is not allowed ...' message.
+
+2004-08-13 Fri  Jari Aalto  <jari dot aalto A T cante dt net>
+
+        * dyndns.pl (Bad authorization): 1.116 Added more tests
+        to HN site.
+
+2004-05-29 Tue  Jari Aalto  <jari aalto A T cante dot net>
+
+        * dyndns.pl (StatusCodeParseHNorg(): The regexp must look
+        access lines for the status code. Didn't work. Fixed by adding
+        modifier 'm' and removed split().
+        (TestDriverHNorg): New
+        (RunUpdate): Change hn.org => dup.hn.org
+        (FileWrite): Added $test check. Do not write in
+        test mode.
+        (UpdateHNorg): Wrong parameter send to StatusCodeHandle(). Changed
+        -noip => -hnorg
+        (StatusCodeHandle); Lacked 'hnorg' handling. Added.
+        (Initialize): Wrong url 'foge' => 'forge'. Fixes SF bug#849488
+        (HandleCommandLineArgsMain): Added better debug message
+        for --Daemon option.
+
+2004-03-30 Tue  Jari Aalto  <jari aalto A T cante dot net>
+
+        * dyndns.pl
+        CHANGE: The IP file cannot be simply eth0-dyndns-dyndns.log, because
+        it won't tell how many hosts for 'dyndns' type were updated. Suppose
+        host A is updated in class 'dyndns' at dyndns.org, then host B is
+        updated at the same class later on. Program would check if class
+        'dyndns' IP file exists and would deny updating host B, because
+        it thinked value haven't changed. This was because, it didn't
+        differentiate between host A and host B, which both are in class
+        'dyndns'. They can be updated separately. New naming scheme now
+        uses eth0-dyndns-dyndns-HOST.log files to store IP.
+        (sub IPfileName): 1.114 Added HOST to the ip file name.
+        (sub IPfileName): 1.114 Rewrote how the IP filename was made.
+        (sub ProcessUpdateStart): 1.114 Send @OPT_HOST to IPfileName().
+        (sub ProcessQueryRequests): 1.114 Send @OPT_HOST to IPfileName().
+        (SystemLogDir): 1.114 Added more checks for windows and 'else'
+        to PANIC or fatal error.
+        (top level): 1.114 Added $TEMPDIR.
+        (sub TempDir): 1.114 Added TEMPDIR and Panic test for not
+        finding temporary directory.
+        (sub Initialize): 1.114 Under Linux, always set PATH to include
+        basic system directories.
+        (sub TimeValue): 1.114 New.
+        (Help): 1.114 --daemon option now accepts 2d, 7h; days, hours
+        spec.
+
+2004-03-26  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * dyndns.pl (HandleCommandLineArgsMain): Improved
+        --Test-account handling. Added custom dns test.
+
+2004-03-26 Fri  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * dyndns.pl (Sys::Syslog'): 1.113 Made Sys::Syslog
+        `autouse'.
+        (HELP::FILES): Documented C:/syslog.txt.
+
+2003-12-13 Sat  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * dyndns.pl: 1.112 (Help): Documentation typos fixed.
+
+2003-09-02 Tue  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        RELEASED 2003.0902
+
+        * dyndns.pl (IPfileNameGlobbed): 1.108 Added note, that
+        user should give option --file-default
+        (VariableCheckMinimum): 1.108 Variable check incorrect.
+        Always failed to see content of the configuration
+        variables. This practically made configuration files
+        useless. Added new `eval'.
+        (UpdateDynDns): 1.109 Added HTTP headers `Pragma' and
+        `Connection'
+        (UpdateNoip): 1.109 Added HTTP headers `Pragma' and
+        `Connection'
+        (UpdateHNorg): 1.109 New.
+        (HTTPheaderSet): 1.109 New. Common headers for all
+        HTTP requests.
+
+2003-08-22 Fri  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * dyndns.pl (sub IPfileNameGlobbed): 1.107 Added check for not
+        defined OPT_IP_FILE.
+        (sub ProcessQueryRequests): 1.107 Added Check of file is old
+        => consider IP changed.
+        (sub IsFileOlderThanDays): 1.107 Now returns two values instead
+        of one.
+        (sub ProcessQueryRequests): 1.107 Added new feature. Now outputs
+        DAYS since last update. See documentation of option
+        --Query-ipchanged.
+        (sub VariableCheckValidity): 1.107 Removed enabling OPT_QUERY
+        automatically if OPT_HTTP_PING_LINKSYS4 or
+        OPT_HTTP_PING_DYNDNS were given at command line. Use must request
+        Explicit --Query-* features.
+
+2003-08-08 Fri  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * dyndns.pl (elsif (GetIpAddress): Missing semicolon
+        fixed.
+        (Top Level): 1.105 Added lot of Log() function calls. These should
+        improve the --deamon and syslog(3) usage.
+
+2003-08-06 Wed  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * dyndns.pl: 1.100 (Help): New option --urlping-dyndns.
+        (sub VariableCheckValidity): 1.100 Added OPT_HTTP_PING_DYNDNS
+        (sub GetIpAddress): 1.100 Added OPT_HTTP_PING_DYNDNS
+        (sub HttpPingDyndns): 1.100 New.
+        (sub IPvalidate): 1.100 Added 0.0.0.0 test.
+        (LWP::UserAgent): Do not connect in test mode.
+        (sub VariableCheckValidity): 1.101 Automatically add --Query
+        option if --urlping-* option is set. User does not need to
+        supply --Query explicitly eny more.
+        (sub FileWrite): 1.102 Added 3rd parameter to call list: APPEND.
+        (sub FileRead): 1.102 New.
+        (sub ConfigFileRead): 1.102 Use FileRead().
+        (sub LogSyslog): 1.102 Now works under Cygwin. The log appear in
+        Windows event log (application).
+        (sub TestDriverSyslogUnix()): 1.103 New.
+        (sub TestDriverSyslogWin32()): 1.103 New.
+        (sub TestDriverSyslogWin32native()): 1.103 New.
+        (sub TestDriverSyslogWin32cygwin()): 1.103 New.
+        (sub LogSyslog): 1.103 Added better debug messages. Verified
+        functionality in Debian unstable / kernel 2.2. Messages
+        appeared correctly in /var/log/daemon.log
+        (Help:SEE ALSO): Added entries.
+
+2003-08-05 Tue  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        RELEASED: 2003.0805. The new configuration file
+        implementation had numerous errors. This fixes those and
+        adds initial support to syslog(3).
+
+        * dyndns.pl (sub LogSyslog): 1.98 Disabled function, not
+        yet tested.
+        (HELP): FILES section /etc/dyndns documentation added.
+
+2003-08-04 Mon  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * dyndns.pl: (Help) 1.84 Corrected documentation of
+        options --Query and --Query-ipfile.
+        (Getopt::Long): 1.84 Options --file-default mistakenly
+        toos additional string argument '=s'. Removed.
+        (sub ProcessUpdateMain): 1.84 Called glob unnecessarily.
+        Moved logic to local function ProcessIt().
+        (sub Initialize): 1.84 Added global varibale $CYGWIN.
+        (sub SystemLogDir): 1.84 Pushed /var/log test first. Cygwin
+        perl fix.
+        (sub SystemLogDir): 1.84 Convert path to forward slashes.
+        (Help:CONFIGURATION FILE): Added new key=value [file=default],
+        which corresponds to --file-default.
+        (Help:LINUX CONTROL SCRIPT): Added note that this section
+        is obsolete. It will be replaced soon.
+        (sub ProcessQueryOptions): 1.84 Added debug messages.
+        (sub IPfileNameGlobbed): 1.84 New.
+        (sub HandleCommandLineArgsMain): 1.84 Fixed option --debug to
+        take no argument (level) to activate debug.
+        (sub SystemLogDir): 1.85 Added safety measures against non
+        existing system directory and unknown OS layout. Fall back to
+        to use TempDir().
+        (sub TempDir): 1.85 New.
+        (sub ConfigFileProcess): 1.85 Added support for setting
+        file=default.
+        (Help:AVAILABILITY): Wrong url pointed to sourcefoge project.
+        Fixed.
+        (Top Level): Fixed Emacs folding.el '{{{' => '# {{{'.
+        (sub IPfileName): 1.86 If-statement inaccurate: Check ARG and
+        ABS, not just ABS. There is nothing to do if ARG is empty.
+        (sub Main): 1.86 Added debug.
+        (sub HandleCommandLineArgsMain): 1.86 Debug section for ARGV
+        fixed.
+        (sub ProcessUpdateMain): 1.86 Removed unnecessary logic and
+        moved it to ProcessUpdateMaybe(). This was due to --Query option
+        which did not work unless given option --file-default. It
+        does not need that option in order to function.
+        (sub ProcessUpdateMaybe): 1.86 Rewritten. Bad logic.
+        (sub ProcessQueryOptions): 1.86 Removed input parameters
+        $ip and $lastIP. They cannot be passed to function. Find
+        those out independently.
+        (Getopt::Long): 1.86 OPT_QUERY_IP_CHANGED now takes optional
+        argument.
+        (sub ProcessQueryOptions): 1.86 Support for OPT_QUERY_IP_CHANGED
+        added.
+        (Help): New option --Query-ipchanged.
+        (sub ProcessQueryOptions): 1.86 Added local subroutine
+        DefineVars().
+        (sub GetIpAddressGenericParser): 1.86 Added more debug.
+        (Getopt::Long): 1.88 Added more checks for option
+        --Query-ipchanged.
+        (sub ProcessQueryOptions): 1.88 Bugs in handling option
+        OPT_QUERY_IP_CHANGED. Dind't set $quit status.
+        (sub VariableCheckValidity): 1.88 Added optional function
+        parameter FILE.
+        (sub ProcessUpdateMain): 1.88 Send configuration filename
+        to VariableCheckValidity().
+        (sub ProcessUpdateMaybe): 1.88 Missing call to IPfileName()
+        added.
+        (sub ProcessQueryOptions): 1.88 Added IPvalidate() to
+        OPT_QUERY_IP_CHANGED check. A 192.* 10.* addresses should
+        not be compared and reported as a 'change'.
+        (sub ProcessUpdateStart): 1.92 Rewrote.
+        (sub ProcessUpdateStart): 1.92 Call VariableCheckMinimum()
+        to check variables.
+        (sub VariableCheckMinimum): 1.92 New.
+        (sub HandleCommandLineArgsMain): 1.92 New variable
+        @REQUIRED_UPDATE_OPTION_LIST.
+        (sub Log): 1.95 New.
+        (sub LogSyslog): 1.95 New.
+
+2003-08-03 Sun  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        RELEASED: 2003.0803
+
+        * dyndns.pl
+        -- NOTE: varibale DYNDNS_PL_CFG is no longer used. It is
+           replaced by option --file.
+        (sub RunUpdate): 1.71 Added 2nd return parameter:
+        MSG. This is explanation of the error in case update failed
+        and new try can be done.
+        (sub WriteIpAddress): 1.71 Added return value if write
+        was ok.
+        (sub RunUpdateIPWrite): 1.71 Added return value if write
+        was ok.
+        (sub ProcessUpdate): 1.71 RunUpdate() returns 2nd value. Take
+        that, $msg, and print to. New: Return 3 values from functions.
+        (sub UpdateDynDns): 1.71 Added 2nd return value, error message's
+        STR.
+        (sub UpdateNoip): 1.71  Added 2nd return value, error message's
+        STR.
+        (sub StatusCodeHandle): 1.72 Added `else' for unknown
+        providers whose error codes are not in the program.
+        (sub IPvalidate): 1.74 Added more verbose --debug putput.
+        (sub ProcessUpdate): 1.74 Added INPUT debug message.
+        (sub HandleCommandLineArgs): 1.74 More accurate
+        DYNDNS_PL_CFG filename creation to allow it to be plain E.g.
+        'directory/'
+        (sub SystemLogDir): 1.75 New.
+        (sub IPfileName): 1.76 New.
+        (sub ConfigFileRead): 1.76 New.
+        (sub ConfigFileParse): 1.76 New.
+        (sub ConfigFileProcess): 1.76 New.
+        (Help::BUGS): Added information how to contact the maintainer
+        in case of adding new OS support.
+        (Help): Moved all options to alphabetical order.
+        (Help::CONFIGURATION FILE): New section added.
+        (Help:--file): explained saved ip file creations.
+        (sub FileWrite): 1.76 Renamed. Was `WriteIpAddress'.
+        (sub FileWriteCheck): 1.76 New.
+        (sub ProcessUpdateMain): 1.77 New. Handle multiple
+        configurations files.
+        (sub FileWriteCheckIP): 1.77 New.
+        (sub ProcessQueryOptions): 1.77 New.
+        (sub ProcessUpdateMaybe): 1.77 New.
+        (sub HandleCommandLineArgsValidity): 1.77 New.
+        (sub ConfigFileRead): 1.84 Do not use glob() if file already
+        exists. Gnob returns undef in that case.
+        (sub ProcessUpdateMain): 1.84 Use local function ProcessIt()
+        in order to not use duplicate code.
+
+2003-08-02 Sat  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * dyndns.pl (sub ProcessUpdate): 1.64 Added ID string + [WARN]
+        to message 'Hm, update failed...'
+        (sub UpdateDynDns): 1.64 Added $debug to print input parameters.
+        (sub StatusCodeHandle): 1.64 Added debug to print @list.
+        (sub ProcessUpdate): 1.67 Do not `die' but `warn' if
+        same IP was updated. This is needed to keep --Daemon mode
+        active.
+
+2003-07-31 Thu  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * dyndns.pl: 1.63 (Help): Minor documentation changes.
+        (sub HandleCommandLineArgs): 1.63 Added option --file to
+        save IP to a user defined file. Added option --Query-ipfile.
+        (Help): 1.63 Documented option --file and --Query-ipfile and
+        updated section ENVIRONMENT.
+        (sub Main): 1.63 Chnaged logic to honor multiple --Query options.
+        Now exit, when OPT_QUIT is raised.
+
+2003-07-29 Tue  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * dyndns.pl (sub Main): 1.60 The FILE now contains portion
+        pf the --system option, so that static and dynamic updates
+        are saved to different files. That's because they have different
+        update times.
+
+2003-07-26 Sat  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * dyndns.pl
+        (sub HandleCommandLineArgs): 1.56 --system option missing
+        the `s' Getopt::Long directive, so it dind't accept `statdns'.
+        (syb UpdateDynDns): 1.56 Return LIST: status code and explanation.
+        (sub UpdateNoip): 1.56 Return LIST: status code and explanation.
+        (sub RunUpdate): 1.56 Return LIST: status code and explanation.
+        (sub Initialize): 1.56 New @STATUS_CODE_DYNDNS_TRY_AGAIN
+        and @STATUS_CODE_NOIP_TRY_AGAIN
+        (sub StatusCodeHandle): 1.56 Function taken into use. Previously
+        did nothing. Examine if the status codes are fatal or non-fatal
+        (so that you can try update again).
+        (sub ProcessUpdate): 1.56 Added check for failed or
+        successful ip update. Instruct user to try again if the error
+        is not fatal.
+        (sub Main): 1.56 The IP address is now saved to a file ending
+        to `.log'.
+
+2003-07-22 Tue  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * dyndns.pl (sub GetIpAddressInfo): 1.54 Changed return value.
+        Now returns LIST, instead of string.
+        (ProcessUpdate): 1.54 New. Added check for changed IP address,
+        not just check for over 3 days. Bug reported by
+        Jack Repenning <jack@netgate.net>.
+        (main): 1.54 Moved logic to ProcessUpdate().
+
+2003-07-21 Mon  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * dyndns.pl (sub Main): 1.53 Added support for multiple network
+        cards. Save IP address with ifconfig prefix (ppp0, ppp1;
+        $HOME/config/dyndns.pl.conf-ppp0-dyndns) etc. Patch sent by Juha
+        Heljoranta <juha.heljoranta@evitech.fi>
+
+2003-05-10 Sat  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        RELEASED: 2003.0510
+
+        * debian/control: Correct package name from perl_dyndns
+        => perl-dyndns
+
+        * admin.bashrc (function sfperldyn_ReleaseDebian ()): 1.12
+        Improved error checking. Tested the environment under
+        Win32/Cygwin (debian tools are included in it). The .deb
+        packaging has not been tested at live installation.
+
+2003-04-26 Sat  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * dyndns.pl
+        Improved that IP address check in this version.
+        Allow same IP address updates, if at least 3 days has been passed.
+        This may be useful to ISDN/modem users who have just swithced to a
+        ADSL and Cable modem, but whom still use the dynamic DNS account.
+        This is a transitions phase to start using the static DNS (dyndns.org)
+        because the ADSL/CABLE ip-address do not change so often.
+        (sub Date): 1.49 New.
+        (sub DateDiffDays): 1.49 New.
+        (sub FileDate): 1.49 New.
+        (sub IsFileOlderThanDays): 1.49 New.
+        (sub Main): 1.49 Added Call to `IsFileOlderThanDays'; check for 3
+        days. Die with warning 'same IP must not be updated multiple
+        times' if the update happes faster than every 4 days.
+        (sub RunUpdateIPWrite): 1.49 New.
+        (sub WriteIpAddress): 1.49 Changed `die' to `warn'.
+
+2003-03-01 Sat  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * admin.bashrc (function sfperldyn_doc ()): 1.5 Added generating
+        text docs.
+
+2003-02-28 Fri  root  <jari aalto A T poboxes dt com>
+
+        * admin.bashrc (function sfperldyn_VersionUpdate ()): 1.5 New.
+        (function sfperldyn_IsDebian ()): 1.5 New.
+        (function sfperldyn_MakeFilename ()): 1.5 New.
+        (function sfperldyn_version ()): 1.5 New.
+        (function sfperldyn_DebianControlGetVersion ()): 1.5 New.
+        (function sfperldyn_DebianControlGetVersionNew ()): 1.5 New.
+        (function sfperldyn_DebianControl ()): 1.5 New.
+        (function sfperldyn_ReleaseDebian ()): 1.5 New.
+        (function sfperldyn_release ()): 1.5 Call `sfperldyn_ReleaseDebian'.
+
+        * dyndns.pl
+        - Removed #!/usr/local/bin/perl and used plain #!perl
+        (HandleCommandLineArgs): 1.47 Moved environment variable
+        DYNDNS_PL_CFG test here. Program couldn't be run with plain
+        --Version options. Fixed.
+        (HandleCommandLineArgs): 1.47 Version information was not
+        printed to stdout. Fixed.
+        (Help): 1.47 Options are now --Help-man and --Help-html,
+        not --help-man (lowercase)
+
+2003-02-26 Wed  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * admin.bashrc
+        Added GPL to the beginning.
+        (function sfperldyn_release_check ()): 1.5 New.
+        (function sfperldyn_release ()): 1.5 Call
+        `sfperldyn_release_check' before making release.
+        (function sfperldyn_ask ()): 1.5 New.
+
+        * dyndns.pl: Incorrect --version => --Version fixed in all
+        functions.
+        (GetIpAddressLast): 1.42 Added error checking:
+        if FILE parameter is empty.
+        (GetIpAddressInfo): 1.42 Changed input arguments from LIST to
+        a HASH. Added parameter -query.
+        (Help): 1.42 Added option --Query. Updated LINUX CONTROL SCRIPT.
+        Changed minimum daemon time from 15 to 3 minutes.
+        (Initialize): 1.42 Added $OPT_QUERY
+        (Main): 1.42 Added  $OPT_QUERY handling.
+        (Main): 1.42 Removed OPT_HTTP_PING and OPT_HTTP_PING_LINKSYS4.
+        They do not belong here.
+        (GetIpAddress): 1.42 Added OPT_HTTP_PING and
+        OPT_HTTP_PING_LINKSYS4.
+        (HandleCommandLineArgs): 1.44 Added options --urlping-login
+        and --urlping-password. Generic options to log into any web page.
+        (HttpPing): 1.44 Changed arguments from LIST to HASH.
+        Added option -login and -pass
+        (Help): 1.44 Documented new options --urlping-password and
+        --urlping-login
+        (HttpUrlMake): 1.44 New.
+        (HandleCommandLineArgs): 1.44 Improved defualt regexp to
+        also detect cable and DSL router's WAN information.
+        (Help): 1.44 Documented new options --urlping-password and
+        --urlping-login
+        (HttpUrlMake): 1.44 New.
+
+2003-02-22  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * dyndns.pl (HandleCommandLineArgs): Do not require
+        Minimum options when running in --test mode.
+        (HttpPing): Too restrictive http:// regexp check
+        opened. The format now allows username and
+        password in the URL.
+        (HttpPing): Removed the TEST check. Allow sending httpping,
+        when --test option is set.
+        (HttpPingWlanLinkSysBEFW11S4): New.
+        (HandleCommandLineArgs): Added option --urlping-linksys4
+        Added support for 'Wireless AP Router w/4 port Switch'.
+        See http://www.linksys.com/
+        (TestDriverLinksys4): New.
+        (GetIpAddressWin32): Added support for LAN ip address.
+        (IPvalidate): New. Internal ranges 192.* and
+        10.* are not valid and should not be allowed to update.
+        (Main): Added safeguard agains invalid IP addresses.
+
+2003-01-28 Tue  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * dyndns.pl (sub Initialize): 1.40 status message change:
+        'Update good and successful, IP updated"'
+        => 'Ok, update succeeded.'.
+
+2003-01-25 Sat  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * dyndns.pl (Help): 1.40 Added topic LINUX CONTROL SCRIPT
+
+2002-10-31  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * dyndns.pl (HandleCommandLineArgs):
+        Added --proxy options, suggested by
+        Goetz Andreas <Andreas.Goetz.external@fujitsu-siemens.com>
+
+2002-10-02 Wed  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * dyndns.pl: 1.25 Changed all no-ip.org references to
+        no-ip.com, which is the correct site. Notified by:
+        No-IP Support <adam@no-ip.com>
+
+2002-09-30 Mon  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * dyndns.pl (HandleCommandLineArgs): 1.25 Change --Offline-option
+        to shorte --Offline.
+        (UpdateNoip): 1.25 Support OFFLINE option by setting IP to
+        0.0.0.0
+
+2002-09-29 Sun  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * dyndns.pl
+        -- NEW FEATURE: It is now possible to find out the IP address
+        for ASDL, cable modem and for other similar servioce types, where
+        the IP address is not DIRECT INTERNEL IP Address, but one that
+        is assigned by the ISPs router. Refer to --help for complete
+        descriptions.
+        (TestDriverHttpPing): 1.25 New.
+        (Help): 1.25 Added new section `ADSL and subnet options'.
+        (HandleCommandLineArgs): 1.25 Added new options
+        `--urlping' and `--urlpingre'.
+        (HttpPing): 1.25 New.
+        (Main): 1.25 Call `HttpPing' if user has supplied parameters.
+        (RunUpdate): 1.25 Changed to code to accept more Dynamic DNS
+        providers.
+        (HandleCommandLineArgs): 1.25 Added option --Provider to select
+        from available Dynamic DNS providers.
+        (Help): 1.25 Added help for option --Provider.
+        (GetIpAddressLast): 1.25 Added FILE parameter.
+        (WriteIpAddress): 1.25 Added FILE parameter.
+        (GetIpAddressInfo): 1.25 Added FILE parameter.
+        (HandleCommandLineArgs): 1.25 Added --group option [noip provider]
+
+        * admin.bashrc: (sfperldyndoc) Added ode to delete temporary
+        files adter POD generation.
+
+2002-04-28 Sun  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * dyndns.pl: 1.23 (sub TestDriver) Added German Win32 response.
+        Featue requested by LongJohn (schlupp) in the Feature Tracker
+        (sub GetIpAddressWin32): 1.23 Added German Win32 regexp support.
+        Address => Add?resse?
+
+2002-04-25 Thu  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * dyndns.pl (TestDriver): 1.22 <pairan@foni.net>
+        reported BSD 4.3 output parsing problem. Added new
+        test case.
+        (sub GetIpAddressWin32): 1.22 Function mistakenly died
+        if REGEXP did not match. Now prints only warning and
+        continues trying more regexps.
+
+2002-04-21 Sun  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * dyndns.pl
+        Dr. Weidong Wang <wwang@e-smart.com> asked support for
+        multiple ethernet cards under windows. It should also
+        be possible to select the correct card.
+        (IpAddressGenericParser): 1.20 Added Multiline match
+        if the single line match fails.
+        (GetIpAddressWin32): 1.20 Added support for multiple ethernet
+        cards.
+        (HandleCommandLineArgs): 1.20 Added new options --daemon and
+        --regexp REGEXP. Clarified documentation.
+        (TestDriver): 1.20 Added test for multiple ethernet cards.
+        (GetIpAddressInfo): 1.20 New.
+        (RunUpdate): 1.20 New.
+        (Main): 1.20 Completely rewritten.
+        (Update): 1.20 Rewritten to accept argument hash. Thi
+        was previously the Main()
+        (GetIpAddressIfconfig): 1.21 Added selecting Linux
+        Ip address by User regexp.
+
+2002-01-20 Sun  Jari Aalto  <jari aalto A T poboxes dt com>
+
+        * admin.bashrc:
+        (function sfperldyndoc): 1.1 New. Generate documention.
+
+        * dyndns.pl
+        (sub HandleCommandLineArgs): 1.16 Added OPT_SYSTEM. It is
+        now possible to update values in dyndns|statdns|custom.
+        See http://clients.dyndns.org/devel/query.php
+        (sub Initialize): 1.17 Added error code `!active'
+        (sub StatusCodeParse): 1.18 Added handling wxxh, wxxm and
+        wxxs return codes.
+        (sub HandleCommandLineArgs): 1.18 $HOST is now @HOST to
+        allow updating many hosts simultaneously.
+        (LWP::UserAgent): 1.18 Converted $HOST handling to @HOST.
+        (Getopt::Long): 1.18 Accept -h  as --help options.
+        (Help): updated Manal page how to use --Host option to
+        update multiple hosts.
+        (Getopt::Long): 1.19 Added $VERSION_VC to --Version output.
+        Now prints 2002.0120.1.19 where the 1.1) is version rcontrol
+        revision number

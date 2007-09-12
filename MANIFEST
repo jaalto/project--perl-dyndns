@@ -1,0 +1,26 @@
+bin/admin.bashrcsd
+bin/ChangeLog
+bin/dyndns.pl
+CYGWIN-PATCHES/build.sh.tmp
+CYGWIN-PATCHES/configure.sh.tmp
+CYGWIN-PATCHES/dyndns.README
+CYGWIN-PATCHES/install.sh
+CYGWIN-PATCHES/postinstall.sh.tmp
+CYGWIN-PATCHES/setup.hint
+debian/control
+debian/copyright
+doc/html/dyndns.html
+doc/html/index.html
+doc/man/dyndns.1
+doc/txt/dyndns.txt
+etc/makefile/cygwin.mk
+etc/makefile/id.mk
+etc/makefile/net.mk
+etc/makefile/unix.mk
+etc/makefile/vars.mk
+etc/template/dyndns-dynamic.conf
+etc/template/dyndns-static.conf
+etc/template/noip-dynamic.conf
+Makefile
+MANIFEST			This list of files
+MANIFEST.SKIP

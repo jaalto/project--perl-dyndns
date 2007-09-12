@@ -1,0 +1,41 @@
+#!/usr/bin/make -f
+
+export DH_COMPAT=4
+
+clean:
+	dh_testdir
+	dh_clean
+
+binary-indep:
+	dh_testdir
+	dh_testroot
+
+# Library package :
+
+	dh_install bin/*.pl usr/bin
+
+	dh_installchangelogs -pperl-dyndns bin/ChangeLog
+	dh_installdocs
+
+# Documentation package :
+
+	dh_installdocs -pperl-dynds doc/html doc/txt
+	dh_installchangelogs -pperl-dyndns doc/ChangeLog
+
+# CVS stuff :
+
+	-find debian/perl-dyndns -name CVS -exec rm -rf {} \;
+	-find debian -name .cvsignore -exec rm {} \;
+
+# The packaging :
+
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep
+
+.PHONY: build clean binary-indep binary-arch binary install configure
