@@ -99,7 +99,7 @@ IMPORT:                     # This is just syntactic sugar: actually no-op
     #   The following variable is updated by Emacs setup whenever
     #   this file is saved.
 
-    $VERSION = '2007.0912.0848';
+    $VERSION = '2007.0912.0900';
 }
 
 # }}}
@@ -130,11 +130,6 @@ sub Initialize ()
         $WIN32
         $CYGWIN
 
-        $FILE_ID
-        $VERSION_VC
-        $CONTACT
-        $URL
-
         %STATUS_CODE_DYNDNS_HASH
         @STATUS_CODE_DYNDNS_TRY_AGAIN
 
@@ -153,11 +148,6 @@ sub Initialize ()
     $LIB        = $PROGNAME;
 
     my $id = "$LIB.Initialize";
-
-    $FILE_ID    = q$Id: dyndns.pl,v 1.129 2007/09/12 07:36:11 jaalto Exp $;
-    $VERSION_VC = (split (' ', $FILE_ID))[2];
-    $CONTACT    = "";
-    $URL        = "http://perl-dyndns.sourceforge.net/";
 
     $WIN32    = 1   if  $OSNAME =~ /win32|cygwin/i;
     $CYGWIN   = 1   if  $OSNAME =~ /cygwin/i;
@@ -1216,12 +1206,12 @@ sub Help ( ; $ $ )
 
 sub Version ()
 {
-    "$VERSION.$VERSION_VC";
+    "$VERSION";
 }
 
 sub VersionInfo ()
 {
-    Version() . " PROGNAME $CONTACT $URL";
+    Version();
 }
 
 # ************************************************************** &args *******
@@ -2958,7 +2948,7 @@ sub HttpPing (%)
 
     my $req  = new HTTP::Request( 'GET', $url );
 
-    $req->user_agent( "Perl client $PROGNAME/$VERSION.$VERSION_VC");
+    $req->user_agent( "Perl client $PROGNAME/$VERSION");
 
     # $req->header( "Host", $connect );
 
@@ -3941,7 +3931,7 @@ sub GetIpAddress ()
     else
     {
         die "$id: Don't know how to get your IP address in this OS [$OSNAME]."
-            , "Please contain maintainer $CONTACT and let him "
+            , "Please contain maintainer and let him "
             , "know your system name + command + result where to get ip "
             , "information."
             ;
@@ -5413,7 +5403,7 @@ EOF
 
     my $req  = new HTTP::Request( 'GET', $url );
 
-    $req->user_agent( "Perl client $PROGNAME/$VERSION.$VERSION_VC $CONTACT");
+    $req->user_agent( "Perl client $PROGNAME/$VERSION");
 
     HTTPheaderSet $req, $CONNECT;
 
@@ -5568,7 +5558,7 @@ EOF
 
     my $req  = new HTTP::Request( 'GET', $url );
 
-    $req->user_agent( "Perl client $PROGNAME/$VERSION.$VERSION_VC $CONTACT");
+    $req->user_agent( "Perl client $PROGNAME/$VERSION");
 
     HTTPheaderSet $req, $CONNECT;
 
@@ -5697,7 +5687,7 @@ EOF
 
     my $req  = new HTTP::Request( 'GET', $url );
 
-    $req->user_agent( "Perl client $PROGNAME/$VERSION.$VERSION_VC $CONTACT");
+    $req->user_agent( "Perl client $PROGNAME/$VERSION");
 
     HTTPheaderSet $req, $CONNECT;
 
