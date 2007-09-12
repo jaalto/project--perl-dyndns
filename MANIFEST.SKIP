@@ -7,7 +7,6 @@
 \.old
 \.patch
 \.rej
-\.svn
 
 #  Emacs backup files
 [#~]
@@ -17,6 +16,9 @@
 \bCVS\b
 \bRCS\b
 \bSVN\b
+\.svn
+\.git
+
 
 # Ignore build and install directories
 \.build
@@ -25,5 +27,6 @@
 # Perl's MakeMaker
 \bblib\b
 
-# Temp dirs
+# Temp files and dirs
 /tmp\b
+\.tmp$
