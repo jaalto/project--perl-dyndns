@@ -15,8 +15,4 @@ Manual install:
         2. Look at etc/template/*conf and apply ideas there and write your
            own configuration file (optional; not required)
 
-How to use
-
-        Run program with option --help or -h
-
 End of file

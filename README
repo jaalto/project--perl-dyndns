@@ -6,14 +6,17 @@ cross-platform solution for DHCP ISP-connected users to obtain
 permanent DNS, MX, and Web hosting service from a DDNS provider (e.g.
 syndns.org). Works anywhere where Perl is installed.
 
-bin/            The program, example configurartion, ChangeLog
+bin/            The program, ChangeLog
                 and helper bash setup for project administration
-doc/            Program's manual in various formats
-etc/            Administarive files; used for install and managing the project
+doc/            Program's manual in various formats (generated files).
+etc/debian      System files for Debian setup
+etc/makefile    Administarive files; used for install and managing the project
+etc/template    Example files for permanent DDNS configurations
 
 Requirements:   standard Perl, any recent version (5.004+)
 Licence     :   GNU GPL v2 or any later version, see COPYING
 Homepage    :   http://freshmeat.net/projects/perl-dyndns
 Contact     :   <jari.aalto@cante.net>
+How to use  :   Run program with option --help or -h
 
 End of file
