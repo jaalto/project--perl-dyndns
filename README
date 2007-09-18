@@ -16,7 +16,7 @@ Important files
 
     doc/txt/README.txt          Install and general project information
     doc/txt/LICENSE.txt 	Licensing information
-    lisp/ChangeLog		Project change records
+    bin/ChangeLog		Project change records
 
 Project contacts
 
