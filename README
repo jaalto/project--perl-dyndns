@@ -14,7 +14,7 @@ etc/makefile    Administarive files; used for install and managing the project
 etc/template    Example files for permanent DDNS configurations
 
 Requirements:   standard Perl, any recent version (5.004+)
-Licence     :   GNU GPL v2 or any later version, see COPYING
+Licence     :   GNU GPL v2 or any later version, see COPYING.GNU-GPL
 Homepage    :   http://freshmeat.net/projects/perl-dyndns
 Contact     :   <jari.aalto@cante.net>
 How to use  :   Run program with option --help or -h
