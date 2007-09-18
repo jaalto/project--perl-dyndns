@@ -1,9 +1,11 @@
 bin/ChangeLog
 bin/dyndns.pl
-COPYING
 doc/html/dyndns.html
 doc/man/dyndns.1
+doc/txt/COPYING.GNU-FDL
+doc/txt/COPYING.GNU-GPL
 doc/txt/dyndns.txt
+doc/txt/LICENSE.txt
 etc/makefile/cygwin.mk
 etc/makefile/id.mk
 etc/makefile/unix.mk
