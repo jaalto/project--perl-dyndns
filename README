@@ -6,17 +6,27 @@ cross-platform solution for DHCP ISP-connected users to obtain
 permanent DNS, MX, and Web hosting service from a DDNS provider (e.g.
 dyndns.org). Works anywhere where Perl is installed.
 
-bin/            The program, ChangeLog
-                and helper bash setup for project administration
-doc/            Program's manual in various formats (generated files).
-etc/debian      System files for Debian setup
-etc/makefile    Administarive files; used for install and managing the project
-etc/template    Example files for permanent DDNS configurations
+    bin/	    The program and project administration utilities
+    doc/            Documentation in variou formats
+    etc/debian      System files for Debian setup
+    etc/makefile    Administarive files; used for install and managing the project
+    etc/template    Example files for permanent DDNS configurations
 
-Requirements:   standard Perl, any recent version (5.004+)
-Licence     :   GNU GPL v2 or any later version, see COPYING.GNU-GPL
-Homepage    :   http://freshmeat.net/projects/perl-dyndns
-Contact     :   <jari.aalto@cante.net>
-How to use  :   Run program with option --help or -h
+Important files
+
+    doc/txt/README.txt          Install and general project information
+    doc/txt/LICENSE.txt 	Licensing information
+    lisp/ChangeLog		Project change records
+
+Project contacts
+
+    Homepage
+      http://freshmeat.net/projects/perl-dyndns
+
+    Reporting bugs
+      See freshmeat page
+
+    Source code repository
+      See freshmeat page
 
 End of file
