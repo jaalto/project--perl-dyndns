@@ -7,14 +7,14 @@ permanent DNS, MX, and Web hosting service from a DDNS provider (e.g.
 dyndns.org). Works anywhere where Perl is installed.
 
     bin/	    The program and project administration utilities
-    doc/            Documentation in variou formats
+    doc/            Documentation in various formats
     etc/debian      System files for Debian setup
-    etc/makefile    Administarive files; used for install and managing the project
+    etc/makefile    Administrative files; install and project management
     etc/template    Example files for permanent DDNS configurations
 
 Important files
 
-    doc/txt/README.txt          Install and general project information
+    doc/txt/README.txt          General project information
     doc/txt/LICENSE.txt 	Licensing information
     bin/ChangeLog		Project change records
 

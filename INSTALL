@@ -9,7 +9,7 @@ System wide install
             make help
             make DESTDIR= prefix=/usr/local install
 
-Manual install:
+Manual install
 
         1. Copy bin/*.pl somewhere along $PATH
         2. Look at etc/template/*conf and apply ideas there and write your
