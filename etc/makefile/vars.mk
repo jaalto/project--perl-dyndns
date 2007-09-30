@@ -22,6 +22,7 @@
 
 # ########################################################### &basic ###
 
+PACKAGE_NAME    = perl-dyndns
 DESTDIR		=
 prefix		= /usr/local
 exec_prefix	= $(prefix)
@@ -36,7 +37,7 @@ INSTALL_BIN	= -m 755
 INSTALL_DATA	= -m 644
 
 LOGDIR		= $(DESTDIR)/var/log/$(PACKAGE_NAME)
-ETCDIR		= $(DESTDIR)/etc/$(PACKAGE_NAME)/examples
+ETCDIR		= $(DESTDIR)/etc/$(PACKAGE_NAME)
 
 BASENAME	= basename
 DIRNAME		= dirname
