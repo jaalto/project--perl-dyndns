@@ -748,10 +748,10 @@ client page at <a href="http://clients.dyndns.org/devel/">http://clients.dyndns.
 providers (see <code>--Provider</code>). Visit the page of the provider and create an
 account. Write down the login name, password and host name you registered.</p>
 <p>Program has been designed to work under any version of Windows or
-Linux. It may not work under other Unix variants due to different
-commands and outputs to get network IP assignment information. Please
-see BUGS section how to provide details to add support to
-other operating systems.</p>
+Linux, possibly Mac OS included. It may not work under other Unix
+variants due to different commands and outputs to get network IP
+assignment information. Please see BUGS section how to provide details
+to add support to other operating systems.</p>
 <p>The dynamic DNS service allows mapping a dynamic IP address to a static
 hostname. This way the computer can be refereed by name instead of ever
 changing IP address from ISP's pool. The DDNS providers have may have basic
@@ -762,21 +762,21 @@ updating the same IP address again. This is necessary in order to comply
 guidelines of the providers where multiple updates of the same IP address
 could cause your domain to be blocked. You should not normally need to
 touch the files where the ip addresses are stored.</p>
-<p>If you know what you are doing and desperately need a forced update, delete
-the IP files and start program with apropriate arguments. Without the
-information about previous IP address, program sends a new update request
-to the provider.</p>
-<p>For windows operating systems, you need to install Perl. There are two Perl
-incarnatons: Native Win32 version (Activestate Perl) and Cygwin version. It
-is recommended that you install Cygwin suite, which includes Perl from
-<code>http://www.cygwin.com/</code>. The Cygwin is a Unix layer running on top of
-windws and makes it possible to use cron jobs etc. just like in Linux
-systems. If you have no prior experience on Unix/Linux, then the
-Activestate Perl might be better for Windows. Activestate includes a
-Winodws installer, but the Perl programs must be run through Perl
-interpreter, instead of just typing <code>program.pl</code>. For Activestate, put
-programs along PATH and use command line call with option <strong>-S</strong> to instruct
-to search PATH:</p>
+<p>If you know what you are doing and desperately need a forced update,
+delete the IP files and start program with apropriate arguments.
+Without the information about previous IP address, program sends a new
+update request to the provider.</p>
+<p>For windows operating systems, you need to install Perl. There are two
+Perl incarnatons: Native Win32 version (Activestate Perl) and Cygwin
+version. It is recommended that you install Cygwin suite, which
+includes Perl from <code>http://www.cygwin.com/</code>. The Cygwin is a Unix
+layer running on top of windws and makes it possible to use cron jobs
+etc. just like in Linux systems. If you have no prior experience on
+Unix/Linux, then the Activestate Perl might be better for Windows.
+Activestate includes a Windows installer, but the Perl programs must
+be run through Perl interpreter. For Activestate, put programs along
+PATH and use command line call with option <strong>-S</strong> to instruct to search
+PATH:</p>
 <pre>
     perl -S dyndns.pl [options]</pre>
 <p>
@@ -795,14 +795,14 @@ The option <strong>--file-default</strong> uses OS's default directory structure
             --Host xxx.dyndns.org</pre>
 <p>To upate account information to DDNS provider:</p>
 <pre>
-  dyndns.pl --login LOGIN --password PASS --Host your.dyndns.org</pre>
+  dyndns.pl --login &lt;login&gt; --password &lt;pass&gt; --Host your.dyndns.org</pre>
 <p>If you have a cable or DSL and your router can display a web page
 containing the world known IP address, you can instruct to ``ping''
 it. Suppose that router occupies address 192.168.1.1 and page that
 displays the world known IP is <code>status.html</code>, and you have to log in
 the router using username <code>foo</code> and password <code>bar</code>:</p>
 <pre>
-  dyndns.pl --urlping <a href="http://192.168.1.1/status.html">http://192.168.1.1/status.html</a> \
+  dyndns.pl --urlping <a href="http://192.168.1.1/Status.html">http://192.168.1.1/Status.html</a> \
             --urlping-login foo                      \
             --urlping-pass  bar                      \</pre>
 <p>If the default regexp does not find IP address from the page, supply
@@ -916,16 +916,18 @@ file for average user would only include few lines:</p>
 examples and their output which answer to following questions. The items in
 parentheses are examples from Linux:</p>
 <pre>
-    - How is the OS detected? (id -a, or if file/dir structure can be used
-      to detect the system. In Lunux the existence of /boot/vmlinuz
-      could indicate that &quot;this is a Linux OS&quot;).
-    - What is the command to get network information ('ifconfig')
-    - Where are the system configuration files stored (/etc)
-    - Where are the log files stored (/var/log)</pre>
+    - How is the OS detected? Send result of 'id -a', or if file/dir
+      structure can be used to detect the system. In Lunux the
+      existence of /boot/vmlinuz could indicate that &quot;this is a Linux
+      OS&quot;.
+    - What is the command to get network information (commandlike 'ifconfig')
+    - Where are the system configuration files stored (in directory /etc?)
+    - Where are the log files stored (under /var/log?)</pre>
 <p>To add support for routers that can be connected through HTTP protocol
-or with some other commands (to get ISP provided IP address), please
-provide connection details and full HTTP response (lynx -dump
-<a href="http://192.168.1.0/your-network/router).">http://192.168.1.0/your-network/router).</a></p>
+or with some other commands, please provide connection details and
+full HTTP response:</p>
+<pre>
+  lynx -dump <a href="http://192.168.1.0/your-network/router/page.html">http://192.168.1.0/your-network/router/page.html</a></pre>
 <p>
 </p>
 <hr />
@@ -992,7 +994,7 @@ you find bugs or need new features.</p>
 <hr />
 <h1><a name="standards">STANDARDS</a></h1>
 <p>The client specification is at
-<a href="http://support.dyndns.org/dyndns/clients/devel.shtml">http://support.dyndns.org/dyndns/clients/devel.shtml</a></p>
+<a href="https://www.dyndns.com/developers/specs/">https://www.dyndns.com/developers/specs/</a></p>
 <p>
 </p>
 <hr />
@@ -1003,8 +1005,11 @@ you find bugs or need new features.</p>
 </p>
 <hr />
 <h1><a name="prerequisites">PREREQUISITES</a></h1>
-<p>HTTP::Request::Common
-LWP</p>
+<p>HTTP::Headers
+HTTP::Request::Common
+LWP::UserAgent
+LWP::Simple
+Sys::Syslog</p>
 <p>
 </p>
 <hr />
@@ -1019,13 +1024,13 @@ LWP</p>
 </p>
 <hr />
 <h1><a name="author">AUTHOR</a></h1>
-<p>Copyright (C) 1999-2006 Jari Aalto. All rights reserved. This program
+<p>Copyright (C) 1999-2007 Jari Aalto. All rights reserved. This program
 is free software; you can redistribute and/or modify program under the
 terms of GNU General Public license v2 or later.</p>
 <p>This documentation may be distributed subject to the terms and
-conditions set forth in GNU General Public License v2 or later; or, at
-your option, distributed under the terms of GNU Free Documentation
-License version 1.2 or later (GNU FDL).</p>
+conditions set forth in GNU General Public License v2 or later (GNU
+GPL); or, at your option, distributed under the terms of GNU Free
+Documentation License version 1.2 or later (GNU FDL).</p>
 
 </body>
 

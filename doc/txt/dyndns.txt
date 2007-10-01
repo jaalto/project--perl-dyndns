@@ -488,11 +488,11 @@ README
     an account. Write down the login name, password and host name you
     registered.
 
-    Program has been designed to work under any version of Windows or Linux.
-    It may not work under other Unix variants due to different commands and
-    outputs to get network IP assignment information. Please see BUGS
-    section how to provide details to add support to other operating
-    systems.
+    Program has been designed to work under any version of Windows or Linux,
+    possibly Mac OS included. It may not work under other Unix variants due
+    to different commands and outputs to get network IP assignment
+    information. Please see BUGS section how to provide details to add
+    support to other operating systems.
 
     The dynamic DNS service allows mapping a dynamic IP address to a static
     hostname. This way the computer can be refereed by name instead of ever
@@ -519,10 +519,9 @@ README
     on top of windws and makes it possible to use cron jobs etc. just like
     in Linux systems. If you have no prior experience on Unix/Linux, then
     the Activestate Perl might be better for Windows. Activestate includes a
-    Winodws installer, but the Perl programs must be run through Perl
-    interpreter, instead of just typing "program.pl". For Activestate, put
-    programs along PATH and use command line call with option -S to instruct
-    to search PATH:
+    Windows installer, but the Perl programs must be run through Perl
+    interpreter. For Activestate, put programs along PATH and use command
+    line call with option -S to instruct to search PATH:
 
         perl -S dyndns.pl [options]
 
@@ -541,7 +540,7 @@ EXAMPLES
 
     To upate account information to DDNS provider:
 
-      dyndns.pl --login LOGIN --password PASS --Host your.dyndns.org
+      dyndns.pl --login <login> --password <pass> --Host your.dyndns.org
 
     If you have a cable or DSL and your router can display a web page
     containing the world known IP address, you can instruct to "ping" it.
@@ -549,7 +548,7 @@ EXAMPLES
     the world known IP is "status.html", and you have to log in the router
     using username "foo" and password "bar":
 
-      dyndns.pl --urlping http://192.168.1.1/status.html \
+      dyndns.pl --urlping http://192.168.1.1/Status.html \
                 --urlping-login foo                      \
                 --urlping-pass  bar                      \
 
@@ -664,17 +663,19 @@ SUPPORT REQUESTS
     examples and their output which answer to following questions. The items
     in parentheses are examples from Linux:
 
-        - How is the OS detected? (id -a, or if file/dir structure can be used
-          to detect the system. In Lunux the existence of /boot/vmlinuz
-          could indicate that "this is a Linux OS").
-        - What is the command to get network information ('ifconfig')
-        - Where are the system configuration files stored (/etc)
-        - Where are the log files stored (/var/log)
+        - How is the OS detected? Send result of 'id -a', or if file/dir
+          structure can be used to detect the system. In Lunux the
+          existence of /boot/vmlinuz could indicate that "this is a Linux
+          OS".
+        - What is the command to get network information (commandlike 'ifconfig')
+        - Where are the system configuration files stored (in directory /etc?)
+        - Where are the log files stored (under /var/log?)
 
     To add support for routers that can be connected through HTTP protocol
-    or with some other commands (to get ISP provided IP address), please
-    provide connection details and full HTTP response (lynx -dump
-    http://192.168.1.0/your-network/router).
+    or with some other commands, please provide connection details and full
+    HTTP response:
+
+      lynx -dump http://192.168.1.0/your-network/router/page.html
 
 TROUBLESHOOTING
     1. Turn on --debug to see exact details how the program runs and what
@@ -729,14 +730,14 @@ AVAILABILITY
     http://freshmeat.net/projects/perl-dyndns
 
 STANDARDS
-    The client specification is at
-    http://support.dyndns.org/dyndns/clients/devel.shtml
+    The client specification is at https://www.dyndns.com/developers/specs/
 
 SCRIPT CATEGORIES
     "CPAN/Administrative" "CPAN/Networking"
 
 PREREQUISITES
-    HTTP::Request::Common LWP
+    HTTP::Headers HTTP::Request::Common LWP::UserAgent LWP::Simple
+    Sys::Syslog
 
 COREQUISITES
     None.
@@ -745,12 +746,12 @@ OSNAMES
     "any"
 
 AUTHOR
-    Copyright (C) 1999-2006 Jari Aalto. All rights reserved. This program is
+    Copyright (C) 1999-2007 Jari Aalto. All rights reserved. This program is
     free software; you can redistribute and/or modify program under the
     terms of GNU General Public license v2 or later.
 
     This documentation may be distributed subject to the terms and
-    conditions set forth in GNU General Public License v2 or later; or, at
-    your option, distributed under the terms of GNU Free Documentation
-    License version 1.2 or later (GNU FDL).
+    conditions set forth in GNU General Public License v2 or later (GNU
+    GPL); or, at your option, distributed under the terms of GNU Free
+    Documentation License version 1.2 or later (GNU FDL).
 

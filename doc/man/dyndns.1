@@ -129,7 +129,7 @@
 .\" ========================================================================
 .\"
 .IX Title "DYNDNS 1"
-.TH DYNDNS 1 "2007-09-18" "perl v5.8.8" "Perl Dynamic DNS Update Client"
+.TH DYNDNS 1 "2007-10-01" "perl v5.8.8" "Perl Dynamic DNS Update Client"
 .SH "NAME"
 dyndns.pl \- Update IP address to dynamic DNS (DDNS) provider
 .SH "SYNOPSIS"
@@ -679,10 +679,10 @@ providers (see \f(CW\*(C`\-\-Provider\*(C'\fR). Visit the page of the provider a
 account. Write down the login name, password and host name you registered.
 .PP
 Program has been designed to work under any version of Windows or
-Linux. It may not work under other Unix variants due to different
-commands and outputs to get network \s-1IP\s0 assignment information. Please
-see \s-1BUGS\s0 section how to provide details to add support to
-other operating systems.
+Linux, possibly Mac \s-1OS\s0 included. It may not work under other Unix
+variants due to different commands and outputs to get network \s-1IP\s0
+assignment information. Please see \s-1BUGS\s0 section how to provide details
+to add support to other operating systems.
 .PP
 The dynamic \s-1DNS\s0 service allows mapping a dynamic \s-1IP\s0 address to a static
 hostname. This way the computer can be refereed by name instead of ever
@@ -696,22 +696,22 @@ guidelines of the providers where multiple updates of the same \s-1IP\s0 address
 could cause your domain to be blocked. You should not normally need to
 touch the files where the ip addresses are stored.
 .PP
-If you know what you are doing and desperately need a forced update, delete
-the \s-1IP\s0 files and start program with apropriate arguments. Without the
-information about previous \s-1IP\s0 address, program sends a new update request
-to the provider.
+If you know what you are doing and desperately need a forced update,
+delete the \s-1IP\s0 files and start program with apropriate arguments.
+Without the information about previous \s-1IP\s0 address, program sends a new
+update request to the provider.
 .PP
-For windows operating systems, you need to install Perl. There are two Perl
-incarnatons: Native Win32 version (Activestate Perl) and Cygwin version. It
-is recommended that you install Cygwin suite, which includes Perl from
-\&\f(CW\*(C`http://www.cygwin.com/\*(C'\fR. The Cygwin is a Unix layer running on top of
-windws and makes it possible to use cron jobs etc. just like in Linux
-systems. If you have no prior experience on Unix/Linux, then the
-Activestate Perl might be better for Windows. Activestate includes a
-Winodws installer, but the Perl programs must be run through Perl
-interpreter, instead of just typing \f(CW\*(C`program.pl\*(C'\fR. For Activestate, put
-programs along \s-1PATH\s0 and use command line call with option \fB\-S\fR to instruct
-to search \s-1PATH:\s0
+For windows operating systems, you need to install Perl. There are two
+Perl incarnatons: Native Win32 version (Activestate Perl) and Cygwin
+version. It is recommended that you install Cygwin suite, which
+includes Perl from \f(CW\*(C`http://www.cygwin.com/\*(C'\fR. The Cygwin is a Unix
+layer running on top of windws and makes it possible to use cron jobs
+etc. just like in Linux systems. If you have no prior experience on
+Unix/Linux, then the Activestate Perl might be better for Windows.
+Activestate includes a Windows installer, but the Perl programs must
+be run through Perl interpreter. For Activestate, put programs along
+\&\s-1PATH\s0 and use command line call with option \fB\-S\fR to instruct to search
+\&\s-1PATH:\s0
 .PP
 .Vb 1
 \&    perl -S dyndns.pl [options]
@@ -737,7 +737,7 @@ The option \fB\-\-file\-default\fR uses \s-1OS\s0's default directory structure.
 To upate account information to \s-1DDNS\s0 provider:
 .PP
 .Vb 1
-\&  dyndns.pl --login LOGIN --password PASS --Host your.dyndns.org
+\&  dyndns.pl --login <login> --password <pass> --Host your.dyndns.org
 .Ve
 .PP
 If you have a cable or \s-1DSL\s0 and your router can display a web page
@@ -747,7 +747,7 @@ displays the world known \s-1IP\s0 is \f(CW\*(C`status.html\*(C'\fR, and you hav
 the router using username \f(CW\*(C`foo\*(C'\fR and password \f(CW\*(C`bar\*(C'\fR:
 .PP
 .Vb 3
-\&  dyndns.pl --urlping http://192.168.1.1/status.html \e
+\&  dyndns.pl --urlping http://192.168.1.1/Status.html \e
 \&            --urlping-login foo                      \e
 \&            --urlping-pass  bar                      \e
 .Ve
@@ -912,19 +912,23 @@ For new Operating System, provide all relevant commands, their options,
 examples and their output which answer to following questions. The items in
 parentheses are examples from Linux:
 .PP
-.Vb 6
-\&    - How is the OS detected? (id -a, or if file/dir structure can be used
-\&      to detect the system. In Lunux the existence of /boot/vmlinuz
-\&      could indicate that "this is a Linux OS").
-\&    - What is the command to get network information ('ifconfig')
-\&    - Where are the system configuration files stored (/etc)
-\&    - Where are the log files stored (/var/log)
+.Vb 7
+\&    - How is the OS detected? Send result of 'id -a', or if file/dir
+\&      structure can be used to detect the system. In Lunux the
+\&      existence of /boot/vmlinuz could indicate that "this is a Linux
+\&      OS".
+\&    - What is the command to get network information (commandlike 'ifconfig')
+\&    - Where are the system configuration files stored (in directory /etc?)
+\&    - Where are the log files stored (under /var/log?)
 .Ve
 .PP
 To add support for routers that can be connected through \s-1HTTP\s0 protocol
-or with some other commands (to get \s-1ISP\s0 provided \s-1IP\s0 address), please
-provide connection details and full \s-1HTTP\s0 response (lynx \-dump
-http://192.168.1.0/your\-network/router).
+or with some other commands, please provide connection details and
+full \s-1HTTP\s0 response:
+.PP
+.Vb 1
+\&  lynx -dump http://192.168.1.0/your-network/router/page.html
+.Ve
 .SH "TROUBLESHOOTING"
 .IX Header "TROUBLESHOOTING"
 1. Turn on \fB\-\-debug\fR to see exact details how the program runs and
@@ -985,15 +989,18 @@ http://freshmeat.net/projects/perl\-dyndns
 .SH "STANDARDS"
 .IX Header "STANDARDS"
 The client specification is at
-http://support.dyndns.org/dyndns/clients/devel.shtml
+https://www.dyndns.com/developers/specs/
 .SH "SCRIPT CATEGORIES"
 .IX Header "SCRIPT CATEGORIES"
 \&\f(CW\*(C`CPAN/Administrative\*(C'\fR
 \&\f(CW\*(C`CPAN/Networking\*(C'\fR
 .SH "PREREQUISITES"
 .IX Header "PREREQUISITES"
+HTTP::Headers
 HTTP::Request::Common
-\&\s-1LWP\s0
+LWP::UserAgent
+LWP::Simple
+Sys::Syslog
 .SH "COREQUISITES"
 .IX Header "COREQUISITES"
 None.
@@ -1002,11 +1009,11 @@ None.
 \&\f(CW\*(C`any\*(C'\fR
 .SH "AUTHOR"
 .IX Header "AUTHOR"
-Copyright (C) 1999\-2006 Jari Aalto. All rights reserved. This program
+Copyright (C) 1999\-2007 Jari Aalto. All rights reserved. This program
 is free software; you can redistribute and/or modify program under the
 terms of \s-1GNU\s0 General Public license v2 or later.
 .PP
 This documentation may be distributed subject to the terms and
-conditions set forth in \s-1GNU\s0 General Public License v2 or later; or, at
-your option, distributed under the terms of \s-1GNU\s0 Free Documentation
-License version 1.2 or later (\s-1GNU\s0 \s-1FDL\s0).
+conditions set forth in \s-1GNU\s0 General Public License v2 or later (\s-1GNU\s0
+\&\s-1GPL\s0); or, at your option, distributed under the terms of \s-1GNU\s0 Free
+Documentation License version 1.2 or later (\s-1GNU\s0 \s-1FDL\s0).
