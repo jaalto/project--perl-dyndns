@@ -7,6 +7,8 @@
 	(TestDriverLinksysBEFW11S4v4): Cisco v4 versio test.
 	(HttpPingWlanLinksysBEFW11S4): Add BEFW11S4 Cisco v4 support. Closes
 	bug https://sourceforge.net/tracker/index.php?func=detail&aid=1152587&group_id=44223&atid=438824
+	(RunUpdateIPWrite): Report invalid Ip address to
+	syslog.
 
 2006-09-06  root  <jari.aalto@cante.net>
 

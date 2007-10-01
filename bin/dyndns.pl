@@ -90,7 +90,7 @@ IMPORT:                     # This is just syntactic sugar: actually no-op
     #   The following variable is updated by Emacs setup whenever
     #   this file is saved.
 
-    $VERSION = '2007.1001.1432';
+    $VERSION = '2007.1001.1437';
 }
 
 # }}}
@@ -399,7 +399,7 @@ Series of configuration files can be run at once e.g. within directory
 C</etc/dyndns/> by using a single option. The order of the files processed
 is alphabetical:
 
-    --Config='/etc/dyndns/*'
+    --Config=/etc/dyndns/*
 
 See section CONFIGURATION FILE for more information how to write the files.
 
@@ -5859,6 +5859,10 @@ sub RunUpdateIPWrite ( $$ )
         {
             $stat = FileWrite $file, undef, $ip;
             $debug  and  print "$id: saved last used IP Address\n";
+        }
+        else
+        {
+            Log "Invalid IP address $ip";
         }
     }
 
