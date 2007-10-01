@@ -90,7 +90,7 @@ IMPORT:                     # This is just syntactic sugar: actually no-op
     #   The following variable is updated by Emacs setup whenever
     #   this file is saved.
 
-    $VERSION = '2007.1001.1501';
+    $VERSION = '2007.1001.1508';
 }
 
 # }}}
@@ -5678,7 +5678,7 @@ EOF
 
     my ($status, $code, $str);
 
-    unless ( $test )
+    if ( not $test   and  IPvalidate $IP)
     {
         my $resp   = $ua->request( $req );
         my $return = $resp->as_string;
@@ -5805,7 +5805,7 @@ EOF
 
     my ($status, $code, $str);
 
-    unless ( $test )
+    if ( not $test   and  IPvalidate $IP)
     {
         my $resp   = $ua->request( $req );
         my $return = $resp->as_string;
