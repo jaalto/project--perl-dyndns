@@ -90,7 +90,7 @@ IMPORT:                     # This is just syntactic sugar: actually no-op
     #   The following variable is updated by Emacs setup whenever
     #   this file is saved.
 
-    $VERSION = '2007.1001.1418';
+    $VERSION = '2007.1001.1419';
 }
 
 # }}}
@@ -1186,7 +1186,7 @@ C<any>
 
 =head1 AUTHOR
 
-Copyright (C) 1999-2006 Jari Aalto. All rights reserved. This program
+Copyright (C) 1999-2007 Jari Aalto. All rights reserved. This program
 is free software; you can redistribute and/or modify program under the
 terms of GNU General Public license v2 or later.
 
