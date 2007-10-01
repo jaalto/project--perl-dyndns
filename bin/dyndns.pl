@@ -90,7 +90,7 @@ IMPORT:                     # This is just syntactic sugar: actually no-op
     #   The following variable is updated by Emacs setup whenever
     #   this file is saved.
 
-    $VERSION = '2007.1001.1416';
+    $VERSION = '2007.1001.1418';
 }
 
 # }}}
@@ -1170,8 +1170,11 @@ C<CPAN/Networking>
 
 =head1 PREREQUISITES
 
+HTTP::Headers
 HTTP::Request::Common
-LWP
+LWP::UserAgent
+LWP::Simple
+Sys::Syslog
 
 =head1 COREQUISITES
 
