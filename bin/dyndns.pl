@@ -90,7 +90,7 @@ IMPORT:                     # This is just syntactic sugar: actually no-op
     #   The following variable is updated by Emacs setup whenever
     #   this file is saved.
 
-    $VERSION = '2007.1001.1405';
+    $VERSION = '2007.1001.1416';
 }
 
 # }}}
@@ -906,10 +906,10 @@ providers (see C<--Provider>). Visit the page of the provider and create an
 account. Write down the login name, password and host name you registered.
 
 Program has been designed to work under any version of Windows or
-Linux. It may not work under other Unix variants due to different
-commands and outputs to get network IP assignment information. Please
-see BUGS section how to provide details to add support to
-other operating systems.
+Linux, possibly Mac OS included. It may not work under other Unix
+variants due to different commands and outputs to get network IP
+assignment information. Please see BUGS section how to provide details
+to add support to other operating systems.
 
 The dynamic DNS service allows mapping a dynamic IP address to a static
 hostname. This way the computer can be refereed by name instead of ever
@@ -923,22 +923,22 @@ guidelines of the providers where multiple updates of the same IP address
 could cause your domain to be blocked. You should not normally need to
 touch the files where the ip addresses are stored.
 
-If you know what you are doing and desperately need a forced update, delete
-the IP files and start program with apropriate arguments. Without the
-information about previous IP address, program sends a new update request
-to the provider.
+If you know what you are doing and desperately need a forced update,
+delete the IP files and start program with apropriate arguments.
+Without the information about previous IP address, program sends a new
+update request to the provider.
 
-For windows operating systems, you need to install Perl. There are two Perl
-incarnatons: Native Win32 version (Activestate Perl) and Cygwin version. It
-is recommended that you install Cygwin suite, which includes Perl from
-C<http://www.cygwin.com/>. The Cygwin is a Unix layer running on top of
-windws and makes it possible to use cron jobs etc. just like in Linux
-systems. If you have no prior experience on Unix/Linux, then the
-Activestate Perl might be better for Windows. Activestate includes a
-Winodws installer, but the Perl programs must be run through Perl
-interpreter, instead of just typing C<program.pl>. For Activestate, put
-programs along PATH and use command line call with option B<-S> to instruct
-to search PATH:
+For windows operating systems, you need to install Perl. There are two
+Perl incarnatons: Native Win32 version (Activestate Perl) and Cygwin
+version. It is recommended that you install Cygwin suite, which
+includes Perl from C<http://www.cygwin.com/>. The Cygwin is a Unix
+layer running on top of windws and makes it possible to use cron jobs
+etc. just like in Linux systems. If you have no prior experience on
+Unix/Linux, then the Activestate Perl might be better for Windows.
+Activestate includes a Windows installer, but the Perl programs must
+be run through Perl interpreter. For Activestate, put programs along
+PATH and use command line call with option B<-S> to instruct to search
+PATH:
 
     perl -S dyndns.pl [options]
 
@@ -958,7 +958,7 @@ The option B<--file-default> uses OS's default directory structure.
 
 To upate account information to DDNS provider:
 
-  dyndns.pl --login LOGIN --password PASS --Host your.dyndns.org
+  dyndns.pl --login <login> --password <pass> --Host your.dyndns.org
 
 If you have a cable or DSL and your router can display a web page
 containing the world known IP address, you can instruct to "ping"
@@ -966,7 +966,7 @@ it. Suppose that router occupies address 192.168.1.1 and page that
 displays the world known IP is C<status.html>, and you have to log in
 the router using username C<foo> and password C<bar>:
 
-  dyndns.pl --urlping http://192.168.1.1/status.html \
+  dyndns.pl --urlping http://192.168.1.1/Status.html \
             --urlping-login foo                      \
             --urlping-pass  bar                      \
 
@@ -1084,17 +1084,19 @@ For new Operating System, provide all relevant commands, their options,
 examples and their output which answer to following questions. The items in
 parentheses are examples from Linux:
 
-    - How is the OS detected? (id -a, or if file/dir structure can be used
-      to detect the system. In Lunux the existence of /boot/vmlinuz
-      could indicate that "this is a Linux OS").
-    - What is the command to get network information ('ifconfig')
-    - Where are the system configuration files stored (/etc)
-    - Where are the log files stored (/var/log)
+    - How is the OS detected? Send result of 'id -a', or if file/dir
+      structure can be used to detect the system. In Lunux the
+      existence of /boot/vmlinuz could indicate that "this is a Linux
+      OS".
+    - What is the command to get network information (commandlike 'ifconfig')
+    - Where are the system configuration files stored (in directory /etc?)
+    - Where are the log files stored (under /var/log?)
 
 To add support for routers that can be connected through HTTP protocol
-or with some other commands (to get ISP provided IP address), please
-provide connection details and full HTTP response (lynx -dump
-http://192.168.1.0/your-network/router).
+or with some other commands, please provide connection details and
+full HTTP response:
+
+  lynx -dump http://192.168.1.0/your-network/router/page.html
 
 =head1 TROUBLESHOOTING
 
