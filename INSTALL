@@ -1,6 +1,22 @@
 Perl dyndns - A Perl Dynamic DNS (DDNS) update client
 -----------------------------------------------------
 
+Requirements
+
+	Extra Perl CPAN modules need to be install before program
+	can be used:
+
+	    HTTP::Request::Common
+	    HTTP::Headers
+	    LWP::UserAgent
+	    LWP::Simple
+	    Sys::Syslog
+
+	You can install these one by one with perl command:
+
+	    perl -MCPAN -e shell
+	    cpan> install <module name>
+
 System wide install
 
         Run makefile with appropriate parameters. The program is
