@@ -1,3 +1,7 @@
+2007-10-01  Jari Aalto  <Administrator@W2KPICASSO>
+
+	* dyndns.pl (UpdateDynDns):
+
 2007-10-01  Jari Aalto  <jari.aalto@cante.net>
 
 	* dyndns.pl
@@ -9,6 +13,7 @@
 	bug https://sourceforge.net/tracker/index.php?func=detail&aid=1152587&group_id=44223&atid=438824
 	(RunUpdateIPWrite): Report invalid Ip address to
 	syslog.
+	(UpdateDynDns): Run IPvalidate before update to be sure.
 
 2006-09-06  root  <jari.aalto@cante.net>
 

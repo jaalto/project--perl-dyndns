@@ -90,7 +90,7 @@ IMPORT:                     # This is just syntactic sugar: actually no-op
     #   The following variable is updated by Emacs setup whenever
     #   this file is saved.
 
-    $VERSION = '2007.1001.1437';
+    $VERSION = '2007.1001.1501';
 }
 
 # }}}
@@ -2587,36 +2587,39 @@ sub IPfileNameGlobbed ()
 #       $intenet    [optional] If set, consider Internal 192.*  and 10.*
 #                   addresses valid too. Normally these are not Internet
 #                   addresses, but used only for local subnets.
+#       $subnet     If set, consider subnet IPs valid (192.x.x.x etc).
 #
 #   RETURN VALUES
 #
-#       true,  if ok
+#       true,  if ok.
 #
 # ****************************************************************************
 
 sub IPvalidate ($)
 {
     my $id = "IPvalidate";
-    local ($ARG) = shift;
-    my ($subnet) = shift;
+    local $ARG = shift;
+    my $subnet = shift;
 
     my $ret = 0;
 
-    $debug  and  print "$id: [$ARG]\n";
+    $debug  and  print "$id: [$ARG] subnet [$subnet]\n";
 
     if ( /^\s*\d+\.\d+\.\d+\.\d+\s*$/ )
     {
         $ret = 1;
+
         if ( /^\s*(0|192|10)\./ )
         {
-           $ret = 0    unless $subnet;
+           $ret = 0;
+           $ret = 1 if $subnet;
            $verb  and  print "$id: ranges 192.* and 10.* are not valid\n";
         }
     }
 
     if ( $debug  )
     {
-        my $action = "[ERROR] IP isn not valid.";
+        my $action = "[ERROR] IP is not valid.";
         $ret  and  $action = "Success.";
 
         print "$id: return [$ret] $action\n";
@@ -5518,7 +5521,7 @@ EOF
 
     my ($status, $code, $str);
 
-    unless ( $test )
+    if ( not $test   and  IPvalidate $IP)
     {
         my $resp   = $ua->request( $req );
         my $return = $resp->as_string;
@@ -6012,6 +6015,7 @@ sub ProcessUpdateOne ( % )
     $debug  and  print "$id: INPUT file [$file] ip [$ip] last [$lastIP]\n";
 
     my $valid   = IPvalidate $ip;
+    $valid = 1  if $test and $debug;       # Treat it as "okay"
 
     #  For dyndns.org, the Ip must be updated every 30 days
     #  in order to keep the account active
@@ -6033,7 +6037,7 @@ sub ProcessUpdateOne ( % )
 
     $new = -test  if $test;         # "test" should run all phases
 
-    $debug  and  print "$id: IP [$ip] last IP [$lastIP]\n";
+    $debug  and  print "$id: IP [$ip] valid [$valid] last IP [$lastIP]\n";
 
     my ($stat, $msg, $update);
 
@@ -6325,6 +6329,11 @@ sub ProcessUpdateStart (; $)
                 , -ip       => $ip
                 , -lastip   => $lastIP
                 ;
+    }
+    else
+    {
+        Log "FATAL: Too few options set. "
+          . "Use --debug to see what is missing\n";
     }
 };
 
