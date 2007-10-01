@@ -1191,9 +1191,9 @@ is free software; you can redistribute and/or modify program under the
 terms of GNU General Public license v2 or later.
 
 This documentation may be distributed subject to the terms and
-conditions set forth in GNU General Public License v2 or later; or, at
-your option, distributed under the terms of GNU Free Documentation
-License version 1.2 or later (GNU FDL).
+conditions set forth in GNU General Public License v2 or later (GNU
+GPL); or, at your option, distributed under the terms of GNU Free
+Documentation License version 1.2 or later (GNU FDL).
 
 =cut
 
