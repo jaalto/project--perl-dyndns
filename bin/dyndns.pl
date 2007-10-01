@@ -90,7 +90,7 @@ IMPORT:                     # This is just syntactic sugar: actually no-op
     #   The following variable is updated by Emacs setup whenever
     #   this file is saved.
 
-    $VERSION = '2007.1001.1350';
+    $VERSION = '2007.1001.1405';
 }
 
 # }}}
@@ -1159,7 +1159,7 @@ http://freshmeat.net/projects/perl-dyndns
 =head1 STANDARDS
 
 The client specification is at
-http://support.dyndns.org/dyndns/clients/devel.shtml
+https://www.dyndns.com/developers/specs/
 
 =head1 SCRIPT CATEGORIES
 
@@ -6356,13 +6356,13 @@ sub ProcessUpdateMain ( % )
 
         $stat = ProcessQueryRequests();
 
-        if ( not $stat )
+        unless ( $stat )
         {
             ProcessUpdateStart $conf;
         }
     };
 
-    if  ( defined $configArrRef  and  @$configArrRef  )
+    if ( defined $configArrRef  and  @$configArrRef  )
     {
         for my $file ( @$configArrRef )
         {
