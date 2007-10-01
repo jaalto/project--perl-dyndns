@@ -14,7 +14,6 @@ dyndns.org). Works anywhere where Perl is installed.
 
 Important files
 
-    doc/txt/README.txt          General project information
     doc/txt/LICENSE.txt 	Licensing information
     bin/ChangeLog		Project change records
 

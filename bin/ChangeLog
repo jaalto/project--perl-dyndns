@@ -1,10 +1,16 @@
-2006-09-06  root  <jaalto@w2kpicasso.cante.net>
+2007-10-01  Jari Aalto  <jari.aalto@cante.net>
+
+	* dyndns.pl (InitializeModules): New. Moved CPAN module 'use'
+	commands to separate function to notify user.
+	Closes bug https://sourceforge.net/tracker/index.php?func=detail&aid=1038122&group_id=44223&atid=438824
+
+2006-09-06  root  <jari.aalto@cante.net>
 
 	* dyndns.pl (SystemLogDir): Added check for non-root
 	user. The saved ip is put under $HOME/tmp.
 	(IPfileNamePath): Renamed. Was `IPfileName'.
 
-2006-08-30  Jari Aalto  <jari dot aalto A T cante dot net>
+2006-08-30  Jari Aalto  <jari.aalto@cante.net>
 
 	* dyndns.pl (Initialize): (Help::PREREQUISITES): added
 	'LWP' to list of required modules from CPAN.
@@ -16,12 +22,12 @@
 	code of product.
 	(TestDriverLinksysWRT54GL): New.
 
-2006-02-03  Jari Aalto  <jari dot aalto A T cante dot net>
+2006-02-03  Jari Aalto  <jari.aalto@cante.net>
 
 	* dyndns.pl (HandleCommandLineArgsMain): Typo in variable:
 	$t2htmlOPT_IP_FILE => $OPT_IP_FILE.
 
-2005-11-30 Wed  Jari Aalto  <jari dot aalto A T cante dot net>
+2005-11-30 Wed  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl (sub Version): 1.125 New.
         (sub VersionInfo): 1.125 New.
@@ -39,7 +45,7 @@
         (HELP::OPTIONS::--Daemon): Explain why it is better to use cron(8)
         than use --Daemon option.
 
-2005-11-24  Jari Aalto  <jari dot aalto A T cante dot net>
+2005-11-24  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl (HELP::OPTIONS::--Config): Corrected wording and
         removed conf.d/ reference.
@@ -57,7 +63,7 @@
         dyndns.pl (HELP::OPTIONS::--urlping): Added warning about
         --Daemon mode.
 
-2005-05-16 Mon  Jari Aalto  <jari dot aalto A T cante dot net>
+2005-05-16 Mon  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl
         - command line arguments --urlping-* were not preserved,
@@ -69,12 +75,12 @@
         (sub HandleCommandLineArgsMain): 1.122 Added
         @CONFIG_COMMAND_LINE_TABLE.
 
-2005-02-27 Sun  Jari Aalto  <jari dot aalto A T cante dot net>
+2005-02-27 Sun  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl (sub GetIpAddress): 1.121 Wrong variable passed to
         `HttpPingWlanLinksysBEFW11S4'. Did not send password. Fixed.
 
-2005-02-15 Tue  Jari Aalto  <jari dot aalto A T cante dot net>
+2005-02-15 Tue  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl (sub ProcessQueryRequests): 1.117 Changed output
         format. Added IP address in case of changed.
@@ -93,22 +99,22 @@
         `%STATUS_CODE_NOIP_HASH'. Confirmed that they are still the same
         as in official noip-2.1.1 C-source.
 
-2005-01-19 Wed  Jari  <jari dot aalto A T cante dot net>
+2005-01-19 Wed  Jari  <jari.aalto@cante.net>
 
         * dyndns.pl (Getopt::Long): 1.117 Require --Host option for queries,
         because the file name cannot be constructed otherwise.
 
-2004-12-19 Sun  Jari  <jari dot aalto A T cante dot net>
+2004-12-19 Sun  Jari  <jari.aalto@cante.net>
 
         * dyndns.pl (sub ProcessUpdateOne): 1.117 Added missing newline to
         'It is not allowed ...' message.
 
-2004-08-13 Fri  Jari Aalto  <jari dot aalto A T cante dt net>
+2004-08-13 Fri  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl (Bad authorization): 1.116 Added more tests
         to HN site.
 
-2004-05-29 Tue  Jari Aalto  <jari aalto A T cante dot net>
+2004-05-29 Tue  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl (StatusCodeParseHNorg(): The regexp must look
         access lines for the status code. Didn't work. Fixed by adding
@@ -124,7 +130,7 @@
         (HandleCommandLineArgsMain): Added better debug message
         for --Daemon option.
 
-2004-03-30 Tue  Jari Aalto  <jari aalto A T cante dot net>
+2004-03-30 Tue  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl
         CHANGE: The IP file cannot be simply eth0-dyndns-dyndns.log, because
@@ -151,22 +157,22 @@
         (Help): 1.114 --daemon option now accepts 2d, 7h; days, hours
         spec.
 
-2004-03-26  Jari Aalto  <jari aalto A T poboxes dt com>
+2004-03-26  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl (HandleCommandLineArgsMain): Improved
         --Test-account handling. Added custom dns test.
 
-2004-03-26 Fri  Jari Aalto  <jari aalto A T poboxes dt com>
+2004-03-26 Fri  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl (Sys::Syslog'): 1.113 Made Sys::Syslog
         `autouse'.
         (HELP::FILES): Documented C:/syslog.txt.
 
-2003-12-13 Sat  Jari Aalto  <jari aalto A T poboxes dt com>
+2003-12-13 Sat  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl: 1.112 (Help): Documentation typos fixed.
 
-2003-09-02 Tue  Jari Aalto  <jari aalto A T poboxes dt com>
+2003-09-02 Tue  Jari Aalto  <jari.aalto@cante.net>
 
         RELEASED 2003.0902
 
@@ -184,7 +190,7 @@
         (HTTPheaderSet): 1.109 New. Common headers for all
         HTTP requests.
 
-2003-08-22 Fri  Jari Aalto  <jari aalto A T poboxes dt com>
+2003-08-22 Fri  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl (sub IPfileNameGlobbed): 1.107 Added check for not
         defined OPT_IP_FILE.
@@ -200,14 +206,14 @@
         OPT_HTTP_PING_DYNDNS were given at command line. Use must request
         Explicit --Query-* features.
 
-2003-08-08 Fri  Jari Aalto  <jari aalto A T poboxes dt com>
+2003-08-08 Fri  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl (elsif (GetIpAddress): Missing semicolon
         fixed.
         (Top Level): 1.105 Added lot of Log() function calls. These should
         improve the --deamon and syslog(3) usage.
 
-2003-08-06 Wed  Jari Aalto  <jari aalto A T poboxes dt com>
+2003-08-06 Wed  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl: 1.100 (Help): New option --urlping-dyndns.
         (sub VariableCheckValidity): 1.100 Added OPT_HTTP_PING_DYNDNS
@@ -232,7 +238,7 @@
         appeared correctly in /var/log/daemon.log
         (Help:SEE ALSO): Added entries.
 
-2003-08-05 Tue  Jari Aalto  <jari aalto A T poboxes dt com>
+2003-08-05 Tue  Jari Aalto  <jari.aalto@cante.net>
 
         RELEASED: 2003.0805. The new configuration file
         implementation had numerous errors. This fixes those and
@@ -242,7 +248,7 @@
         yet tested.
         (HELP): FILES section /etc/dyndns documentation added.
 
-2003-08-04 Mon  Jari Aalto  <jari aalto A T poboxes dt com>
+2003-08-04 Mon  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl: (Help) 1.84 Corrected documentation of
         options --Query and --Query-ipfile.
@@ -314,7 +320,7 @@
         (sub Log): 1.95 New.
         (sub LogSyslog): 1.95 New.
 
-2003-08-03 Sun  Jari Aalto  <jari aalto A T poboxes dt com>
+2003-08-03 Sun  Jari Aalto  <jari.aalto@cante.net>
 
         RELEASED: 2003.0803
 
@@ -364,7 +370,7 @@
         (sub ProcessUpdateMain): 1.84 Use local function ProcessIt()
         in order to not use duplicate code.
 
-2003-08-02 Sat  Jari Aalto  <jari aalto A T poboxes dt com>
+2003-08-02 Sat  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl (sub ProcessUpdate): 1.64 Added ID string + [WARN]
         to message 'Hm, update failed...'
@@ -374,7 +380,7 @@
         same IP was updated. This is needed to keep --Daemon mode
         active.
 
-2003-07-31 Thu  Jari Aalto  <jari aalto A T poboxes dt com>
+2003-07-31 Thu  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl: 1.63 (Help): Minor documentation changes.
         (sub HandleCommandLineArgs): 1.63 Added option --file to
@@ -384,14 +390,14 @@
         (sub Main): 1.63 Chnaged logic to honor multiple --Query options.
         Now exit, when OPT_QUIT is raised.
 
-2003-07-29 Tue  Jari Aalto  <jari aalto A T poboxes dt com>
+2003-07-29 Tue  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl (sub Main): 1.60 The FILE now contains portion
         pf the --system option, so that static and dynamic updates
         are saved to different files. That's because they have different
         update times.
 
-2003-07-26 Sat  Jari Aalto  <jari aalto A T poboxes dt com>
+2003-07-26 Sat  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl
         (sub HandleCommandLineArgs): 1.56 --system option missing
@@ -410,7 +416,7 @@
         (sub Main): 1.56 The IP address is now saved to a file ending
         to `.log'.
 
-2003-07-22 Tue  Jari Aalto  <jari aalto A T poboxes dt com>
+2003-07-22 Tue  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl (sub GetIpAddressInfo): 1.54 Changed return value.
         Now returns LIST, instead of string.
@@ -419,14 +425,14 @@
         Jack Repenning <jack@netgate.net>.
         (main): 1.54 Moved logic to ProcessUpdate().
 
-2003-07-21 Mon  Jari Aalto  <jari aalto A T poboxes dt com>
+2003-07-21 Mon  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl (sub Main): 1.53 Added support for multiple network
         cards. Save IP address with ifconfig prefix (ppp0, ppp1;
         $HOME/config/dyndns.pl.conf-ppp0-dyndns) etc. Patch sent by Juha
         Heljoranta <juha.heljoranta@evitech.fi>
 
-2003-05-10 Sat  Jari Aalto  <jari aalto A T poboxes dt com>
+2003-05-10 Sat  Jari Aalto  <jari.aalto@cante.net>
 
         RELEASED: 2003.0510
 
@@ -438,7 +444,7 @@
         Win32/Cygwin (debian tools are included in it). The .deb
         packaging has not been tested at live installation.
 
-2003-04-26 Sat  Jari Aalto  <jari aalto A T poboxes dt com>
+2003-04-26 Sat  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl
         Improved that IP address check in this version.
@@ -457,12 +463,12 @@
         (sub RunUpdateIPWrite): 1.49 New.
         (sub WriteIpAddress): 1.49 Changed `die' to `warn'.
 
-2003-03-01 Sat  Jari Aalto  <jari aalto A T poboxes dt com>
+2003-03-01 Sat  Jari Aalto  <jari.aalto@cante.net>
 
         * admin.bashrc (function sfperldyn_doc ()): 1.5 Added generating
         text docs.
 
-2003-02-28 Fri  root  <jari aalto A T poboxes dt com>
+2003-02-28 Fri  root  <jari.aalto@cante.net>
 
         * admin.bashrc (function sfperldyn_VersionUpdate ()): 1.5 New.
         (function sfperldyn_IsDebian ()): 1.5 New.
@@ -484,7 +490,7 @@
         (Help): 1.47 Options are now --Help-man and --Help-html,
         not --help-man (lowercase)
 
-2003-02-26 Wed  Jari Aalto  <jari aalto A T poboxes dt com>
+2003-02-26 Wed  Jari Aalto  <jari.aalto@cante.net>
 
         * admin.bashrc
         Added GPL to the beginning.
@@ -520,7 +526,7 @@
         --urlping-login
         (HttpUrlMake): 1.44 New.
 
-2003-02-22  Jari Aalto  <jari aalto A T poboxes dt com>
+2003-02-22  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl (HandleCommandLineArgs): Do not require
         Minimum options when running in --test mode.
@@ -539,36 +545,36 @@
         10.* are not valid and should not be allowed to update.
         (Main): Added safeguard agains invalid IP addresses.
 
-2003-01-28 Tue  Jari Aalto  <jari aalto A T poboxes dt com>
+2003-01-28 Tue  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl (sub Initialize): 1.40 status message change:
         'Update good and successful, IP updated"'
         => 'Ok, update succeeded.'.
 
-2003-01-25 Sat  Jari Aalto  <jari aalto A T poboxes dt com>
+2003-01-25 Sat  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl (Help): 1.40 Added topic LINUX CONTROL SCRIPT
 
-2002-10-31  Jari Aalto  <jari aalto A T poboxes dt com>
+2002-10-31  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl (HandleCommandLineArgs):
         Added --proxy options, suggested by
         Goetz Andreas <Andreas.Goetz.external@fujitsu-siemens.com>
 
-2002-10-02 Wed  Jari Aalto  <jari aalto A T poboxes dt com>
+2002-10-02 Wed  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl: 1.25 Changed all no-ip.org references to
         no-ip.com, which is the correct site. Notified by:
         No-IP Support <adam@no-ip.com>
 
-2002-09-30 Mon  Jari Aalto  <jari aalto A T poboxes dt com>
+2002-09-30 Mon  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl (HandleCommandLineArgs): 1.25 Change --Offline-option
         to shorte --Offline.
         (UpdateNoip): 1.25 Support OFFLINE option by setting IP to
         0.0.0.0
 
-2002-09-29 Sun  Jari Aalto  <jari aalto A T poboxes dt com>
+2002-09-29 Sun  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl
         -- NEW FEATURE: It is now possible to find out the IP address
@@ -595,14 +601,14 @@
         * admin.bashrc: (sfperldyndoc) Added ode to delete temporary
         files adter POD generation.
 
-2002-04-28 Sun  Jari Aalto  <jari aalto A T poboxes dt com>
+2002-04-28 Sun  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl: 1.23 (sub TestDriver) Added German Win32 response.
         Featue requested by LongJohn (schlupp) in the Feature Tracker
         (sub GetIpAddressWin32): 1.23 Added German Win32 regexp support.
         Address => Add?resse?
 
-2002-04-25 Thu  Jari Aalto  <jari aalto A T poboxes dt com>
+2002-04-25 Thu  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl (TestDriver): 1.22 <pairan@foni.net>
         reported BSD 4.3 output parsing problem. Added new
@@ -611,7 +617,7 @@
         if REGEXP did not match. Now prints only warning and
         continues trying more regexps.
 
-2002-04-21 Sun  Jari Aalto  <jari aalto A T poboxes dt com>
+2002-04-21 Sun  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl
         Dr. Weidong Wang <wwang@e-smart.com> asked support for
@@ -632,7 +638,7 @@
         (GetIpAddressIfconfig): 1.21 Added selecting Linux
         Ip address by User regexp.
 
-2002-01-20 Sun  Jari Aalto  <jari aalto A T poboxes dt com>
+2002-01-20 Sun  Jari Aalto  <jari.aalto@cante.net>
 
         * admin.bashrc:
         (function sfperldyndoc): 1.1 New. Generate documention.

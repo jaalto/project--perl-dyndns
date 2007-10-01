@@ -68,15 +68,6 @@ use Getopt::Long;
 use autouse 'Pod::Text'     => qw( pod2text );
 use autouse 'Pod::Html'     => qw( pod2html );
 
-# Extra CPAN modules
-use HTTP::Request::Common;
-use HTTP::Headers;
-use LWP::UserAgent;
-use LWP::Simple;
-
-#   See also CPAN module: Tie::Syslog
-use autouse 'Sys::Syslog'   =>  qw( syslog closelog );
-
 IMPORT:                     # This is just syntactic sugar: actually no-op
 {
     #   Import following environment variables
@@ -99,7 +90,7 @@ IMPORT:                     # This is just syntactic sugar: actually no-op
     #   The following variable is updated by Emacs setup whenever
     #   this file is saved.
 
-    $VERSION = '2007.0912.0900';
+    $VERSION = '2007.1001.1314';
 }
 
 # }}}
@@ -308,6 +299,52 @@ sub Initialize ()
         , "numhost"
         , "dnserr"
     );
+}
+
+# ****************************************************************************
+#
+#   DESCRIPTION
+#
+#       Load CPAN modules or notify user
+#
+#   INPUT PARAMETERS
+#
+#       None
+#
+#   RETURN VALUES
+#
+#       None. Dies if cannot load module.
+#
+# ****************************************************************************
+
+sub InitializeModules ()
+{
+    my $id = "$LIB.InitializeModules";
+
+    # Extra CPAN modules
+    my @list = ( 'HTTP::Request::Common'
+                 , 'HTTP::Headers'
+                 , 'LWP::UserAgent'
+                 , 'LWP::Simple'
+                 , 'Sys::Syslog' );
+
+    #   See also CPAN module: Tie::Syslog
+    #use autouse 'Sys::Syslog'   =>  qw( syslog closelog );
+
+    for my $module (@list)
+    {
+        eval "use $module";
+
+        if ($EVAL_ERROR)
+        {
+            warn "$id: can't load CPAN module $module: $EVAL_ERROR\n"
+              . "Please install with command:\n"
+              . "  perl -MCPAN -e shell\n"
+              . "  cpan>install $module\n" ;
+
+            exit 1;
+        }
+    }
 }
 
 # }}}
@@ -6313,6 +6350,7 @@ sub ProcessUpdateMain ( % )
 sub Main ()
 {
     Initialize();
+    InitializeModules();
     HandleCommandLineArgsMain();
     VariableCheckValidity();
 
