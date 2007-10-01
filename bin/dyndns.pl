@@ -90,7 +90,7 @@ IMPORT:                     # This is just syntactic sugar: actually no-op
     #   The following variable is updated by Emacs setup whenever
     #   this file is saved.
 
-    $VERSION = '2007.1001.1419';
+    $VERSION = '2007.1001.1429';
 }
 
 # }}}
@@ -386,11 +386,12 @@ other provider, see option B<--Provider>
 
 =over 4
 
-=item B<--Config=FILE1 [--Config=FILE2 ...]>
+=item B<--Config=FILE [--Config=FILE ...]>
 
-List of configuration files to read. No other command line options than
-B<--debug> or B<--verbose> should not be appended with this or results are
-undefined. Each file must contain complete DDNS account details.
+List of configuration files to read. No other command line options
+other than B<--debug> or B<--verbose> should be appended or results
+are undefined. Each file must contain complete DDNS account
+configuration.
 
 The FILE part wll go through Perl's C<glob()> function, meaning that
 the filenames are expanded if you supply standard shell wild cards.
