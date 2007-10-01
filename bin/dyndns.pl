@@ -90,7 +90,7 @@ IMPORT:                     # This is just syntactic sugar: actually no-op
     #   The following variable is updated by Emacs setup whenever
     #   this file is saved.
 
-    $VERSION = '2007.1001.1314';
+    $VERSION = '2007.1001.1350';
 }
 
 # }}}
@@ -3091,25 +3091,51 @@ sub HttpPingWlanLinksysBEFW11S4 (; $$)
         $pass = "admin";   # Use default
     }
 
+    #  There are two models of BEFW11S4; v2 and v4. The later version
+    #  (Cisco version) changed the page from Status.html to
+    #  RouterStatus.htm. The page content is also different.
+    #
+    #   [v2]
     #   The Response string looks like:
     #   IP Address:</td><td><font face=verdana size=2>81.197.0.2</td>
     #
-    #   There is actually TWO similar lines, the first one is LAN
-    #   and the other is WAN ip address. The ".*" at front forces
-    #   to pick the last.
+    #   [v4]
+    #   Internet IP Address:</FONT></TD><TD><FONT style='FONT-SIZE: 8pt'><B>69.110.12.53</B></FONT></TD><
 
-    my $regexp = '.*IP +Address:.+?font[^>]+>+([\d.]+)';
 
     #  The LOGIN name is ignored by Linksys. But it has to be provided
     #  in the HTTP call. LOGIN:PASS@SITE.
 
     $debug  and  print "$id: regexp [regexp] login [$login] pass [$pass]\n";
 
-    HttpPing   -url    =>"http://192.168.1.1/Status.htm"
-             , -regexp => $regexp
-             , -login  => $login
-             , -pass   => $pass
-             ;
+    my ($ip, $regexp);
+
+    #   v4
+    $regexp = 'IP +Address:.+?<B>\s*([\d.]+)';
+
+    $ip = HttpPing  -url   =>"http://192.168.1.1/RouterStatus.htm"
+                    , -regexp => $regexp
+                    , -login  => $login
+                    , -pass   => $pass
+                    ;
+
+    unless ($ip)
+    {
+        #   v2
+        #   There is actually TWO similar lines, the first one is LAN
+        #   and the other is WAN ip address. The ".*" at front forces
+        #   to pick the last.
+
+        $regexp = '.*IP +Address:.+?font[^>]+>+([\d.]+)';
+
+        $ip = HttpPing  -url   =>"http://192.168.1.1/Status.htm"
+                        , -regexp => $regexp
+                        , -login  => $login
+                        , -pass   => $pass
+                        ;
+    }
+
+    $ip;
 }
 
 # ****************************************************************************
@@ -4463,6 +4489,34 @@ EOF
     $re = "(?i)(?:WAN.+?IP +Address.+?)$ip";
 
     print "$id: REGEXP 2 [$re]\n";
+    StringRegexpMatch $str, $re;
+}
+
+sub TestDriverLinksysBEFW11S4v4 ()
+{
+    # The newer "Cisco model";
+
+    my $id = "TestDriverLinksysBEFW11S4b4";
+
+    # The page from Linksys router looks like this.
+
+    my $str =<<'EOF';
+HTTP/1.1 200 OK
+Connection: close
+Pragma: no-cache
+Content-Type: text/html
+Expires: Thu, 13 Dec 1969 10:29:00 GMT
+Client-Date: Sat, 22 Feb 2003 19:23:34 GMT
+Client-Response-Num: 1
+
+<HTML><HEAD><TITLE>Setup</TITLE><META http-equiv=Content-Language content=en-us><META http-equiv=Content-Type content='text/html; charset=iso-8859-1'><style fprolloverstyle>BODY{FONT: 10pt Arial,Helvetica,sans-serif; COLOR: black}TH {FONT: bold 10pt Arial,Helvetica,sans-serif; COLOR: white;}TABLE {FONT: 10pt Arial,Helvetica,sans-serif; COLOR: black; BORDER: Medium White None; border-collapse: collapse}TD{font-size: 8pt; font-family: Arial, Helvetica, sans-serif}.num{FONT: 8pt Courier,serif;}.bar{background-color:white;}A{text-decoration: none;} A:link{color: #FFFFFF;}       A:visited{color: #FFFFFF;}.small A:link {	COLOR: #b5b5e6}.small A:visited {COLOR: #b5b5e6}A:hover {color: #00FFFF}.small A:hover {color: #00FFFF}</style><meta http-equiv=refresh content=60;url=RouterStatus.htm></HEAD><SCRIPT language=JavaScript>function pppoeAction(F,I){F.hid_dialAction.value = I;F.submit();}function DHCPAct(F,I){F.hid_dhcpAction.value = I;F.submit();}function showAlert(){alert('');}</SCRIPT><BODY ><DIV align=center><TABLE cellSpacing=0 cellPadding=0 width=809 border=0><TBODY><TR><TD width=95><IMG height=57 src='UI_Linksys.gif' width=165 border=0></TD><TD vAlign=bottom align=right width=714 bgColor=#6666cc><FONT style='FONT-SIZE: 7pt' color=#ffffff face=Arial>Firmware Version: 1.50.10&nbsp;&nbsp;</FONT></TD></TR><TR><TD width=808 colSpan=2 bgColor=#6666cc><IMG height=11 src='UI_10.gif' width=809 border=0></TD></TR></TBODY></TABLE><TABLE height=77 cellSpacing=0 cellPadding=0 width=809 bgColor=black border=0><TBODY><TR><TD style='FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal' borderColor=#000000 align=middle height=49 width=163><H3 style='MARGIN-TOP: 1px; MARGIN-BOTTOM: 1px'><FONT style='FONT-SIZE: 15pt' face=Arial color=#ffffff>Status</FONT></H3></TD><TD style='FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal' vAlign=center borderColor=#000000 width=646 bgColor=#000000 height=49><TABLE style='FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; BORDER-COLLAPSE: collapse; FONT-VARIANT: normal' height=33 cellSpacing=0 cellPadding=0 bgColor=#6666cc border=0><TBODY><TR><TD style='font-size:10pt; font-weight:bolder' bgColor=#6666cc height=33 align=right><FONT color='#ffffff'>Wireless-B Broadband Router&nbsp;<TD align=middle borderColor=#000000 borderColorLight=#000000 width=109 bgColor=#000000 borderColorDark=#000000 height=12 rowSpan=2><FONT color=#ffffff><SPAN style='FONT-SIZE: 8pt'><B>BEFW11S4</B></SPAN></FONT></TD></TR><TR><TD style='FONT-WEIGHT: normal; FONT-SIZE: 1pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal' width=537 bgColor=#000000 height=1>&nbsp;</TD></TR><TR><TD width=646 bgColor=#000000 colSpan=2 height=32><TABLE id=AutoNumber1 style='FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; BORDER-COLLAPSE: collapse; FONT-VARIANT: normal' height=6 cellSpacing=0 cellPadding=0 width=637 border=0><TBODY><TR style='BORDER-RIGHT: medium none; BORDER-TOP: medium none; FONT-WEIGHT: normal; FONT-SIZE: 1pt; BORDER-LEFT: medium none; COLOR: black; BORDER-BOTTOM: medium none; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal' bgColor=#6666cc align=middle><TD width=73  height=1><IMG height=10 src=UI_06.gif width=73  border=0></TD><TD width=73  height=1><IMG height=10 src=UI_06.gif width=73  border=0></TD><TD width=73  height=1><IMG height=10 src=UI_06.gif width=73  border=0></TD><TD width=113 height=1><IMG height=10 src=UI_06.gif width=113 border=0></TD><TD width=95  height=1><IMG height=10 src=UI_06.gif width=95  border=0></TD><TD width=73  height=1><IMG height=10 src=UI_07.gif width=73  border=0></TD><TD width=146 height=1><IMG height=10 src=UI_06.gif width=146 border=0></TD></TR><TR><TD bgColor=000000 height=20 align=middle><FONT style='FONT-WEIGHT: 700' color=#ffffff><A style='TEXT-DECORATION: none' href='index.htm'>Setup</a></FONT></TD><TD align=middle bgColor=000000 height=20><FONT style='FONT-WEIGHT: 700' color=#ffffff><A style='TEXT-DECORATION: none' href='WLbasic.htm'>Wireless</A></FONT></TD><TD align=middle bgColor=000000 height=20><FONT style='FONT-WEIGHT: 700' color=#ffffff><A style='TEXT-DECORATION: none' href='Filter.htm'>Security</A></FONT></TD><TD align=middle bgColor=000000 height=20><FONT style='FONT-WEIGHT: 700' color=#ffffff><A style='TEXT-DECORATION: none' href='Forwarding.htm'>Applications &amp; Gaming</A></FONT></TD><TD align=middle bgColor=000000 height=20><FONT style='FONT-WEIGHT: 700' color=#ffffff><A style='TEXT-DECORATION: none' href='Management.htm'>Administration</A></FONT></TD><TD align=middle bgColor=6666cc height=20><FONT style='FONT-WEIGHT: 700' color=#ffffff><A style='TEXT-DECORATION: none'  href='RouterStatus.htm'>Status</A></FONT></TD></TR><TR><TD width=643 bgColor=#6666cc colSpan=7 height=21><TABLE height=21 cellSpacing=0 cellPadding=0 bordercolor=black><TR align=center><TD width=220><FONT style='COLOR: white'>Router</font></TD><TD><P class=bar>&nbsp;</P></TD><TD width=220 class=small><A href='LanStatus.htm'>Local Network</A></TD><td width=220>&nbsp;</td><td width=220>&nbsp;</td></TR></TABLE></TD></TR></TABLE></TD></TR></TABLE></TD></TR></TABLE><TABLE height=5 cellSpacing=0 cellPadding=0 width=806 bgColor=black border=0><TR bgColor=black><TD style='FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal' borderColor=#e7e7e7 width=163 bgColor=#e7e7e7 height=1><IMG height=15 src='UI_03.gif' width=164 border=0></TD><TD style='FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal' width=646 height=1><IMG height=15 src='UI_02.gif' width=645 border=0></TD></TR></TABLE><TABLE id=AutoNumber9 style='BORDER-COLLAPSE: collapse' borderColor=#111111 height=23 cellSpacing=0 cellPadding=0 width=809 border=0><TR><TD width=633><TABLE cellSpacing=0 cellPadding=0 border=0><TR><TD width=156 bgColor=#000000 colSpan=3 height=25><P align=right><B><FONT style='FONT-SIZE: 9pt' face=Arial color=#ffffff>Router Information</FONT></B></P></TD><TD width=8 bgColor=#000000 height=25>&nbsp;</TD><TD width=14 height=25>&nbsp;</TD><TD width=17 height=25>&nbsp;</TD><TD width=13 height=25>&nbsp;</TD><TD width=101 height=25>&nbsp;</TD><TD width=296 height=25>&nbsp;</TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25>&nbsp;</TD><TD width=8 height=25 background='UI_04.gif'>&nbsp;</TD><TD colspan=3 height=25>&nbsp;</TD><TD width=101 height=25><FONT style='FONT-SIZE: 8pt'>Firmware Version:</FONT></TD><TD><FONT style='FONT-SIZE: 8pt'><B>1.50.10, Jan 16 2004</B></FONT></TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25>&nbsp;</TD><TD width=8 height=25 background='UI_04.gif'>&nbsp;</TD><TD colspan=3 height=25>&nbsp;</TD><TD><FONT style='FONT-SIZE: 8pt'>MAC Address:</FONT></TD><TD><FONT style='FONT-SIZE: 8pt'><B>00-0F-66-23-C2-56</B></FONT></TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#000000 colSpan=3 height=25><P align=right><B><FONT style='FONT-SIZE: 9pt' color=#ffffff>Internet</FONT></B></P></TD><TD width=8 bgColor=#000000 height=25>&nbsp;</TD><TD colSpan=6>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25><P align=right><b>Configuration Type</b></TD><TD width=8 height=25 background='UI_04.gif'>&nbsp;</TD><TD colspan=3 height=25>&nbsp;</TD><TD><FONT style='FONT-SIZE: 8pt'>Login Type:</FONT></TD><TD><FONT style='FONT-SIZE: 8pt'><B>PPPOE</B></FONT></TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><form name=F1 method=get action=Gozila.cgi><input type=hidden name='RouterStatus.htm' value=255><input type=hidden name=hid_returnPoint value=''><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25>&nbsp;</TD><TD width=8 height=25><IMG height=35 src='UI_04.gif' width=8 border=0></TD><TD colspan=3 bgColor=#ffffff height=25>&nbsp;</TD><TD width=101 bgColor=#ffffff height=25><FONT style='FONT-SIZE: 8pt'>Login Status:</FONT></TD><TD width=296 bgColor=#ffffff height=25><FONT style='FONT-SIZE: 8pt'><B><input type=hidden name=hid_dialAction value=0>Connected <input type=button value='Disconnect' onClick='pppoeAction(this.form,2)'></B></FONT></TD><TD width=13 bgColor=#ffffff height=25>&nbsp;</TD><TD width=15 bgColor=#ffffff height=25><IMG height=35 src='UI_05.gif' width=15 border=0></TD></TR></form><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25>&nbsp;</TD><TD width=8 height=25 background='UI_04.gif'>&nbsp;</TD><TD colspan=3 height=25>&nbsp;</TD><TD><FONT style='FONT-SIZE: 8pt'>Internet IP Address:</FONT></TD><TD><FONT style='FONT-SIZE: 8pt'><B>69.110.12.53</B></FONT></TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25>&nbsp;</TD><TD width=8 height=25 background='UI_04.gif'>&nbsp;</TD><TD colspan=3 height=25>&nbsp;</TD><TD><FONT style='FONT-SIZE: 8pt'>DNS 1:</FONT></TD><TD><FONT style='FONT-SIZE: 8pt'><B>63.203.35.55</B></FONT></TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25>&nbsp;</TD><TD width=8 height=25 background='UI_04.gif'>&nbsp;</TD><TD colspan=3 height=25>&nbsp;</TD><TD height=25><FONT style='FONT-SIZE: 8pt'>DNS 2:</FONT></TD><TD height=25><FONT style='FONT-SIZE: 8pt'><B>206.13.28.12</B></FONT></TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25>&nbsp;</TD><TD width=8 height=25 background='UI_04.gif'>&nbsp;</TD><TD colspan=3 height=25>&nbsp;</TD><TD height=25><FONT style='FONT-SIZE: 8pt'>DNS 3:</FONT></TD><TD height=25><FONT style='FONT-SIZE: 8pt'><B>0.0.0.0</B></FONT></TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=1>&nbsp;</TD><TD width=8 background='UI_04.gif'>&nbsp;</TD><TD colspan=6 height=1>&nbsp;</TD><TD width=15 height=1 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=1>&nbsp;</TD><TD width=8 background='UI_04.gif'>&nbsp;</TD><TD colSpan=6><HR color=#b5b5e6 SIZE=1></TD><TD width=15 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=1>&nbsp;</TD><TD width=8 background='UI_04.gif'>&nbsp;</TD><TD colspan=6 height=1>&nbsp;</TD><TD width=15 height=1 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25>&nbsp;</TD><TD width=8 height=25 background='UI_04.gif'>&nbsp;</TD><TD colspan=3 height=25>&nbsp;</TD><TD colSpan=2 height=25> </TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR></form><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=1>&nbsp;</TD><TD width=8 background='UI_04.gif'>&nbsp;</TD><TD colspan=6 height=1>&nbsp;</TD><TD width=15 height=1 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=1>&nbsp;</TD><TD width=8 background='UI_04.gif'>&nbsp;</TD><TD colspan=6 height=1>&nbsp;</TD><TD width=15 height=1 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 colspan=3 bgColor=#e7e7e7 height=5>&nbsp;</TD><TD width=8 height=5 background='UI_04.gif'>&nbsp;</TD><TD colspan=6>&nbsp;</TD><TD width=15 height=5 background='UI_05.gif'>&nbsp;</TD></TR></TABLE></TD><TD vAlign=top width=176 bgColor=#6666cc><TABLE cellSpacing=0 cellPadding=0 width=176 border=0><TR><TD width=11 bgColor=#6666cc height=25>&nbsp;</TD><TD width=156 bgColor=#6666cc height=25><FONT color=white size=3><b>Router Status</b></font><p><FONT color=white>This screen provides the Router's current status information in a read-only format.<p><b>Login Type</b><br>This field shows the Internet login status. When you choose PPPoE, RAS, PPTP, or HBS as the login method, you can click the <b>Connect</b> button to log in. If you click the <b>Disconnect</b> button, the Router will not dial up again until you click the <b>Connect</b> button.<p>If your connection is DHCP or Static IP, the Status screen will show you the Internet IP Address, Subnet mask,<p><a target="_blank" href="HRouterStatus.htm"><b><u>More...</u></b></TD><TD width=9 bgColor=#6666cc height=25>&nbsp;</TD></TR></TABLE></TD></TR><TR><TD width=809 colSpan=2><TABLE cellSpacing=0 cellPadding=0 border=0><TR><TD width=156 bgColor=#e7e7e7 height=30>&nbsp;</TD><TD width=8 background='UI_04.gif'>&nbsp;</TD><TD width=131>&nbsp;</TD><TD width=323>&nbsp;</TD><TD width=15 background='UI_05.gif'>&nbsp;</TD><TD width=176 bgColor=#6666cc rowSpan=2><IMG height=64 src='UI_Cisco.gif' width=176 border=0></TD></TR><TR><TD width=156 bgColor=#000000>&nbsp;</TD><TD width=8 bgColor=#000000>&nbsp;</TD><TD width=131 bgColor=#6666cc>&nbsp;</TD><TD width=323 bgColor=#6666cc><DIV align=center><TABLE height=19 cellSpacing=0 cellPadding=0 width=117 align=right border=0><TR><TD align=middle width=101 bgColor=#434a8f><!--<INPUT onclick=window.location.replace('RouterStatus.htm') type=button value=Refresh>--><FONT style='FONT-WEIGHT: 700; FONT-SIZE: 8pt' face=Arial color=#ffffff><A href='RouterStatus.htm'>Refresh</A></TD><TD width=8 bgColor=#6666cc>&nbsp;</TD></TR></TABLE></DIV></TD><TD width=15 bgColor=#000000 height=33>&nbsp;</TD></TR></TABLE></TD></TR></TABLE></DIV></BODY></HTML>
+EOF
+
+    $debug = 1;
+
+    my $re = 'IP +Address:.+?<B>\s*([\d.]+)';  # default test
+
+    print "$id: REGEXP 1 [$re]\n";
     StringRegexpMatch $str, $re;
 }
 
@@ -6406,6 +6460,7 @@ sub Main ()
 # }}}
 
 # TestDriverLinksysBEFW11S4; die;
+# TestDriverLinksysBEFW11S4v4; die;
 # TestDriverLinksysWRT54GL; die;
 # TestDriverSyslog; die;
 # TestDriverHNorg(); die;
