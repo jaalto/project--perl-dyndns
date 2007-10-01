@@ -90,7 +90,7 @@ IMPORT:                     # This is just syntactic sugar: actually no-op
     #   The following variable is updated by Emacs setup whenever
     #   this file is saved.
 
-    $VERSION = '2007.1001.1429';
+    $VERSION = '2007.1001.1430';
 }
 
 # }}}
@@ -394,9 +394,9 @@ are undefined. Each file must contain complete DDNS account
 configuration.
 
 The FILE part wll go through Perl's C<glob()> function, meaning that
-the filenames are expanded if you supply standard shell wild cards.
+the filenames are expanded if standard shell wild card is supplied.
 Series of configuration files can be run at once e.g. within directory
-C</etc/dyndns/> with a single option. The order of the files processed
+C</etc/dyndns/> by using a single option. The order of the files processed
 is alphabetical:
 
     --Config='/etc/dyndns/*'
