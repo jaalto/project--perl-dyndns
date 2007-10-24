@@ -1,6 +1,7 @@
-2007-10-01  Jari Aalto  <Administrator@W2KPICASSO>
+2007-10-24  Jari Aalto  <jari.aalto@cante.net>
 
-	* dyndns.pl (UpdateDynDns):
+	* dyndns.pl (StatusCodeHandle): Fixed few debugging
+	messages.
 
 2007-10-01  Jari Aalto  <jari.aalto@cante.net>
 

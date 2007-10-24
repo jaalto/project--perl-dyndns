@@ -4107,7 +4107,7 @@ sub GetIpAddressInfo (%)
 #
 # ****************************************************************************
 
-sub StatusCodeHandle ( $ $ $)
+sub StatusCodeHandle ($ $ $)
 {
     my $id = "$LIB.StatusCodeHandle";
     my ($code, $desc, $type)   = @ARG;
@@ -4130,7 +4130,7 @@ sub StatusCodeHandle ( $ $ $)
         #  This is list of regexps, not numbers
         my @list = @STATUS_CODE_DYNDNS_TRY_AGAIN;
 
-        $debug  and  print "$id: BOUNCE LIST dyndns [@list}\n";
+        $debug  and  print "$id: BOUNCE LIST dyndns [@list]\n";
 
         $status = $code   if  grep /$code/, @list;
     }
@@ -4139,7 +4139,7 @@ sub StatusCodeHandle ( $ $ $)
         #  This is list of regexps, not numbers
         my @list = @STATUS_CODE_HN_TRY_AGAIN;
 
-        $debug  and  print "$id: BOUNCE LIST hnorg [@list}\n";
+        $debug  and  print "$id: BOUNCE LIST hnorg [@list]\n";
 
         $status = $code   if  grep /$code/, @list;
     }
