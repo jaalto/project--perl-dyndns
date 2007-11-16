@@ -90,7 +90,7 @@ IMPORT:                     # This is just syntactic sugar: actually no-op
     #   The following variable is updated by Emacs setup whenever
     #   this file is saved.
 
-    $VERSION = '2007.1001.1508';
+    $VERSION = '2007.1116.1302';
 }
 
 # }}}
@@ -494,7 +494,7 @@ For each new ip address check, program waits for WAIT-MINUTES.
 Messages in this mode are reported using syslog(3).
 
 This option is designed to be used in systems that do not provide Unix-like
-cron capabilities (e.g under Win32 OS). It is better to use cron(8) and
+cron capabilities (e.g under Windows OS). It is better to use cron(8) and
 define an entry using crontab(5) notation to run the update in periodic
 intervals. This will use less memory when Perl is not permanently kept in
 memory like it would with option B<--Daemon>.
@@ -513,14 +513,15 @@ wake up times(*). The value can be expressed in formats:
     1h      (h)ours
     1d      (d)days
 
-This options is primarily for cable and DSL users. If you have a dial-up
-connection, it is better to arrange the IP update at the same time when the
-connection happens. In Linux this would happen during C<ifup(1)>.
+This options is primarily for cable and DSL users. If you have a
+dial-up connection, it is better to arrange the IP update at the same
+time as when the connection is started. In Linux this would happen
+during C<ifup(1)>.
 
 (*) Perl language is CPU intensive so any faster check would put
 considerable strain on system resources. Normally a value of 30 or 60
 minutes will work fine in most of the ADSL lines. Monitor the ISP's IP
-rotation time to adjust the time in to use correct (long) wake up
+rotation time to adjust the time in to use sufficiently long wake up
 times.
 
 =item B<--ethernet [CARD]>
@@ -930,7 +931,7 @@ Without the information about previous IP address, program sends a new
 update request to the provider.
 
 For windows operating systems, you need to install Perl. There are two
-Perl incarnatons: Native Win32 version (Activestate Perl) and Cygwin
+Perl incarnatons: Native Windows version (Activestate Perl) and Cygwin
 version. It is recommended that you install Cygwin suite, which
 includes Perl from C<http://www.cygwin.com/>. The Cygwin is a Unix
 layer running on top of windws and makes it possible to use cron jobs
@@ -1018,7 +1019,7 @@ respectively. All host name values below are fictional.
     mxhost   = mxhost.dyndns.org
 
     #   Details how to get the world known IP address, in case the standard
-    #   Linux 'ifconfig' or Win32 'ipconfig' programs cannot be used. This
+    #   Linux 'ifconfig' or Windows 'ipconfig' programs cannot be used. This
     #   interests mainly Cable, DSL and router owners. NOTE: You may
     #   not use all these options. E.g. [urlping-linksys4] is alternate
     #   to [urlping] etc. See documentation.
@@ -1128,7 +1129,7 @@ C</etc/dyndns/examples>. It is recommended that the examples are modified
 and copied one directorory up in order to use option B<--Config
 /etc/dyndns/*>.
 
-If program is run with Win32 Activestate Perl, the log file is stored to
+If program is run with Windows Activestate Perl, the log file is stored to
 file C<C:/syslog.txt>.
 
 =head1 SEE ALSO
@@ -1522,7 +1523,6 @@ sub HandleCommandLineArgsMain ()
     $OPT_QUERY_IP_SAVED   = 1 if defined $OPT_QUERY_IP_SAVED;
     $OPT_QUERY            = 1 if defined $OPT_QUERY;
 
-
    if ( ($OPT_QUERY_IP_FILE || $OPT_QUERY_IP_SAVED)
          and
 	 not defined @OPT_HOST
@@ -1578,7 +1578,7 @@ sub HandleCommandLineArgsMain ()
 #
 #   DESCRIPTION
 #
-#       Write tog to syslog.
+#       Write to syslog.
 #
 #   INPUT PARAMETERS
 #
@@ -2908,7 +2908,6 @@ sub IsFileOlderThanDays ($$)
 #   INPUT PARAMETERS
 #
 #       $file       File to check
-#       $days       Floating point number
 #
 #   RETURN VALUES
 #
@@ -6069,33 +6068,33 @@ sub ProcessUpdateOne ( % )
                 #   Succeeded ok, so record this ip
                 $update = RunUpdateIPWrite $file, $ip;
             }
-
         }
     }
 
     if ( not $new   and  not $oldFile )
     {
-
-        #   - If same ip is updated faster than every 3 days, warn user.
+        #   - If same ip is updated too fast, warn user.
         #   - In 2002 the expiration of an account took 35 days at
         #     www.dyndns.org.
 
-        my $msg = "$id: [WARN] It is not allowed to update same IP "
-            . "address twice [$ip]. "
-            . "Trying to do so in a short period of time (< 15 min) "
-            . "would possible cause the provider to block the domain "
-            . "for further attemps. "
-            . "In case you know what your're doing and want to force update, "
-            . "delete file $file and run program again\n"
-            ;
-
-        if ( $OPT_DAEMON )
+        if ($days < 1)
         {
-            #todo: Hm.
-        }
-        else
-        {
-            Log $msg;
+            my $msg = "$id: [WARN] It is not allowed to update same IP "
+                . "address twice [$ip]. "
+                . "Trying to do so in a short period of time (< 15 min) "
+                . "might possibly cause the provider to block the domain "
+                . "for further attemps. "
+                . "In case you know what your're doing and want to force update, "
+                . "delete file $file and run program again\n"
+                ;
+            if ( $OPT_DAEMON )
+            {
+                #todo: Hm.
+            }
+            else
+            {
+                Log $msg;
+            }
         }
     }
 
@@ -6244,8 +6243,7 @@ sub ProcessQueryRequests (%)
         InfoFile();         # We need to know if file is OLD
         my ($oldFile, $days) = IsFileOld $file;
 
-        if (       ( $ip eq $lastIP
-                     or $lastIP =~ /^[a-z]/ )     # 'nochange'
+        if ( ( $ip eq $lastIP  or  $lastIP =~ /^[a-z]/ )     # 'nochange'
               and  not $oldFile
            )
         {
