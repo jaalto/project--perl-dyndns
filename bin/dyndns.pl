@@ -90,7 +90,7 @@ IMPORT:                     # This is just syntactic sugar: actually no-op
     #   The following variable is updated by Emacs setup whenever
     #   this file is saved.
 
-    $VERSION = '2007.1116.1302';
+    $VERSION = '2008.0322.0649';
 }
 
 # }}}
@@ -1749,6 +1749,8 @@ sub LogSyslog ($)
 sub Log ($;$)
 {
     my ($msg, $line) = @ARG;
+
+    $msg =~ /\n$/  or  $msg .= "\n";
 
     if ( $line )
     {

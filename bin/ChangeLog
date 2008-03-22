@@ -1,3 +1,7 @@
+2008-03-22  Jari Aalto  <jari.aalto@cante.net>
+
+	* dyndns.pl (Log): Add nreline to the end if not in MSG.
+
 2007-11-16  Jari Aalto  <jari.aalto@cante.net>
 
 	* dyndns.pl (ProcessUpdateOne): Display message only if the
