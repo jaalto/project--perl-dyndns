@@ -2370,7 +2370,7 @@ sub ConfigFileRead ($)
     {
         if ( defined ${$name} )
         {
-            no strict;
+            no strict 'refs';
             $globalHash{ $name } = ${$name};
             $debug > 1  and  printf "$id: GLOBAL $name = %s\n", ${$name};
         }

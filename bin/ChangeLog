@@ -1,3 +1,8 @@
+2008-08-12  Jari Aalto  <jari.aalto@cante.net>
+
+	* dyndns.pl (ConfigFileRead): Change 'no strict' to more detailed
+	no strict 'refs'.
+
 2008-03-22  Jari Aalto  <jari.aalto@cante.net>
 
 	* dyndns.pl (Log): Add nreline to the end if not in MSG.
