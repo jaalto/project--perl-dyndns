@@ -1,11 +1,11 @@
 bin/ChangeLog
 bin/dyndns.pl
-doc/html/dyndns.html
-doc/man/dyndns.1
-doc/txt/COPYING.GNU-FDL
-doc/txt/COPYING.GNU-GPL
-doc/txt/dyndns.txt
-doc/txt/LICENSE.txt
+bin/dyndns.1
+doc/manual/index.html
+doc/manual/index.txt
+doc/license/COPYING.GNU-FDL
+doc/license/COPYING.GNU-GPL
+doc/license/LICENSE.txt
 etc/template/dyndns-dynamic.conf
 etc/template/dyndns-static.conf
 etc/template/noip-dynamic.conf

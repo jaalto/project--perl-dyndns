@@ -30,3 +30,8 @@
 # Temp files and dirs
 /tmp\b
 \.tmp$
+
+# Generated files
+\.1$
+
+# End of file

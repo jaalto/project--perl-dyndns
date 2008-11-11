@@ -76,8 +76,7 @@ IMPORT:                     # This is just syntactic sugar: actually no-op
     use vars qw
     (
         $PATH
-        $TEMP
-        $TEMPDIR
+        $TMPDIR
         $SYSTEMROOT
         $WINDIR
     );
@@ -90,7 +89,7 @@ IMPORT:                     # This is just syntactic sugar: actually no-op
     #   The following variable is updated by Emacs setup whenever
     #   this file is saved.
 
-    $VERSION = '2008.1111.0943';
+    $VERSION = '2008.1111.1110';
 }
 
 # }}}
@@ -1110,7 +1109,13 @@ documentation what additional options you need to supply with them.
 
 =head1 ENVIRONMENT
 
-None.
+=over 4
+
+=item B<TMPDIR>
+
+Directory of temporary files. Defaults to system temporary dir.
+
+=back
 
 =head1 FILES
 
@@ -2086,7 +2091,7 @@ sub TempDir ()
 
     my $ret;
 
-    for my $try ( $TEMP, $TEMPDIR, qw(/tmp c:/temp c:/) )
+    for my $try ( $TMPDIR, qw(/tmp c:/temp c:/) )
     {
         if ( $try  and  -d $try )
         {
@@ -2097,7 +2102,7 @@ sub TempDir ()
 
     if ( not $ret  or  not -d $ret )
     {
-        die "$id: [FATAL] CAnnot find temporary directory. Fail a bug.";
+        die "$id: [FATAL] Cannot set temporary directory. Set TMPDIR.";
     }
 
     $debug  and  print "$id: $ret";

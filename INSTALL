@@ -22,8 +22,8 @@ System wide install
         Run makefile with appropriate parameters. The program is
         installed without any file extension.
 
-            make help
-            make DESTDIR= prefix=/usr/local install
+            perl Makefile.PL
+            make DESTDIR= PREFIX=/usr/local ETCDIR=/etc/perl-dyndns install
 
 Manual install
 
