@@ -1,5 +1,7 @@
 2008-11-11  Jari Aalto  <jari.aalto@cante.net>
 
+	RELEASE: 2008.1111
+
 	* dyndns.pl (VariableCheckMinimum): Add local 'no strict' to
 	fix variable use error with Perl 5.10.0.
 	(HELP::ENVIRONMENT): Document TMPDIR.
