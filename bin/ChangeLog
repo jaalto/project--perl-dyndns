@@ -4,6 +4,10 @@
 	fix variable use error with Perl 5.10.0.
 	(HELP::ENVIRONMENT): Document TMPDIR.
 	(TempDir): Use TMPDIR. Remove TEMP.
+	(LogSyslog): Check if syslog is available. If not, use stderr.
+	(top level): add @REQUIRE_FATAL, @REQUIRE_OPTIONAL, @FEATURE_LIST_MODULES.
+	(InitializeModules): Check @REQUIRE_FATAL, @REQUIRE_OPTIONAL and set
+	@FEATURE_LIST_MODULES.
 
 2008-08-12  Jari Aalto  <jari.aalto@cante.net>
 

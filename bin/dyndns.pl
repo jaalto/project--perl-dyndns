@@ -68,6 +68,25 @@ use Getopt::Long;
 use autouse 'Pod::Text'     => qw( pod2text );
 use autouse 'Pod::Html'     => qw( pod2html );
 
+#   use autouse 'Sys::Syslog' =>  qw( syslog closelog );
+#   See also CPAN module: Tie::Syslog
+
+my @REQUIRE_FATAL =   # Without these the program won't work
+(
+    'HTTP::Request::Common'
+    , 'HTTP::Headers'
+    , 'LWP::UserAgent'
+    , 'LWP::Simple'
+);
+
+my @REQUIRE_OPTIONAL =
+(
+     'Sys::Syslog'
+);
+
+#  Will be set at runtime
+my @FEATURE_LIST_MODULES;
+
 IMPORT:                     # This is just syntactic sugar: actually no-op
 {
     #   Import following environment variables
@@ -89,7 +108,7 @@ IMPORT:                     # This is just syntactic sugar: actually no-op
     #   The following variable is updated by Emacs setup whenever
     #   this file is saved.
 
-    $VERSION = '2008.1111.1110';
+    $VERSION = '2008.1111.1231';
 }
 
 # }}}
@@ -320,23 +339,28 @@ sub InitializeModules ()
 {
     my $id = "$LIB.InitializeModules";
 
-    # Extra CPAN modules
-    my @list = ( 'HTTP::Request::Common'
-                 , 'HTTP::Headers'
-                 , 'LWP::UserAgent'
-                 , 'LWP::Simple'
-                 , 'Sys::Syslog' );
-
-    #   See also CPAN module: Tie::Syslog
-    #use autouse 'Sys::Syslog'   =>  qw( syslog closelog );
-
-    for my $module (@list)
+    for my $module (@REQUIRE_OPTIONAL )
     {
         eval "use $module";
 
         if ($EVAL_ERROR)
         {
-            warn "$id: can't load CPAN module $module: $EVAL_ERROR\n"
+            warn "$id: [WARN] can't load CPAN module $module: $EVAL_ERROR\n"
+              . "Please install with command:\n"
+              . "  perl -MCPAN -e shell\n"
+              . "  cpan>install $module\n" ;
+        }
+
+	push @FEATURE_LIST_MODULES, $module;
+    }
+
+    for my $module (@REQUIRE_FATAL )
+    {
+        eval "use $module";
+
+        if ($EVAL_ERROR)
+        {
+            warn "$id: [FATAL] can't load CPAN module $module: $EVAL_ERROR\n"
               . "Please install with command:\n"
               . "  perl -MCPAN -e shell\n"
               . "  cpan>install $module\n" ;
@@ -1637,6 +1661,7 @@ sub RunCommand ($ @)
     $status;
 }
 
+
 # ****************************************************************************
 #
 #   DESCRIPTION
@@ -1663,6 +1688,7 @@ sub LogSyslog ($)
     #  syslog() calls dies unless there is message.
     return   unless $msg;
 
+    my $date     = DateISO();
     my $prefix   = "$LIB\[$PID]";
     my $facility = 'daemon';
     my $priority = 'warning';
@@ -1674,6 +1700,8 @@ sub LogSyslog ($)
     #   priority levels.
 
     # $msg =~ s,\[(WARN|ERROR|PANIC)\]\s*,,;
+
+    my $syslog = grep /syslog/i, @FEATURE_LIST_MODULES;
 
     if ( $CYGWIN )
     {
@@ -1689,22 +1717,19 @@ sub LogSyslog ($)
     {
         #   Native Windows perl (Activestate)
 
-        my $dir     = $WIN32_SYSLOG_DIR;
-        my $path    = $WIN32_SYSLOG_PATH;
-
-        $dir =~ s,/$,,;
-        $dir =~ s,\\,/,g;
-
-        my $err = "Directory does not exist: $dir" unless -d $dir;
+        my $dir  = $WIN32_SYSLOG_DIR;
+        my $path = $WIN32_SYSLOG_PATH;
+        $dir     =~ s,/$,,;
+        $dir     =~ s,\\,/,g;
+        my $err  = "Directory does not exist: $dir" unless -d $dir;
 
         if ( -d $dir )
         {
-            my $date = DateISO();
             chomp $msg;
             FileWrite( $path, -append, "$date $prefix $pString $msg\n");
         }
     }
-    else
+    elsif ( $syslog )
     {
         my $err;
 
@@ -1730,6 +1755,11 @@ sub LogSyslog ($)
         }
 
         $debug  and  print "$id: used Perl module. Status [$err]\n";
+    }
+    else  # no syslog
+    {
+	$msg .= "\n" unless m,\n\Z,;
+	print STDERR "$date $prefix $pString $msg";
     }
 }
 
