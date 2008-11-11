@@ -40,11 +40,14 @@
 .pl.txt:
 	pod2man $< > doc/manual/index.txt
 
+doc/index.txt: doc/index.html
+	lynx -dump $? > $@
+
 # Rule: man: generate manual page
 man: bin/dyndns.1
 
 # Rule: doc: generate documentation
-doc: bin/dyndns.html bin/dyndns.txt
+doc: bin/dyndns.html bin/dyndns.txt doc/index.txt
 
 # Rule: manifest-make: Make list of files in this project into file MANIFEST
 # Rule: manifest-make: files matching regexps in MANIFEST.SKIP are skipped.
@@ -56,5 +59,21 @@ manifest-make:
 manifest-check:
 	LC_ALL=C $(PERL) -MExtUtils::Manifest=manicheck -e \
 	     "exit 1 if manicheck()";
+
+# Rule: www: copy web pages to ../../<project>-www
+www:
+	echo $$(pwd); asdasdasd
+	name=$$(basename $$(cd .. && pwd)); \
+	to=../../$$name-www; \
+	echo "Copying to $$to"; \
+	find . -type f -name "*.html" | \
+	rsync $${test:+"--dry-run"} \
+	  --files-from=- \
+	  --update \
+	  --progress \
+	  --verbose \
+	  -r \
+	  . \
+	  $$to/
 
 # End of file
