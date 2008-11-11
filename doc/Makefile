@@ -1,4 +1,3 @@
-# make-admin.mk -- Makefile portion
 #
 #   Copyright information
 #
@@ -31,38 +30,28 @@
 #   $(*D) = macro; Give only directory part
 #   $(*F) = macro; Give only file part
 
-.pl.1:
-	perl $< --Help-man > $@
+PL = ../bin/dyndns.pl
 
-.pl.html:
-	perl $< --Help-html > doc/manual/index.html
+../bin/dyndns.1: $(PL)
+	perl $? --Help-man > $@
 
-.pl.txt:
-	pod2man $< > doc/manual/index.txt
+manual/index.html: $(PL)
+	perl $? --Help-html > $@
 
-doc/index.txt: doc/index.html
+manual/index.txt: $(PL)
+	pod2man $? > $@
+
+index.txt: index.html
 	lynx -dump $? > $@
 
 # Rule: man: generate manual page
-man: bin/dyndns.1
+man: ../bin/dyndns.1
 
 # Rule: doc: generate documentation
-doc: bin/dyndns.html bin/dyndns.txt doc/index.txt
-
-# Rule: manifest-make: Make list of files in this project into file MANIFEST
-# Rule: manifest-make: files matching regexps in MANIFEST.SKIP are skipped.
-manifest-make:
-	rm -f MANIFEST
-	LC_ALL=C $(PERL) -MExtUtils::Manifest=mkmanifest -e "mkmanifest()"
-
-# Rule: manifest-check: checks if MANIFEST files really do exist.
-manifest-check:
-	LC_ALL=C $(PERL) -MExtUtils::Manifest=manicheck -e \
-	     "exit 1 if manicheck()";
+doc: index.txt manual/index.html manual/index.txt
 
 # Rule: www: copy web pages to ../../<project>-www
-www:
-	echo $$(pwd); asdasdasd
+www: doc
 	name=$$(basename $$(cd .. && pwd)); \
 	to=../../$$name-www; \
 	echo "Copying to $$to"; \

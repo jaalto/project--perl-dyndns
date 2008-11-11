@@ -30,6 +30,17 @@ ETC_DIR_TEMPLATE = etc/template
 OBJS_ETC	 = `(cd $(ETC_DIR_TEMPLATE); ls *.conf)`
 OBJS_DOC	 = README
 
+# Rule: manifest-make: Make list of files in this project into file MANIFEST
+# Rule: manifest-make: files matching regexps in MANIFEST.SKIP are skipped.
+manifest-make:
+	rm -f MANIFEST
+	LC_ALL=C $(PERL) -MExtUtils::Manifest=mkmanifest -e "mkmanifest()"
+
+# Rule: manifest-check: checks if MANIFEST files really do exist.
+manifest-check:
+	LC_ALL=C $(PERL) -MExtUtils::Manifest=manicheck -e \
+	     "exit 1 if manicheck()";
+
 install-etc:
 	$(INSTALL_DIR) -d $(ETCDIR)
 	@for file in $(OBJS_ETC);					\

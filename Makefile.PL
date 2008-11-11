@@ -61,10 +61,19 @@ sub installbin
 
 sub postamble
 {
-    return "
--include etc/makefile/install.mk
--include etc/makefile/admin.mk
-";
+    return '
+-include install.mk
+
+doc-doc:
+	$(MAKE) -C doc
+
+doc:: doc-doc
+
+# Maintainer rule
+www::
+	$(MAKE) -C doc www
+
+';
 }
 
 # End of file
