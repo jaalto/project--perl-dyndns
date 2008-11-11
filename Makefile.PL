@@ -69,6 +69,11 @@ doc-doc:
 
 doc:: doc-doc
 
+clean-pod-cruft:
+	rm -f *.tmp doc/*.tmp
+
+clean:: clean-pod-cruft
+
 # Maintainer rule
 www::
 	$(MAKE) -C doc www
