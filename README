@@ -6,15 +6,13 @@ cross-platform solution for DHCP ISP-connected users to obtain
 permanent DNS, MX, and Web hosting service from a DDNS provider (e.g.
 dyndns.org). Works anywhere where Perl is installed.
 
-    bin/	    The program and project administration utilities
+    bin/	    The program
     doc/            Documentation in various formats
-    etc/debian      System files for Debian setup
-    etc/makefile    Administrative files; install and project management
     etc/template    Example files for permanent DDNS configurations
 
 Important files
 
-    doc/txt/LICENSE.txt 	Licensing information
+    doc/license/LICENSE.txt 	Licensing information
     bin/ChangeLog		Project change records
 
 Project contacts
