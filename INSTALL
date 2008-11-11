@@ -25,6 +25,11 @@ System wide install
             perl Makefile.PL
             make DESTDIR= PREFIX=/usr/local ETCDIR=/etc/perl-dyndns install
 
+	To test the installation (to see how files are installed):
+
+	    make install-test
+	    find -type f tmp
+
 Manual install
 
         1. Copy bin/*.pl somewhere along $PATH
