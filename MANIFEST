@@ -6,15 +6,11 @@ doc/txt/COPYING.GNU-FDL
 doc/txt/COPYING.GNU-GPL
 doc/txt/dyndns.txt
 doc/txt/LICENSE.txt
-etc/makefile/cygwin.mk
-etc/makefile/id.mk
-etc/makefile/unix.mk
-etc/makefile/vars.mk
 etc/template/dyndns-dynamic.conf
 etc/template/dyndns-static.conf
 etc/template/noip-dynamic.conf
 INSTALL
-Makefile
-MANIFEST			This list of files
+Makefile.PL
+MANIFEST
 MANIFEST.SKIP
 README
