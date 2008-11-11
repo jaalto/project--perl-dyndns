@@ -2360,21 +2360,24 @@ sub ConfigFileRead ($)
 
     #    Perl does not know $HOME or tilde(~) filenames without a glob.
 
-    my $expanded;
     my %globalHash;
 
     #   Preserve global values if they are not overriden in configuration
     #   files
 
-    for my $name ( @CONFIG_COMMAND_LINE_TABLE )
     {
-        if ( defined ${$name} )
-        {
-            no strict 'refs';
-            $globalHash{ $name } = ${$name};
-            $debug > 1  and  printf "$id: GLOBAL $name = %s\n", ${$name};
-        }
+	no strict;
+	for my $name ( @CONFIG_COMMAND_LINE_TABLE )
+	{
+	    if ( defined ${$name} )
+	    {
+		$globalHash{ $name } = ${$name};
+		$debug > 1  and  printf "$id: GLOBAL $name = %s\n", ${$name};
+	    }
+	}
     }
+
+    my $expanded;
 
     unless ( -f $file )
     {

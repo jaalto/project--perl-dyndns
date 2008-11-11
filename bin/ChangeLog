@@ -1,3 +1,8 @@
+2008-11-11  Jari Aalto  <jari.aalto@cante.net>
+
+	* dyndns.pl (VariableCheckMinimum): Add local 'no strict' to
+	fix variable use error with Perl 5.10.0.
+
 2008-08-12  Jari Aalto  <jari.aalto@cante.net>
 
 	* dyndns.pl (ConfigFileRead): Change 'no strict' to more detailed
