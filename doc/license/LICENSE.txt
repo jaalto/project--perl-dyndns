@@ -24,9 +24,9 @@ Licensing information
 
         - -
 
-        Exception: The POD section of file dyndns.pl is is DUAL
-        LICENCED and may be distributed under the terms of GNU General
-        Public License (GNU GPL) --see above--; *or*, at your option,
+        Exception: The files under directory doc/ are DUAL LICENCED
+        and may be distributed under the terms of GNU General Public
+        License (GNU GPL) --see above--; *or*, at your option,
         distributed under the terms of GNU Free Documentation License
         (GNU FDL).
 
