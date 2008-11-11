@@ -28,9 +28,9 @@ ns.org
                                 Platform Support
 
    Supported OS platforms: Win32 native (Windows 9x/NT/2000/XP/*), Win32
-   Cygwin (Unix like), Linux (Redhat, Debian). Other distributions not
-   tested. Should work with any FHS compliant Linux distributions as well
-   as BSD provided that command ifconfig(1) is available.
+   [7]Cygwin (Unix like), Linux (Redhat, Debian). Other distributions not
+   tested. Should work with any [8]FHS compliant Linux distributions as
+   well as BSD provided that command ifconfig(1) is available.
 
                                     Contact
 
@@ -38,11 +38,11 @@ ns.org
    how to contact maintainer and submit feature requests and bug reports.
      __________________________________________________________________
 
-   [7]GNU GPL All files in this project are licensed under [8]GNU GPL.
-   [9]Savannah Logo This project, as well as many other projects is hosted
-   by [10]Savannah.
+   [9]GNU GPL All files in this project are licensed under [10]GNU GPL.
+   [11]Savannah Logo This project, as well as many other projects is
+   hosted by [12]Savannah.
 
-   [11]Savannah Logo [12]W3C CSS logo [13]W3 validated.
+   [13]Savannah Logo [14]W3C CSS logo [15]W3 validated.
 
 References
 
@@ -52,10 +52,12 @@ References
    4. http://git.savannah.gnu.org/gitweb/?p=perl-dyndns.git;a=blob;f=bin/ChangeLog;hb=HEAD
    5. http://www.dydns.org/
    6. http://www.no-ip.com/
-   7. http://www.gnu.org/licenses
-   8. http://www.gnu.org/licenses/
-   9. http://www.sanannah.org/
-  10. http://www.savannah.org/
-  11. http://validator.w3.org/check?uri=referer
-  12. http://jigsaw.w3.org/css-validator/validator?uri=referer
-  13. http://www.w3.org/
+   7. http://www.cygwin.com/
+   8. http://www.pathname.com/fhs
+   9. http://www.gnu.org/licenses
+  10. http://www.gnu.org/licenses/
+  11. http://www.sanannah.org/
+  12. http://www.savannah.org/
+  13. http://validator.w3.org/check?uri=referer
+  14. http://jigsaw.w3.org/css-validator/validator?uri=referer
+  15. http://www.w3.org/
