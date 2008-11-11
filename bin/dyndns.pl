@@ -90,7 +90,7 @@ IMPORT:                     # This is just syntactic sugar: actually no-op
     #   The following variable is updated by Emacs setup whenever
     #   this file is saved.
 
-    $VERSION = '2008.0322.0649';
+    $VERSION = '2008.1111.0943';
 }
 
 # }}}
@@ -701,7 +701,7 @@ so you should not add them to the regexp.
 
 In FreeBSD 4.5, you may get following response:
 
-    tun0: flags€51<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1492
+    tun0: flags <UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1492
         inet6 fe80::250:4ff:feef:7998%tun0 prefixlen 64 scopeid 0x7
         inet 62.214.33.49 --> 255.255.255.255 netmask 0xffffffff
         inet 62.214.32.12 --> 255.255.255.255 netmask 0xffffffff
@@ -721,7 +721,7 @@ therefore 62.214.33.163. The regexp that finds that line is:
 This will match all the way until the the last line with netmask
 0xffffffff, after which shortest match C<.*?> to C<inet> is reached to read
 the number following it. The regexp must make sure that the next word
-after it's match point is the wanted address.
+after its match point is the wanted address.
 
 =back
 
