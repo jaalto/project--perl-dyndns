@@ -37,9 +37,10 @@ PL = ../bin/dyndns.pl
 
 manual/index.html: $(PL)
 	perl $? --Help-html > $@
+	rm -f *.tmp
 
 manual/index.txt: $(PL)
-	pod2man $? > $@
+	pod2text $? > $@
 
 index.txt: index.html
 	lynx -dump $? > $@
