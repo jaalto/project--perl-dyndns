@@ -17,6 +17,11 @@ Requirements
 	    perl -MCPAN -e shell
 	    cpan> install <module name>
 
+	External commands needed:
+
+	    ipconfig		(Under WIndows)
+	    ifconfig		(Under POSIX compliant OS)
+
 System wide install
 
         Run makefile with appropriate parameters. The program is
