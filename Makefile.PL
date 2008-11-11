@@ -27,9 +27,15 @@ WriteMakefile (	NAME => 'perl-dyndns',
 		AUTHOR => 'Jari Aalto <jari.aalto@cante.net>',
 		LICENSE => 'GPL v2 or (at your option) later',
 		ABSTRACT => 'A Perl Dynamic DNS (DDNS) update client',
-		# PREREQ_PM => {'Getopt::Long' => 2.00},
+		PREREQ_PM =>
+		{
+		    'HTTP::Request::Common' => 5.8,
+		    'HTTP::Headers'	    => 5.8,
+		    'LWP::Simple'	    => 5.8,
+		    'Sys::Syslog'	    => 0.20
+		},
 		# VERSION => '2008.1111',
-		MAN1EXT => 1,
+		MAN1EXT => 1,  # Not "1p"
 		VERSION_FROM => 'bin/dyndns.pl',
 		EXE_FILES => [qw(bin/dyndns.pl)]
 		);
