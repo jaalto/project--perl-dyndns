@@ -7,7 +7,8 @@
 	(HELP::ENVIRONMENT): Document TMPDIR.
 	(TempDir): Use TMPDIR. Remove TEMP.
 	(LogSyslog): Check if syslog is available. If not, use stderr.
-	(top level): add @REQUIRE_FATAL, @REQUIRE_OPTIONAL, @FEATURE_LIST_MODULES.
+	(top level): add @REQUIRE_FATAL, @REQUIRE_OPTIONAL,
+	@FEATURE_LIST_MODULES.
 	(InitializeModules): Check @REQUIRE_FATAL, @REQUIRE_OPTIONAL and set
 	@FEATURE_LIST_MODULES.
 
@@ -18,7 +19,7 @@
 
 2008-03-22  Jari Aalto  <jari.aalto@cante.net>
 
-	* dyndns.pl (Log): Add nreline to the end if not in MSG.
+	* dyndns.pl (Log): Add newline to the end if not in MSG.
 
 2007-11-16  Jari Aalto  <jari.aalto@cante.net>
 
@@ -34,10 +35,10 @@
 
 	* dyndns.pl
 	(InitializeModules): New. Moved CPAN module 'use'
-	commands to separate function to notify user.
-	Closes bug https://sourceforge.net/tracker/index.php?func=detail&aid=1038122&group_id=44223&atid=438824
+	commands to separate function to notify user;
+	closes bug https://sourceforge.net/tracker/index.php?func=detail&aid=1038122&group_id=44223&atid=438824
 	(TestDriverLinksysBEFW11S4v4): Cisco v4 versio test.
-	(HttpPingWlanLinksysBEFW11S4): Add BEFW11S4 Cisco v4 support. Closes
+	(HttpPingWlanLinksysBEFW11S4): Add BEFW11S4 Cisco v4 support; closes
 	bug https://sourceforge.net/tracker/index.php?func=detail&aid=1152587&group_id=44223&atid=438824
 	(RunUpdateIPWrite): Report invalid Ip address to
 	syslog.
