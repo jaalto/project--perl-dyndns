@@ -12,7 +12,7 @@ Requirements
 	    LWP::Simple
 	    Sys::Syslog
 
-	You can install these one by one with perl command:
+	You can install these from CPAN:
 
 	    perl -MCPAN -e shell
 	    cpan> install <module name>
@@ -25,7 +25,7 @@ Requirements
 System wide install
 
         Run makefile with appropriate parameters. The program is
-        installed without any file extension.
+        installed without any file extension (*.pl):
 
             perl Makefile.PL
             make DESTDIR= PREFIX=/usr/local ETCDIR=/etc/perl-dyndns install
@@ -33,12 +33,26 @@ System wide install
 	To test the installation (to see how files are installed):
 
 	    make install-test
-	    find -type f tmp
+	    find -type f tmp/
 
 Manual install
 
         1. Copy bin/*.pl somewhere along $PATH
         2. Look at etc/template/*conf and apply ideas there and write your
            own configuration file (optional; not required)
+
+Usage
+
+	The program contain --daemon mode, which makes program to
+	sleep and wake periodically. This can be used e.g. under
+	Windows.
+
+	However, if cron(1) is available, it is recommended to use
+	standard crontab(5) entry to periodically run the program,
+	say every 1h. This will conserve memeory and CPU resources.
+	A system wide crontab entry example for Linux:
+
+	   # /etc/cron.d/perl-dyndns
+	   0 0-23 * * * perl /usr/local/bin/perl-dyndns <options>
 
 End of file
