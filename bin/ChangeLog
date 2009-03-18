@@ -1,3 +1,8 @@
+2009-03-18  Jari Aalto  <jari.aalto@cante.net>
+
+	* dyndns.pl (top level, Help): Copyright year update.
+	(top level): Adjust required modules comments at the beginning.
+
 2008-11-11  Jari Aalto  <jari.aalto@cante.net>
 
 	RELEASE: 2008.1111

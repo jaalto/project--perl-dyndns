@@ -4,7 +4,7 @@
 #
 #   File id
 #
-#       Copyright (C) 1999-2008 Jari Aalto
+#       Copyright (C) 1999-2009 Jari Aalto
 #
 #       This program is free software; you can redistribute it and/or
 #       modify it under the terms of the GNU General Public License as
@@ -58,16 +58,17 @@
 
 # {{{ Import
 
-use 5.004;
+#   STANDARD PERL MODULES
 
+use 5.004;
 use strict;
 use English;
 use File::Basename;
 use Getopt::Long;
-
 use autouse 'Pod::Text'     => qw( pod2text );
 use autouse 'Pod::Html'     => qw( pod2html );
 
+#   ADDITIONAL MODULES
 #   use autouse 'Sys::Syslog' =>  qw( syslog closelog );
 #   See also CPAN module: Tie::Syslog
 
@@ -108,7 +109,7 @@ IMPORT:                     # This is just syntactic sugar: actually no-op
     #   The following variable is updated by Emacs setup whenever
     #   this file is saved.
 
-    $VERSION = '2008.1111.1231';
+    $VERSION = '2009.0318.0710';
 }
 
 # }}}
@@ -132,7 +133,7 @@ IMPORT:                     # This is just syntactic sugar: actually no-op
 
 sub Initialize ()
 {
-    use vars qw
+    use vars qw		# declare global variables
     (
         $PROGNAME
         $LIB
@@ -163,8 +164,8 @@ sub Initialize ()
 
     if ( not $WIN32  or  $CYGWIN )
     {
-        #   Sometimes due to malconfigured system, the PATH is not set
-        #   correctly. Make sure it includes these, always.
+        #   Sometimes the PATH is not set correctly. Make sure it
+        #   includes these, always.
 
         $PATH .= ":/bin:/usr/bin:/sbin:/usr/sbin";
     }
@@ -323,7 +324,7 @@ sub Initialize ()
 #
 #   DESCRIPTION
 #
-#       Load CPAN modules or notify user
+#       Load Perl modules or notify user
 #
 #   INPUT PARAMETERS
 #
@@ -339,11 +340,11 @@ sub InitializeModules ()
 {
     my $id = "$LIB.InitializeModules";
 
-    for my $module (@REQUIRE_OPTIONAL )
+    for my $module ( @REQUIRE_OPTIONAL )
     {
         eval "use $module";
 
-        if ($EVAL_ERROR)
+        if ( $EVAL_ERROR )
         {
             warn "$id: [WARN] can't load CPAN module $module: $EVAL_ERROR\n"
               . "Please install with command:\n"
@@ -354,11 +355,11 @@ sub InitializeModules ()
 	push @FEATURE_LIST_MODULES, $module;
     }
 
-    for my $module (@REQUIRE_FATAL )
+    for my $module ( @REQUIRE_FATAL )
     {
         eval "use $module";
 
-        if ($EVAL_ERROR)
+        if ( $EVAL_ERROR )
         {
             warn "$id: [FATAL] can't load CPAN module $module: $EVAL_ERROR\n"
               . "Please install with command:\n"
@@ -1185,6 +1186,11 @@ You can see the entries in W2K Start => Settings => Administrative Tools
 Please use option B<--debug 2> and save the result. Contact maintainer if
 you find bugs or need new features.
 
+=head2 About providers hnorg and noip
+
+The program is primarily developed and maintained to support dyndns.org.
+The other providers haven't been tested since 2003.
+
 =head1 AVAILABILITY
 
 http://freshmeat.net/projects/perl-dyndns
@@ -1217,7 +1223,7 @@ C<any>
 
 =head1 AUTHOR
 
-Copyright (C) 1999-2008 Jari Aalto. All rights reserved. This program
+Copyright (C) 1999-2009 Jari Aalto. All rights reserved. This program
 is free software; you can redistribute and/or modify program under the
 terms of GNU General Public license v2 or later.
 
