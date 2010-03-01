@@ -40,6 +40,7 @@
 
 		<li><a href="#cygwin_syslog">Cygwin syslog</a></li>
 		<li><a href="#debugging_errors">Debugging errors</a></li>
+		<li><a href="#about_providers_hnorg_and_noip">About providers hnorg and noip</a></li>
 	</ul>
 
 	<li><a href="#availability">AVAILABILITY</a></li>
@@ -66,9 +67,9 @@
 <h1><a name="synopsis">SYNOPSIS</a></h1>
 <pre>
     dyndns.pl --login LOGIN --password PASSWORD \
-              --Host yourhost.dyndns.org</pre>
+              --host yourhost.dyndns.org</pre>
 <p>Note: By Default this program expects www.dyndns.org provider. If you use
-other provider, see option <strong>--Provider</strong></p>
+other provider, see option <strong>--provider</strong></p>
 <p>
 </p>
 <hr />
@@ -77,7 +78,7 @@ other provider, see option <strong>--Provider</strong></p>
 </p>
 <h2><a name="gneneral_options">Gneneral options</a></h2>
 <dl>
-<dt><strong><a name="config_file_config_file" class="item"><strong>--Config=FILE [--Config=FILE ...]</strong></a></strong></dt>
+<dt><strong><a name="config_file_config_file" class="item"><strong>--config=FILE [--config=FILE ...]</strong></a></strong></dt>
 
 <dd>
 <p>List of configuration files to read. No command line options other
@@ -90,10 +91,10 @@ Series of configuration files can be run at once e.g. within directory
 <code>/etc/dyndns/</code> by using a single option. The order of the files processed
 is alphabetical:</p>
 <pre>
-    --Config=/etc/dyndns/*</pre>
+    --config=/etc/dyndns/*</pre>
 <p>See section CONFIGURATION FILE for more information how to write the files.</p>
 </dd>
-<dt><strong><a name="host_host1_host_host2" class="item"><strong>--Host=host1 [--Host=host2 ...]</strong></a></strong></dt>
+<dt><strong><a name="host_host1_host_host2" class="item"><strong>--host=host1 [--host=host2 ...]</strong></a></strong></dt>
 
 <dd>
 <p>Use registered HOST(s).</p>
@@ -101,7 +102,7 @@ is alphabetical:</p>
 <dt><strong><a name="group_group" class="item"><strong>--group GROUP</strong></a></strong></dt>
 
 <dd>
-<p><strong>This option is only for --Provider noip</strong></p>
+<p><strong>This option is only for --provider noip</strong></p>
 <p>Assign IP to GROUP. Do you have many hosts that all update to the same
 IP address? Update a group instead of a many hosts.</p>
 </dd>
@@ -113,7 +114,7 @@ IP address? Update a group instead of a many hosts.</p>
 <dt><strong><a name="mxhost_mx_host_name" class="item"><strong>--mxhost MX-HOST-NAME</strong></a></strong></dt>
 
 <dd>
-<p><strong>This option is only for --Provider dyndns</strong></p>
+<p><strong>This option is only for --provider dyndns</strong></p>
 <p>Update account information with MX hostname. Specifies a Mail eXchanger for
 use with the host being modified. Must resolve to an <strong>static</strong> IP address,
 or it will be ignored. If you don't know DNS, don't touch this option.</p>
@@ -125,10 +126,10 @@ removed and possibly further action taken to prevent it from happening
 again. Any mail sent to a misconfigured server listed as an MX may bounce,
 and may be lost.</p>
 </dd>
-<dt><strong><a name="mx_option" class="item"><strong>--Mx-option</strong></a></strong></dt>
+<dt><strong><a name="mx_option" class="item"><strong>--mx-option</strong></a></strong></dt>
 
 <dd>
-<p><strong>This option is only for --Provider dyndns</strong></p>
+<p><strong>This option is only for --provider dyndns</strong></p>
 <p>Turn on MX option. Request that the MX in the previous parameter be set up
 as a backup. This means that mail will first attempt to deliver to your
 host directly, and will be delivered to the MX listed as a backup.</p>
@@ -137,7 +138,7 @@ host directly, and will be delivered to the MX listed as a backup.</p>
 to the php script to update the A record. Changes such as MX records
 must be done through website.</p>
 </dd>
-<dt><strong><a name="offline" class="item"><strong>--Offline</strong></a></strong></dt>
+<dt><strong><a name="offline" class="item"><strong>--offline</strong></a></strong></dt>
 
 <dd>
 <p>If given, set the host to offline mode.</p>
@@ -156,14 +157,14 @@ old IP address.</p>
 <dt><strong><a name="system_dyndns_statdns_custom" class="item"><strong>--system {dyndns|statdns|custom}</strong></a></strong></dt>
 
 <dd>
-<p><strong>This option is only for --Provider dyndns</strong></p>
+<p><strong>This option is only for --provider dyndns</strong></p>
 <p>The system you wish to use for this update. <code>dyndns</code> will update a dynamic
 host, <code>custom</code> will update a MyDynDNS Custom DNS host and <code>statdns</code> will
 update a static host. The default value is <code>dyndns</code> and you cannot use
 other options (statdns|custom) unless you donate and gain access to the
 more advanced features.</p>
 </dd>
-<dt><strong><a name="wildcard" class="item"><strong>--Wildcard</strong></a></strong></dt>
+<dt><strong><a name="wildcard" class="item"><strong>--wildcard</strong></a></strong></dt>
 
 <dd>
 <p>Turn on wildcard option. The wildcard aliases <code>*.yourhost.ourdomain.ext</code>
@@ -174,47 +175,46 @@ to the same address as <code>yourhost.ourdomain.ext</code></p>
 </p>
 <h2><a name="additional_options">Additional options</a></h2>
 <dl>
-<dt><strong><a name="daemon_wait_minutes" class="item"><strong>--Daemon [WAIT-MINUTES]</strong></a></strong></dt>
+<dt><strong><a name="d_daemon_wait_minutes" class="item"><strong>-D, --daemon [WAIT-MINUTES]</strong></a></strong></dt>
 
 <dd>
 <p>Enter daemon mode. The term &quot;daemon&quot; refers to a standalone processes
 which keep serving until killed. In daemon mode program enters
 into infinite loop where IP address changes are checked periodically.
 For each new ip address check, program waits for WAIT-MINUTES.
-Messages in this mode are reported using <code>syslog(3)</code>.</p>
+Messages in this mode are reported using <code>syslog(3)</code>; if available.</p>
 <p>This option is designed to be used in systems that do not provide Unix-like
 cron capabilities (e.g under Windows OS). It is better to use <code>cron(8)</code> and
 define an entry using <code>crontab(5)</code> notation to run the update in periodic
 intervals. This will use less memory when Perl is not permanently kept in
-memory like it would with option <strong>--Daemon</strong>.</p>
+memory like it would with option <strong>--daemon</strong>.</p>
 <p>The update to DDNS provider happens only if</p>
 <pre>
     1) IP address changes
     2) or it has taken 30 days since last update.
        (See DDNS providers' account expiration time documentation)</pre>
-<p>The minumum sleep time is 5 minutes. Program will not allow faster
+<p>The minimum sleep time is 5 minutes. Program will not allow faster
 wake up times(*). The value can be expressed in formats:</p>
 <pre>
     15      Plain number, minutes
     15m     (m)inutes. Same sa above
     1h      (h)ours
     1d      (d)days</pre>
-<p>This options is primarily for cable and DSL users. If you have a
-dial-up connection, it is better to arrange the IP update at the same
-time as when the connection is started. In Linux this would happen
-during <code>ifup(1)</code>.</p>
+<p>This options is primarily for permanent Internet connection. If you
+have a dial-up connection, it is better to arrange the IP update at
+the same time as when the connection is started. In Linux this would
+happen during <code>ifup(1)</code>.</p>
 <p>(*) Perl language is CPU intensive so any faster check would put
 considerable strain on system resources. Normally a value of 30 or 60
-minutes will work fine in most of the ADSL lines. Monitor the ISP's IP
-rotation time to adjust the time in to use sufficiently long wake up
-times.</p>
+minutes will work fine in most cases. Monitor the ISP's IP rotation
+time to adjust the time in to use sufficiently long wake up times.</p>
 </dd>
 <dt><strong><a name="ethernet_card" class="item"><strong>--ethernet [CARD]</strong></a></strong></dt>
 
 <dd>
 <p>In Linux system, the automatic IP detection uses program
 <code>ifconfig(1)</code>. If you have multiple network cards, select the correct
-card with this option. The default device queried is <code>eth0</code>.</p>
+card with this option. The default device used for query is <code>eth0</code>.</p>
 </dd>
 <dt><strong><a name="file_prefix" class="item"><strong>--file PREFIX</strong></a></strong></dt>
 
@@ -225,9 +225,9 @@ Make sure that files in this location do not get deleted. If they are
 deleted and you happen to update SAME ip twice within a short period -
 according to www.dyndns.org FAQ - your address may be blocked.</p>
 <p>On Windows platform all filenames must use forward slashs like
-C:/somedir/to/, not C:\somedir\to.</p>
+<code>C:/somedir/to/</code>, not <code>C:\somedir\to\</code>.</p>
 <p>The PREFIX is only used as a basename for supported DDNS accounts (see
-<strong>--Provider</strong>). The saved filename is constructed like this:</p>
+<strong>--provider</strong>). The saved filename is constructed like this:</p>
 <pre>
    PREFIX&lt;ethernet-card&gt;-&lt;update-system&gt;-&lt;host&gt;-&lt;provider&gt;.log
                           |
@@ -237,7 +237,7 @@ to <code>/var/log/dyndns/</code>:</p>
 <pre>
     /var/log/dyndns/eth0-statdns-my.dyndns.org-dyndns.log</pre>
 </dd>
-<dt><strong><a name="file_default_f" class="item"><strong>--file-default|-f</strong></a></strong></dt>
+<dt><strong><a name="f_file_default" class="item"><strong>-f, --file-default</strong></a></strong></dt>
 
 <dd>
 <p>Use reasonable default for saved IP file PREFIX (see <strong>--file</strong>). Under
@@ -252,7 +252,7 @@ Windows, %WINDIR% is used. Under Linux the PREFIXes searched are</p>
 <dd>
 <p>Use HOST as outgoing HTTP proxy.</p>
 </dd>
-<dt><strong><a name="provider_type" class="item"><strong>--Provider TYPE</strong></a></strong></dt>
+<dt><strong><a name="p_provider_type" class="item"><strong>-P, --provider TYPE</strong></a></strong></dt>
 
 <dd>
 <p>By default, program connects to <code>dyndns.org</code> to update the dynamic IP
@@ -271,8 +271,11 @@ Supported list of TYPES in alphabetical order:</p>
     noip        No domain name limits.
                 Basic DDNS service is free (as of 2003-10-02)
                 <a href="http://www.no-ip.com/">http://www.no-ip.com/</a></pre>
+<p>NOTE: as of 2010, the support for sites of hnorg, noip is probably
+non-working due to chnages in the interfaces. Please use only dyndns
+at this time.</p>
 </dd>
-<dt><strong><a name="query" class="item"><strong>--Query</strong></a></strong></dt>
+<dt><strong><a name="query" class="item"><strong>--query</strong></a></strong></dt>
 
 <dd>
 <p>Query current IP address and quit. <strong>Note:</strong> if you use router, you may
@@ -281,7 +284,7 @@ DHCP IP and not the ISP's Internet IP.</p>
 <p>Output of the command is at least two string. The second string is
 <code>last-ip-info-not-available</code> if the saved ip file name is not specified.
 In order to program to know where to look for saved IP files you need to
-give some <strong>--file*</strong> or <strong>--Config</strong> option. The second string can also be
+give some <strong>--file*</strong> or <strong>--config</strong> option. The second string can also be
 <code>nochange</code> if current IP address is same as what was found from saved
 file. Examples:</p>
 <pre>
@@ -294,7 +297,7 @@ file. Examples:</p>
 future. Don't rely on the count of the output words, but instead parse
 output from left to right.</p>
 </dd>
-<dt><strong><a name="query_ipchanged_exitcode" class="item"><strong>--Query-ipchanged ['exitcode']</strong></a></strong></dt>
+<dt><strong><a name="query_ipchanged_exitcode" class="item"><strong>--query-ipchanged ['exitcode']</strong></a></strong></dt>
 
 <dd>
 <p>Print message if IP has changed or not. This option can take
@@ -302,8 +305,8 @@ an optional string argument <code>exitcode</code> which causes program to
 indicate changed ip address with standard shell status code
 (in bash shell that would available at variable <code>$?</code>):</p>
 <pre>
-    $ dyndns.pl --Query-ipchange exitcode --file-default \
-      --Provider dyndns --Host xxx.dyndns.org
+    $ dyndns.pl --query-ipchange exitcode --file-default \
+      --provider dyndns --host xxx.dyndns.org
     $ echo $?</pre>
 <pre>
     ... the status code of shell ($?) would be:</pre>
@@ -327,24 +330,24 @@ it is updated in NN days.</p>
 future. Don't rely on the count of the output words, but instead parse
 output from left to right.</p>
 </dd>
-<dt><strong><a name="query_ipfile" class="item"><strong>--Query-ipfile</strong></a></strong></dt>
+<dt><strong><a name="query_ipfile" class="item"><strong>--query-ipfile</strong></a></strong></dt>
 
 <dd>
 <p>Print the name of the IP file and quit.</p>
 <p><strong>Note:</strong> In order for this option to work, you must supply all other
 options would be normally pass to update the DDNS account, because the Ip
-filename depends on these options. Alternatively provide option <strong>--Config
+filename depends on these options. Alternatively provide option <strong>--config
 FILE</strong> from where all relevant information if read.</p>
 <pre>
     --ethernet      [optional, defaults to eth0]
-    --Provider      [optional, defaults to dyndns]
+    --provider      [optional, defaults to dyndns]
     --system        [optional, defaults to dyndns]
-    --Host          required.</pre>
+    --host          required.</pre>
 <p>Here is an example which supposed that directory <code>/var/log/dyndns/</code>
 already exists:</p>
 <pre>
-    $ dyndns.pl --file-default --Query-ipfile \
-      --Provider dyndns --Host xxx.dyndns.org
+    $ dyndns.pl --file-default --query-ipfile \
+      --provider dyndns --host xxx.dyndns.org
     /var/log/dyndns/eth0-dyndns-dyndns-xxx-dyndns.org.log</pre>
 </dd>
 <dt><strong><a name="regexp_regexp" class="item"><strong>--regexp REGEXP</strong></a></strong></dt>
@@ -460,7 +463,7 @@ connector's IP address. Be polite. Making calls like this too often
 may cause putting blocks to your site.</p>
 <pre>
     <a href="http://www.dyndns.org/cgi-bin/check_ip.cgi">http://www.dyndns.org/cgi-bin/check_ip.cgi</a></pre>
-<p>Be sure to use period of 60 minutes or more with <strong>--Daemon</strong> option to
+<p>Be sure to use period of 60 minutes or more with <strong>--daemon</strong> option to
 not increase the load in the &quot;ping&quot; site and cause admin's to shut
 down the service.</p>
 </dd>
@@ -556,7 +559,7 @@ contacting DDNS provider.</p>
 <p>Run in test mode, do not actually update anything. LEVEL 1 allows
 sending HTTP ping options and getting answers.</p>
 </dd>
-<dt><strong><a name="test_driver" class="item"><strong>--Test-driver</strong></a></strong></dt>
+<dt><strong><a name="test_driver" class="item"><strong>--test-driver</strong></a></strong></dt>
 
 <dd>
 <p>This is for developer only. Run internal integrity tests.</p>
@@ -573,7 +576,7 @@ client page at <a href="http://clients.dyndns.org/devel/">http://clients.dyndns.
 <dd>
 <p>Print informational messages.</p>
 </dd>
-<dt><strong><a name="version" class="item"><strong>--Version</strong></a></strong></dt>
+<dt><strong><a name="version" class="item"><strong>--version</strong></a></strong></dt>
 
 <dd>
 <p>Print version and contact information.</p>
@@ -584,7 +587,7 @@ client page at <a href="http://clients.dyndns.org/devel/">http://clients.dyndns.
 <hr />
 <h1><a name="readme">README</a></h1>
 <p>Perl client for updating a dynamic DNS IP information at supported
-providers (see <code>--Provider</code>). Visit the page of the provider and create an
+providers (see <code>--provider</code>). Visit the page of the provider and create an
 account. Write down the login name, password and host name you registered.</p>
 <p>Program has been designed to work under any version of Windows or
 Linux, possibly Mac OS included. It may not work under other Unix
@@ -624,17 +627,17 @@ PATH:</p>
 <h1><a name="examples">EXAMPLES</a></h1>
 <p>To check current IP address:</p>
 <pre>
-  dyndns.pl --Query [--urlping...]
+  dyndns.pl --query [--urlping...]
                     |
                     Select correct option to do the &quot;ping&quot; for IP</pre>
 <p>Show where the ip file is/would be stored with given connect options.
 The option <strong>--file-default</strong> uses OS's default directory structure.</p>
 <pre>
-  dyndns.pl --file-default --Query-ipfile --Provider dyndns \
-            --Host xxx.dyndns.org</pre>
+  dyndns.pl --file-default --query-ipfile --provider dyndns \
+            --host xxx.dyndns.org</pre>
 <p>To upate account information to DDNS provider:</p>
 <pre>
-  dyndns.pl --login &lt;login&gt; --password &lt;pass&gt; --Host your.dyndns.org</pre>
+  dyndns.pl --login &lt;login&gt; --password &lt;pass&gt; --host your.dyndns.org</pre>
 <p>If you have a cable or DSL and your router can display a web page
 containing the world known IP address, you can instruct to &quot;ping&quot;
 it. Suppose that router occupies address 192.168.1.1 and page that
@@ -650,7 +653,7 @@ option <strong>--debug 1</strong> and examine the responses. In serious doubt, c
 the maintainer (see option <strong>--Version</strong>) and send the full debug
 output.</p>
 <p>Tip: if you run a local web server, provider <code>www.dyndns.org</code> can direct
-calls to it. See option <a href="#wildcard"><code>--Wildcard</code></a> to enable `*.your.dyndns.org' domain
+calls to it. See option <a href="#wildcard"><code>--wildcard</code></a> to enable `*.your.dyndns.org' domain
 delegation, like if it we accessed using `www.your.dyndns.org'.</p>
 <p>
 </p>
@@ -659,7 +662,7 @@ delegation, like if it we accessed using `www.your.dyndns.org'.</p>
 <p>Instead of supplying options at command line, the options can be stored to
 configuration files. For each DDNS account and different domains, a
 separate configuration file must be created. The configuration files are
-read with option <strong>--Config</strong>.</p>
+read with option <strong>--config</strong>.</p>
 <p>The syntax of the configuration file includes comments that start with (#).
 Anything after hash-sign is interpreted as comment. Values are set in KEY =
 VALUE fashion, where spaces are non-significant. Keys are not case
@@ -773,7 +776,7 @@ full HTTP response:</p>
 <h1><a name="troubleshooting">TROUBLESHOOTING</a></h1>
 <p>1. Turn on <strong>--debug</strong> to see exact details how the program runs and
 what HTTP requests are sent and received.</p>
-<p>2. Most of the &lt;--Query&gt; options can't be used standalone. Please see
+<p>2. Most of the &lt;--query&gt; options can't be used standalone. Please see
 documentation what additional options you need to supply with them.</p>
 <p>
 </p>
@@ -800,7 +803,7 @@ documentation what additional options you need to supply with them.</p>
 <p>There is no default location where program would search for configuration
 files. At installation, configuration examples are put in directory
 <code>/etc/dyndns/examples</code>. It is recommended that the examples are modified
-and copied one directorory up in order to use option <strong>--Config
+and copied one directorory up in order to use option <strong>--config
 /etc/dyndns/*</strong>.</p>
 <p>If program is run with Windows Activestate Perl, the log file is stored to
 file <code>C:/syslog.txt</code>.</p>
@@ -829,6 +832,11 @@ for more details.</p>
 <h2><a name="debugging_errors">Debugging errors</a></h2>
 <p>Please use option <strong>--debug 2</strong> and save the result. Contact maintainer if
 you find bugs or need new features.</p>
+<p>
+</p>
+<h2><a name="about_providers_hnorg_and_noip">About providers hnorg and noip</a></h2>
+<p>The program is primarily developed and maintained to support dyndns.org.
+The other providers haven't been tested since 2003.</p>
 <p>
 </p>
 <hr />
