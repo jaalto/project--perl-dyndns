@@ -24,7 +24,7 @@ This makefile requires GNU Make.
 endif
 
 PACKAGE		= dyndns
-PACKAGE_DOC	= perl-dyndns
+PACKAGE_DOC	= dyndns
 
 DESTDIR		=
 prefix		= /usr
