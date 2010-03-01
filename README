@@ -44,4 +44,9 @@ Project contacts
 	  [ Debian: libsys-syslog-perl ]
 	  Sys::Syslog
 
+	External commands needed:
+
+	    ipconfig		(Under WIndows)
+	    ifconfig		(Under POSIX compliant OS)
+
 End of file
