@@ -133,11 +133,11 @@ bin/$(PACKAGE).1: $(PL_SCRIPT)
 	$(PERL) $< --help-man > $@
 	@-rm -f *.x~~ pod*.tmp
 
-doc/manual/$(PACKAGE).html: $(PL_SCRIPT)
+doc/manual/index.html: $(PL_SCRIPT)
 	$(PERL) $< --help-html > $@
 	@-rm -f *.x~~ pod*.tmp
 
-doc/manual/$(PACKAGE).txt: $(PL_SCRIPT)
+doc/manual/index.txt: $(PL_SCRIPT)
 	$(PERL) $< --help > $@
 	@-rm -f *.x~~ pod*.tmp
 
@@ -147,9 +147,9 @@ doc/conversion/index.html: doc/conversion/index.txt
 # Rule: man - Generate or update manual page
 man: bin/$(PACKAGE).1
 
-html: doc/manual/$(PACKAGE).html
+html: doc/manual/index.html
 
-txt: doc/manual/$(PACKAGE).txt
+txt: doc/manual/index.txt
 
 # Rule: doc - Generate or update all documentation
 doc: man html txt
