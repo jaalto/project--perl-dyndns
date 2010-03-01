@@ -107,7 +107,7 @@ IMPORT: # This is just a syntactic sugar: actually no-op
     #   The following variable is updated by Emacs setup whenever
     #   this file is saved.
 
-    $VERSION = '2010.0301.1247';
+    $VERSION = '2010.0301.1248';
 }
 
 # }}}
@@ -2844,10 +2844,10 @@ sub DateDiffDays ($$)
     $total += ($MM2 - $MM) * 30;
 
     $total += (
-                  ($dd2*24*60 + $hh2*60 + $mm2)
-                - ($dd*24*60  + $hh*60  + $mm)
+                  ($dd2 * 24 * 60  +  $hh2 * 60  + $mm2)
+                - ($dd * 24 * 60   +  $hh * 60   + $mm)
               )
-              / (24*60);
+              / (24 * 60);
 
     $debug and
       print "$id: $yyyy, $MM, $dd, $hh, $mm | $yyyy2, $MM2, $dd2, $hh2, $mm2\n";
