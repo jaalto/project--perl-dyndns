@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>dyndns.pl - Update IP address to dynamic DNS provider</title>
+<title>dyndns - Update IP address to dynamic DNS provider</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <link rev="made" href="mailto:root@localhost" />
 </head>
@@ -18,6 +18,7 @@
 
 	<li><a href="#name">NAME</a></li>
 	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
 	<li><a href="#options">OPTIONS</a></li>
 	<ul>
 
@@ -27,7 +28,6 @@
 		<li><a href="#miscellaneous_options">Miscellaneous options</a></li>
 	</ul>
 
-	<li><a href="#readme">README</a></li>
 	<li><a href="#examples">EXAMPLES</a></li>
 	<li><a href="#configuration_file">CONFIGURATION FILE</a></li>
 	<li><a href="#support_requests">SUPPORT REQUESTS</a></li>
@@ -60,16 +60,46 @@
 </p>
 <hr />
 <h1><a name="name">NAME</a></h1>
-<p>dyndns.pl - Update IP address to dynamic DNS (DDNS) provider</p>
+<p>dyndns - Update IP address to dynamic DNS (DDNS) provider</p>
 <p>
 </p>
 <hr />
 <h1><a name="synopsis">SYNOPSIS</a></h1>
 <pre>
-    dyndns.pl --login LOGIN --password PASSWORD \
-              --host yourhost.dyndns.org</pre>
+    dyndns --login LOGIN --password PASSWORD \
+           --host yourhost.dyndns.org</pre>
 <p>Note: By Default this program expects www.dyndns.org provider. If you use
 other provider, see option <strong>--provider</strong></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>A Perl client for updating dynamic DNS IP information at supported
+providers (see <code>--provider</code>).</p>
+<p>The dynamic DNS services allow mapping a dynamic IP address to a
+static hostname. This way the host can be refered by name instead of
+the changing IP address from the ISP's pool. Some DDNS providers offer
+a single account and a single host namefree of charge. Please check
+the information from the Providers' pages.</p>
+<p>Separate files are used for remembering the last IP address to prevent
+updating the same IP address again. This is necessary in order to comply
+guidelines of the providers where multiple updates of the same IP address
+could cause your domain to be blocked. You should not normally need to
+touch the files where the ip addresses are stored.</p>
+<p>If you know what you are doing and desperately need a forced update,
+delete the IP files and start program with apropriate arguments.
+Without the information about previous IP address, program sends a new
+update request to the provider.</p>
+<p>Program has been designed to work under any version of Windows or
+Linux, possibly Mac OS included. It may not work under other Unix/BSD
+variants. Please see BUGS section how to provide details to add
+support for other operating systems.</p>
+<p>Visit the page of the provider and create an account. Write down the
+login name, password and host name you registered.</p>
+<p>For Windows operating systems, you need to install Perl. There are two
+Perl incarnatons: Native Windows version (Activestate Perl) and Cygwin
+version. The <code>http://www.cygwin.com/</code> is recommended as it more closely
+follows the original Perl environment.</p>
 <p>
 </p>
 <hr />
@@ -85,11 +115,10 @@ other provider, see option <strong>--provider</strong></p>
 than <strong>--verbose</strong>, <strong>--debug</strong> or <strong>--test</strong> should be appended or
 results are undefined. Each file must contain complete DDNS account
 configuration.</p>
-<p>The FILE part wll go through Perl's <code>glob()</code> function, meaning that
-the filenames are expanded if standard shell wild card is supplied.
-Series of configuration files can be run at once e.g. within directory
-<code>/etc/dyndns/</code> by using a single option. The order of the files processed
-is alphabetical:</p>
+<p>The FILE part will go through Perl's <code>glob()</code> function, meaning that
+the filenames are expanded. Series of configuration files can be run
+at once e.g. within directory <code>/etc/dyndns/</code> by using a single
+option. The order of the files processed is alphabetical:</p>
 <pre>
     --config=/etc/dyndns/*</pre>
 <p>See section CONFIGURATION FILE for more information how to write the files.</p>
@@ -163,6 +192,7 @@ host, <code>custom</code> will update a MyDynDNS Custom DNS host and <code>statd
 update a static host. The default value is <code>dyndns</code> and you cannot use
 other options (statdns|custom) unless you donate and gain access to the
 more advanced features.</p>
+<p>See the DDNS provider's pages for more information.</p>
 </dd>
 <dt><strong><a name="wildcard" class="item"><strong>--wildcard</strong></a></strong></dt>
 
@@ -179,10 +209,10 @@ to the same address as <code>yourhost.ourdomain.ext</code></p>
 
 <dd>
 <p>Enter daemon mode. The term &quot;daemon&quot; refers to a standalone processes
-which keep serving until killed. In daemon mode program enters
-into infinite loop where IP address changes are checked periodically.
-For each new ip address check, program waits for WAIT-MINUTES.
-Messages in this mode are reported using <code>syslog(3)</code>; if available.</p>
+which keep serving until killed. In daemon mode program enters into
+infinite loop where IP address changes are checked periodically. For
+each new ip address check, program waits for WAIT-MINUTES. Messages in
+this mode are reported using <code>syslog(3)</code>; if available.</p>
 <p>This option is designed to be used in systems that do not provide Unix-like
 cron capabilities (e.g under Windows OS). It is better to use <code>cron(8)</code> and
 define an entry using <code>crontab(5)</code> notation to run the update in periodic
@@ -272,7 +302,7 @@ Supported list of TYPES in alphabetical order:</p>
                 Basic DDNS service is free (as of 2003-10-02)
                 <a href="http://www.no-ip.com/">http://www.no-ip.com/</a></pre>
 <p>NOTE: as of 2010, the support for sites of hnorg, noip is probably
-non-working due to chnages in the interfaces. Please use only dyndns
+non-working due to changes in the interfaces. Please use only dyndns
 at this time.</p>
 </dd>
 <dt><strong><a name="query" class="item"><strong>--query</strong></a></strong></dt>
@@ -305,7 +335,7 @@ an optional string argument <code>exitcode</code> which causes program to
 indicate changed ip address with standard shell status code
 (in bash shell that would available at variable <code>$?</code>):</p>
 <pre>
-    $ dyndns.pl --query-ipchange exitcode --file-default \
+    $ dyndns --query-ipchange exitcode --file-default \
       --provider dyndns --host xxx.dyndns.org
     $ echo $?</pre>
 <pre>
@@ -346,7 +376,7 @@ FILE</strong> from where all relevant information if read.</p>
 <p>Here is an example which supposed that directory <code>/var/log/dyndns/</code>
 already exists:</p>
 <pre>
-    $ dyndns.pl --file-default --query-ipfile \
+    $ dyndns --file-default --query-ipfile \
       --provider dyndns --host xxx.dyndns.org
     /var/log/dyndns/eth0-dyndns-dyndns-xxx-dyndns.org.log</pre>
 </dd>
@@ -470,7 +500,7 @@ down the service.</p>
 <dt><strong><a name="urlping_dyndns" class="item"><strong>--urlping-dyndns</strong></a></strong></dt>
 
 <dd>
-<p>Contact to www.dyndns.org service to obtain IP address information. This
+<p>Contact <a href="http://www.dyndns.org">http://www.dyndns.org</a> service to obtain IP address information. This
 is shorthand to more general optiopn <strong>--urlping</strong>.</p>
 </dd>
 <dt><strong><a name="urlping_linksys_type" class="item"><strong>--urlping-linksys [TYPE]</strong></a></strong></dt>
@@ -542,12 +572,12 @@ contacting DDNS provider.</p>
 <dd>
 <p>Print help</p>
 </dd>
-<dt><strong><a name="help_html" class="item"><strong>--Help-html</strong></a></strong></dt>
+<dt><strong><a name="help_html" class="item"><strong>--help-html</strong></a></strong></dt>
 
 <dd>
 <p>Print help in HTML format.</p>
 </dd>
-<dt><strong><a name="help_man" class="item"><strong>--Help-man</strong></a></strong></dt>
+<dt><strong><a name="help_man" class="item"><strong>--help-man</strong></a></strong></dt>
 
 <dd>
 <p>Print help page in Unix manual page format. You want to feed this output to
@@ -569,7 +599,7 @@ sending HTTP ping options and getting answers.</p>
 <dd>
 <p>This is for developer only. Uses DYNDNS test account options. All command
 line values that set host information or provider are ignored. Refer to
-client page at <a href="http://clients.dyndns.org/devel/">http://clients.dyndns.org/devel/</a></p>
+client page at <a href="http://clients.dyndns.org/devel">http://clients.dyndns.org/devel</a></p>
 </dd>
 <dt><strong><a name="verbose" class="item"><strong>--verbose</strong></a></strong></dt>
 
@@ -585,72 +615,33 @@ client page at <a href="http://clients.dyndns.org/devel/">http://clients.dyndns.
 <p>
 </p>
 <hr />
-<h1><a name="readme">README</a></h1>
-<p>Perl client for updating a dynamic DNS IP information at supported
-providers (see <code>--provider</code>). Visit the page of the provider and create an
-account. Write down the login name, password and host name you registered.</p>
-<p>Program has been designed to work under any version of Windows or
-Linux, possibly Mac OS included. It may not work under other Unix
-variants due to different commands and outputs to get network IP
-assignment information. Please see BUGS section how to provide details
-to add support to other operating systems.</p>
-<p>The dynamic DNS service allows mapping a dynamic IP address to a static
-hostname. This way the computer can be refereed by name instead of ever
-changing IP address from ISP's pool. The DDNS providers have may have basic
-services, like single account and single host name, which may still be free
-of charge. Please check the current status form the pages of the providers.</p>
-<p>Separate files are used for remembering the last IP address to prevent
-updating the same IP address again. This is necessary in order to comply
-guidelines of the providers where multiple updates of the same IP address
-could cause your domain to be blocked. You should not normally need to
-touch the files where the ip addresses are stored.</p>
-<p>If you know what you are doing and desperately need a forced update,
-delete the IP files and start program with apropriate arguments.
-Without the information about previous IP address, program sends a new
-update request to the provider.</p>
-<p>For windows operating systems, you need to install Perl. There are two
-Perl incarnatons: Native Windows version (Activestate Perl) and Cygwin
-version. It is recommended that you install Cygwin suite, which
-includes Perl from <code>http://www.cygwin.com/</code>. The Cygwin is a Unix
-layer running on top of windws and makes it possible to use cron jobs
-etc. just like in Linux systems. If you have no prior experience on
-Unix/Linux, then the Activestate Perl might be better for Windows.
-Activestate includes a Windows installer, but the Perl programs must
-be run through Perl interpreter. For Activestate, put programs along
-PATH and use command line call with option <strong>-S</strong> to instruct to search
-PATH:</p>
-<pre>
-    perl -S dyndns.pl [options]</pre>
-<p>
-</p>
-<hr />
 <h1><a name="examples">EXAMPLES</a></h1>
 <p>To check current IP address:</p>
 <pre>
-  dyndns.pl --query [--urlping...]
-                    |
-                    Select correct option to do the &quot;ping&quot; for IP</pre>
+  dyndns --query [--urlping...]
+                 |
+                 Select correct option to do the &quot;ping&quot; for IP</pre>
 <p>Show where the ip file is/would be stored with given connect options.
 The option <strong>--file-default</strong> uses OS's default directory structure.</p>
 <pre>
-  dyndns.pl --file-default --query-ipfile --provider dyndns \
-            --host xxx.dyndns.org</pre>
+  dyndns --file-default --query-ipfile --provider dyndns \
+          --host xxx.dyndns.org</pre>
 <p>To upate account information to DDNS provider:</p>
 <pre>
-  dyndns.pl --login &lt;login&gt; --password &lt;pass&gt; --host your.dyndns.org</pre>
-<p>If you have a cable or DSL and your router can display a web page
-containing the world known IP address, you can instruct to &quot;ping&quot;
-it. Suppose that router occupies address 192.168.1.1 and page that
-displays the world known IP is <code>status.html</code>, and you have to log in
-the router using username <code>foo</code> and password <code>bar</code>:</p>
+  dyndns --provider dyndns --login &lt;login&gt; --password &lt;pass&gt; --host your.dyndns.org</pre>
+<p>If your router can display a web page containing the world known IP
+address, you can instruct to &quot;ping&quot; it. Suppose that router is at
+address 192.168.1.1 and page that displays the world known IP is
+<code>status.html</code>, and you have to log in to the router using username
+<code>foo</code> and password <code>bar</code>:</p>
 <pre>
-  dyndns.pl --urlping <a href="http://192.168.1.1/Status.html">http://192.168.1.1/Status.html</a> \
-            --urlping-login foo                      \
-            --urlping-pass  bar                      \</pre>
+  dyndns --urlping <a href="http://192.168.1.1/Status.html">http://192.168.1.1/Status.html</a> \
+         --urlping-login foo                      \
+         --urlping-pass  bar                      \</pre>
 <p>If the default regexp does not find IP address from the page, supply
 your own match with option <strong>--urlping-regexp</strong>. In case of doubt, add
 option <strong>--debug 1</strong> and examine the responses. In serious doubt, contact
-the maintainer (see option <strong>--Version</strong>) and send the full debug
+the maintainer (see option <strong>--version</strong>) and send the full debug
 output.</p>
 <p>Tip: if you run a local web server, provider <code>www.dyndns.org</code> can direct
 calls to it. See option <a href="#wildcard"><code>--wildcard</code></a> to enable `*.your.dyndns.org' domain
