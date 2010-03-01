@@ -1,27 +1,29 @@
 #!/usr/bin/perl
 #
-# dyndns.pl - Update Dynamic DNS address to DDNS provider
+#   dyndns.pl - Update Dynamic DNS address to DDNS provider
 #
-#   File id
+#   Copyright
 #
-#       Copyright (C) 1999-2009 Jari Aalto
+#       Copyright (C) 1999-2010 Jari Aalto
 #
-#       This program is free software; you can redistribute it and/or
-#       modify it under the terms of the GNU General Public License as
-#       published by the Free Software Foundation; either version 2 of
-#       the License, or (at your option) any later version.
+#   License
 #
-#       This program is distributed in the hope that it will be useful, but
-#       WITHOUT ANY WARRANTY; without even the implied warranty of
-#       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-#       General Public License for more details.
+#       This program is free software; you can redistribute it and/or modify
+#       it under the terms of the GNU General Public License as published by
+#       the Free Software Foundation; either version 2 of the License, or
+#       (at your option) any later version.
+#
+#       This program is distributed in the hope that it will be useful,
+#       but WITHOUT ANY WARRANTY; without even the implied warranty of
+#       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#       GNU General Public License for more details.
 #
 #       You should have received a copy of the GNU General Public License
-#       along with program; see the file COPYING. If not, write to the
-#       Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-#       Boston, MA 02110-1301, USA.
+#       along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
-#       Visit <http://www.gnu.org/copyleft/gpl.html>
+#   Documentation
+#
+#       To read manual, start this program with option: --help
 #
 #   Details how to update dyndns.org account
 #
@@ -54,13 +56,12 @@
 #
 #   Test commands (developer only information)
 #
-#       dyndns.pl --system custom --Test-account --urlping-linksys4 -d 4 2>&1 | tee ~/dyndns-custom.log
+#       dyndns.pl --system custom --test-account --urlping-linksys4 -d 4 2>&1 | tee ~/dyndns-custom.log
 
 # {{{ Import
 
-#   STANDARD PERL MODULES
+#   Standard perl modules
 
-use 5.004;
 use strict;
 use English;
 use File::Basename;
@@ -68,9 +69,7 @@ use Getopt::Long;
 use autouse 'Pod::Text'     => qw( pod2text );
 use autouse 'Pod::Html'     => qw( pod2html );
 
-#   ADDITIONAL MODULES
-#   use autouse 'Sys::Syslog' =>  qw( syslog closelog );
-#   See also CPAN module: Tie::Syslog
+#   External CPAN moudules
 
 my @REQUIRE_FATAL =   # Without these the program won't work
 (
@@ -88,7 +87,7 @@ my @REQUIRE_OPTIONAL =
 #  Will be set at runtime
 my @FEATURE_LIST_MODULES;
 
-IMPORT:                     # This is just syntactic sugar: actually no-op
+IMPORT: # This is just a syntactic sugar: actually no-op
 {
     #   Import following environment variables
 
@@ -104,12 +103,11 @@ IMPORT:                     # This is just syntactic sugar: actually no-op
     use vars qw ( $VERSION );
 
     #   This is for use of Makefile.PL and ExtUtils::MakeMaker
-    #   So that it puts the tardist number in format YYYY.MMDD
     #
     #   The following variable is updated by Emacs setup whenever
     #   this file is saved.
 
-    $VERSION = '2009.0318.0710';
+    $VERSION = '2010.0301.1155';
 }
 
 # }}}
@@ -137,6 +135,10 @@ sub Initialize ()
     (
         $PROGNAME
         $LIB
+	$LICENSE
+	$AUTHOR
+        $URL
+
         $WIN32
         $CYGWIN
 
@@ -156,6 +158,9 @@ sub Initialize ()
 
     $PROGNAME   = basename $PROGRAM_NAME;
     $LIB        = $PROGNAME;
+    $LICENSE	= "GPL-2+";
+    $AUTHOR     = "Jari Aalto";
+    $URL        = "http://freshmeat.net/projects/perl-dyndns";
 
     my $id = "$LIB.Initialize";
 
@@ -399,10 +404,10 @@ dyndns.pl - Update IP address to dynamic DNS (DDNS) provider
 =head1 SYNOPSIS
 
     dyndns.pl --login LOGIN --password PASSWORD \
-              --Host yourhost.dyndns.org
+              --host yourhost.dyndns.org
 
 Note: By Default this program expects www.dyndns.org provider. If you use
-other provider, see option B<--Provider>
+other provider, see option B<--provider>
 
 =head1 OPTIONS
 
@@ -410,7 +415,7 @@ other provider, see option B<--Provider>
 
 =over 4
 
-=item B<--Config=FILE [--Config=FILE ...]>
+=item B<--config=FILE [--config=FILE ...]>
 
 List of configuration files to read. No command line options other
 than B<--verbose>, B<--debug> or B<--test> should be appended or
@@ -423,17 +428,17 @@ Series of configuration files can be run at once e.g. within directory
 C</etc/dyndns/> by using a single option. The order of the files processed
 is alphabetical:
 
-    --Config=/etc/dyndns/*
+    --config=/etc/dyndns/*
 
 See section CONFIGURATION FILE for more information how to write the files.
 
-=item B<--Host=host1 [--Host=host2 ...]>
+=item B<--host=host1 [--host=host2 ...]>
 
 Use registered HOST(s).
 
 =item B<--group GROUP>
 
-B<This option is only for --Provider noip>
+B<This option is only for --provider noip>
 
 Assign IP to GROUP. Do you have many hosts that all update to the same
 IP address? Update a group instead of a many hosts.
@@ -444,7 +449,7 @@ DDNS account's LOGIN name.
 
 =item B<--mxhost MX-HOST-NAME>
 
-B<This option is only for --Provider dyndns>
+B<This option is only for --provider dyndns>
 
 Update account information with MX hostname. Specifies a Mail eXchanger for
 use with the host being modified. Must resolve to an B<static> IP address,
@@ -458,9 +463,9 @@ removed and possibly further action taken to prevent it from happening
 again. Any mail sent to a misconfigured server listed as an MX may bounce,
 and may be lost.
 
-=item B<--Mx-option>
+=item B<--mx-option>
 
-B<This option is only for --Provider dyndns>
+B<This option is only for --provider dyndns>
 
 Turn on MX option. Request that the MX in the previous parameter be set up
 as a backup. This means that mail will first attempt to deliver to your
@@ -472,7 +477,7 @@ Update clients cannot change this value. Clients can only submit requests
 to the php script to update the A record. Changes such as MX records
 must be done through website.
 
-=item B<--Offline>
+=item B<--offline>
 
 If given, set the host to offline mode.
 
@@ -490,7 +495,7 @@ DDNS account's PASSWORD.
 
 =item B<--system {dyndns|statdns|custom}>
 
-B<This option is only for --Provider dyndns>
+B<This option is only for --provider dyndns>
 
 The system you wish to use for this update. C<dyndns> will update a dynamic
 host, C<custom> will update a MyDynDNS Custom DNS host and C<statdns> will
@@ -498,7 +503,7 @@ update a static host. The default value is C<dyndns> and you cannot use
 other options (statdns|custom) unless you donate and gain access to the
 more advanced features.
 
-=item B<--Wildcard>
+=item B<--wildcard>
 
 Turn on wildcard option. The wildcard aliases C<*.yourhost.ourdomain.ext>
 to the same address as C<yourhost.ourdomain.ext>
@@ -509,19 +514,19 @@ to the same address as C<yourhost.ourdomain.ext>
 
 =over 4
 
-=item B<--Daemon [WAIT-MINUTES]>
+=item B<-D, --daemon [WAIT-MINUTES]>
 
 Enter daemon mode. The term "daemon" refers to a standalone processes
 which keep serving until killed. In daemon mode program enters
 into infinite loop where IP address changes are checked periodically.
 For each new ip address check, program waits for WAIT-MINUTES.
-Messages in this mode are reported using syslog(3).
+Messages in this mode are reported using syslog(3); if available.
 
 This option is designed to be used in systems that do not provide Unix-like
 cron capabilities (e.g under Windows OS). It is better to use cron(8) and
 define an entry using crontab(5) notation to run the update in periodic
 intervals. This will use less memory when Perl is not permanently kept in
-memory like it would with option B<--Daemon>.
+memory like it would with option B<--daemon>.
 
 The update to DDNS provider happens only if
 
@@ -529,7 +534,7 @@ The update to DDNS provider happens only if
     2) or it has taken 30 days since last update.
        (See DDNS providers' account expiration time documentation)
 
-The minumum sleep time is 5 minutes. Program will not allow faster
+The minimum sleep time is 5 minutes. Program will not allow faster
 wake up times(*). The value can be expressed in formats:
 
     15      Plain number, minutes
@@ -537,22 +542,21 @@ wake up times(*). The value can be expressed in formats:
     1h      (h)ours
     1d      (d)days
 
-This options is primarily for cable and DSL users. If you have a
-dial-up connection, it is better to arrange the IP update at the same
-time as when the connection is started. In Linux this would happen
-during C<ifup(1)>.
+This options is primarily for permanent Internet connection. If you
+have a dial-up connection, it is better to arrange the IP update at
+the same time as when the connection is started. In Linux this would
+happen during C<ifup(1)>.
 
 (*) Perl language is CPU intensive so any faster check would put
 considerable strain on system resources. Normally a value of 30 or 60
-minutes will work fine in most of the ADSL lines. Monitor the ISP's IP
-rotation time to adjust the time in to use sufficiently long wake up
-times.
+minutes will work fine in most cases. Monitor the ISP's IP rotation
+time to adjust the time in to use sufficiently long wake up times.
 
 =item B<--ethernet [CARD]>
 
 In Linux system, the automatic IP detection uses program
 C<ifconfig(1)>. If you have multiple network cards, select the correct
-card with this option. The default device queried is C<eth0>.
+card with this option. The default device used for query is C<eth0>.
 
 =item B<--file PREFIX>
 
@@ -563,10 +567,10 @@ deleted and you happen to update SAME ip twice within a short period -
 according to www.dyndns.org FAQ - your address may be blocked.
 
 On Windows platform all filenames must use forward slashs like
-C:/somedir/to/, not C:\somedir\to.
+C<C:/somedir/to/>, not C<C:\somedir\to\>.
 
 The PREFIX is only used as a basename for supported DDNS accounts (see
-B<--Provider>). The saved filename is constructed like this:
+B<--provider>). The saved filename is constructed like this:
 
    PREFIX<ethernet-card>-<update-system>-<host>-<provider>.log
                           |
@@ -577,7 +581,7 @@ to C</var/log/dyndns/>:
 
     /var/log/dyndns/eth0-statdns-my.dyndns.org-dyndns.log
 
-=item B<--file-default|-f>
+=item B<-f, --file-default>
 
 Use reasonable default for saved IP file PREFIX (see B<--file>). Under
 Windows, %WINDIR% is used. Under Linux the PREFIXes searched are
@@ -590,7 +594,7 @@ Windows, %WINDIR% is used. Under Linux the PREFIXes searched are
 
 Use HOST as outgoing HTTP proxy.
 
-=item B<--Provider TYPE>
+=item B<-P, --provider TYPE>
 
 By default, program connects to C<dyndns.org> to update the dynamic IP
 address. There are many free dynamic DNS providers are reported.
@@ -609,7 +613,11 @@ Supported list of TYPES in alphabetical order:
                 Basic DDNS service is free (as of 2003-10-02)
                 http://www.no-ip.com/
 
-=item B<--Query>
+NOTE: as of 2010, the support for sites of hnorg, noip is probably
+non-working due to chnages in the interfaces. Please use only dyndns
+at this time.
+
+=item B<--query>
 
 Query current IP address and quit. B<Note:> if you use router, you may
 need --urlping* option, otherwise the IP address returned is your subnet's
@@ -618,7 +626,7 @@ DHCP IP and not the ISP's Internet IP.
 Output of the command is at least two string. The second string is
 C<last-ip-info-not-available> if the saved ip file name is not specified.
 In order to program to know where to look for saved IP files you need to
-give some B<--file*> or B<--Config> option. The second string can also be
+give some B<--file*> or B<--config> option. The second string can also be
 C<nochange> if current IP address is same as what was found from saved
 file. Examples:
 
@@ -632,15 +640,15 @@ B<Note for tool developers:> additional information may be provided in
 future. Don't rely on the count of the output words, but instead parse
 output from left to right.
 
-=item B<--Query-ipchanged ['exitcode']>
+=item B<--query-ipchanged ['exitcode']>
 
 Print message if IP has changed or not. This option can take
 an optional string argument C<exitcode> which causes program to
 indicate changed ip address with standard shell status code
 (in bash shell that would available at variable C<$?>):
 
-    $ dyndns.pl --Query-ipchange exitcode --file-default \
-      --Provider dyndns --Host xxx.dyndns.org
+    $ dyndns.pl --query-ipchange exitcode --file-default \
+      --provider dyndns --host xxx.dyndns.org
     $ echo $?
 
     ... the status code of shell ($?) would be:
@@ -667,25 +675,25 @@ B<Note for tool developers:> additional information may be provided in
 future. Don't rely on the count of the output words, but instead parse
 output from left to right.
 
-=item B<--Query-ipfile>
+=item B<--query-ipfile>
 
 Print the name of the IP file and quit.
 
 B<Note:> In order for this option to work, you must supply all other
 options would be normally pass to update the DDNS account, because the Ip
-filename depends on these options. Alternatively provide option B<--Config
+filename depends on these options. Alternatively provide option B<--config
 FILE> from where all relevant information if read.
 
     --ethernet      [optional, defaults to eth0]
-    --Provider      [optional, defaults to dyndns]
+    --provider      [optional, defaults to dyndns]
     --system        [optional, defaults to dyndns]
-    --Host          required.
+    --host          required.
 
 Here is an example which supposed that directory C</var/log/dyndns/>
 already exists:
 
-    $ dyndns.pl --file-default --Query-ipfile \
-      --Provider dyndns --Host xxx.dyndns.org
+    $ dyndns.pl --file-default --query-ipfile \
+      --provider dyndns --host xxx.dyndns.org
     /var/log/dyndns/eth0-dyndns-dyndns-xxx-dyndns.org.log
 
 =item B<--regexp REGEXP>
@@ -813,7 +821,7 @@ may cause putting blocks to your site.
 
     http://www.dyndns.org/cgi-bin/check_ip.cgi
 
-Be sure to use period of 60 minutes or more with B<--Daemon> option to
+Be sure to use period of 60 minutes or more with B<--daemon> option to
 not increase the load in the "ping" site and cause admin's to shut
 down the service.
 
@@ -905,7 +913,7 @@ B<nroff -man> in order to read it.
 Run in test mode, do not actually update anything. LEVEL 1 allows
 sending HTTP ping options and getting answers.
 
-=item B<--Test-driver>
+=item B<--test-driver>
 
 This is for developer only. Run internal integrity tests.
 
@@ -919,7 +927,7 @@ client page at http://clients.dyndns.org/devel/
 
 Print informational messages.
 
-=item B<--Version>
+=item B<--version>
 
 Print version and contact information.
 
@@ -928,7 +936,7 @@ Print version and contact information.
 =head1 README
 
 Perl client for updating a dynamic DNS IP information at supported
-providers (see C<--Provider>). Visit the page of the provider and create an
+providers (see C<--provider>). Visit the page of the provider and create an
 account. Write down the login name, password and host name you registered.
 
 Program has been designed to work under any version of Windows or
@@ -972,19 +980,19 @@ PATH:
 
 To check current IP address:
 
-  dyndns.pl --Query [--urlping...]
+  dyndns.pl --query [--urlping...]
                     |
                     Select correct option to do the "ping" for IP
 
 Show where the ip file is/would be stored with given connect options.
 The option B<--file-default> uses OS's default directory structure.
 
-  dyndns.pl --file-default --Query-ipfile --Provider dyndns \
-            --Host xxx.dyndns.org
+  dyndns.pl --file-default --query-ipfile --provider dyndns \
+            --host xxx.dyndns.org
 
 To upate account information to DDNS provider:
 
-  dyndns.pl --login <login> --password <pass> --Host your.dyndns.org
+  dyndns.pl --login <login> --password <pass> --host your.dyndns.org
 
 If you have a cable or DSL and your router can display a web page
 containing the world known IP address, you can instruct to "ping"
@@ -1003,7 +1011,7 @@ the maintainer (see option B<--Version>) and send the full debug
 output.
 
 Tip: if you run a local web server, provider C<www.dyndns.org> can direct
-calls to it. See option C<--Wildcard> to enable `*.your.dyndns.org' domain
+calls to it. See option C<--wildcard> to enable `*.your.dyndns.org' domain
 delegation, like if it we accessed using `www.your.dyndns.org'.
 
 =head1 CONFIGURATION FILE
@@ -1011,7 +1019,7 @@ delegation, like if it we accessed using `www.your.dyndns.org'.
 Instead of supplying options at command line, the options can be stored to
 configuration files. For each DDNS account and different domains, a
 separate configuration file must be created. The configuration files are
-read with option B<--Config>.
+read with option B<--config>.
 
 The syntax of the configuration file includes comments that start with (#).
 Anything after hash-sign is interpreted as comment. Values are set in KEY =
@@ -1129,7 +1137,7 @@ full HTTP response:
 1. Turn on B<--debug> to see exact details how the program runs and
 what HTTP requests are sent and received.
 
-2. Most of the <--Query> options can't be used standalone. Please see
+2. Most of the <--query> options can't be used standalone. Please see
 documentation what additional options you need to supply with them.
 
 =head1 ENVIRONMENT
@@ -1156,7 +1164,7 @@ In Linux the syslog message files are:
 There is no default location where program would search for configuration
 files. At installation, configuration examples are put in directory
 C</etc/dyndns/examples>. It is recommended that the examples are modified
-and copied one directorory up in order to use option B<--Config
+and copied one directorory up in order to use option B<--config
 /etc/dyndns/*>.
 
 If program is run with Windows Activestate Perl, the log file is stored to
@@ -1295,7 +1303,7 @@ sub Version ()
 
 sub VersionInfo ()
 {
-    Version();
+    Version() . " $AUTHOR $LICENSE $URL"
 }
 
 # ************************************************************** &args *******
@@ -1448,46 +1456,44 @@ sub HandleCommandLineArgsMain ()
 
     GetOptions      # Getopt::Long
     (
-          "h|help"              => \$help
-        , "Help-html"           => \$helpHTML
-        , "Help-man"            => \$helpMan
-
+          "config=s@"           => \@OPT_CONFIG_FILE
         , "debug:i"             => \$debug
-        , "Config=s@"           => \@OPT_CONFIG_FILE
-        , "Daemon:i"            => \$OPT_DAEMON
+        , "D|daemon:i"          => \$OPT_DAEMON
         , "ethernet=s"          => \$OPT_ETHERNET
-        , "Host=s@"             => \@OPT_HOST
 
-        , "file=s"              => \$OPT_IP_FILE
         , "f|file-default"      => \$ipfileDefault
-        , "Force"               => \$OPT_FORCE
+        , "file=s"              => \$OPT_IP_FILE
+        , "force"               => \$OPT_FORCE
 
         , "group=s"             => \$OPT_GROUP
+
+        , "h|help"              => \$help
+        , "help-html"           => \$helpHTML
+        , "help-man"            => \$helpMan
+        , "host=s@"             => \@OPT_HOST
 
         , "login=s"             => \$OPT_LOGIN
 
         , "mxhost=s"            => \$OPT_HOSTMX
-        , "Mx-option"           => \$mx
+        , "mx-option"           => \$mx
 
+        , "offline"             => \$offline
+
+        , "password=s"          => \$OPT_PASS
         , "proxy=s"             => \$OPT_PROXY
-        , "Provider=s"          => \$OPT_PROVIDER
+        , "P|provider=s"        => \$OPT_PROVIDER
+
+        , "q|query"             => \$OPT_QUERY
+        , "query-ipfile"        => \$OPT_QUERY_IP_FILE
+        , "query-ipsaved"       => \$OPT_QUERY_IP_SAVED
+        , "query-ipchanged:s"   => \$OPT_QUERY_IP_CHANGED
 
         , "regexp=s"            => \$OPT_REGEXP
         , "system=s"            => \$OPT_SYSTEM
 
-        , "Offline"             => \$offline
-
-        , "password=s"          => \$OPT_PASS
-
-        , "Q|Query"             => \$OPT_QUERY
-        , "Query-ipfile"        => \$OPT_QUERY_IP_FILE
-        , "Query-ipsaved"       => \$OPT_QUERY_IP_SAVED
-        , "Query-ipchanged:s"   => \$OPT_QUERY_IP_CHANGED
-
-
-        , "test:i"              => \$test
-        , "Test-driver"         => \$testDriver
-        , "Test-account"        => \$testAccount
+        , "t|test:i"            => \$test
+        , "test-driver"         => \$testDriver
+        , "test-account"        => \$testAccount
 
         , "urlping=s"           => \$OPT_HTTP_PING
         , "urlping-regexp=s"    => \$OPT_HTTP_PING_REGEXP
@@ -1498,10 +1504,9 @@ sub HandleCommandLineArgsMain ()
         , "urlping-linksys:s"   => \$OPT_HTTP_PING_LINKSYS
 
         , "verbose"             => \$verb
-        , "Version"             => \$version
+        , "V|version"           => \$version
 
-        , "Wildcard"            => \$wildcard
-
+        , "wildcard"            => \$wildcard
     );
 
     $version                and print( VersionInfo() . "\n"), exit;
@@ -1547,7 +1552,7 @@ sub HandleCommandLineArgsMain ()
 
         unless ( @OPT_CONFIG_FILE  or  $OPT_IP_FILE )
         {
-            die "$id: Need more details, add option --file* or --Config. "
+            die "$id: Need more details, add option --file* or --config. "
                 , "If you use router, then you also need some "
                 , "--urlping* option"
                 ;
@@ -1563,7 +1568,7 @@ sub HandleCommandLineArgsMain ()
 	 not defined @OPT_HOST
        )
     {
-        warn "$id: Option --Host should be included with queries.";
+        warn "$id: Option --host should be included with queries.";
     }
 
     if ( defined $OPT_DAEMON )
@@ -1921,7 +1926,7 @@ sub VariableCheckValidity (; $)
         unless ( $OPT_LOGIN  and  $OPT_PASS  and  @OPT_HOST)
         {
             die "$id: ${msg}Need minimum options: "
-                . "--login $OPT_LOGIN --pass $OPT_PASS --Host @OPT_HOST";
+                . "--login $OPT_LOGIN --pass $OPT_PASS --host @OPT_HOST";
         }
     }
 
@@ -2591,7 +2596,7 @@ sub IPfileNameGlobbed ()
        )
     {
 	#  Nothing to check. We donÅ‰t need to look at previously saved file
-	#  User is probably calling with --Query or --query-linksys
+	#  User is probably calling with --query or --query-linksys
 
 	$debug and print "$id: Nothing to do\n";
 	return;
@@ -3635,7 +3640,7 @@ sub FileWriteCheckIP ($)
     {
         die "$id: Don't know where to save IP. "
             , "Use --debug to pinpoint the problem if you supplied "
-            , "option --Config or --file or --file-default"
+            , "option --config or --file or --file-default"
             ;
     }
 
@@ -6070,11 +6075,11 @@ sub ProcessUpdateOne ( % )
 
     if ( $OPT_FORCE )
     {
-        $debug  and  print "$id: --Force is active\n";
+        $debug  and  print "$id: --force is active\n";
 
         unless ( $oldFile  or   $new )
         {
-            print "$id: [WARN] Using --Force while IP has not changed.\n";
+            print "$id: [WARN] Using --force while IP has not changed.\n";
         }
 
         $new = -forced;
@@ -6182,7 +6187,7 @@ sub ProcessQueryRequests (%)
 
         die $msg unless $OPT_ETHERNET;
 
-        die "$id: [ERROR] option --Provider missing"
+        die "$id: [ERROR] option --provider missing"
             unless $OPT_PROVIDER;
 
         unless ( $file )
@@ -6268,7 +6273,7 @@ sub ProcessQueryRequests (%)
 
         InfoIP();
 
-        warn  "$id: [WARN] --file* or --Config option is missing" unless $file;
+        warn  "$id: [WARN] --file* or --config option is missing" unless $file;
 
         unless ( IPvalidate $ip )
         {
@@ -6482,7 +6487,7 @@ sub Main ()
 
         warn "$PROGRAM_NAME: [UPGRADE NOTE] Non-supported environment "
             , "variable DYNDNS_PL_CFG found. Please migrate to the "
-            , "new system. See --Config and section 'CONFIGURATION FILE' "
+            , "new system. See --config and section 'CONFIGURATION FILE' "
             , "from the manual page";
     }
 
