@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-#   dyndns.pl - Update Dynamic DNS address to DDNS provider
+#   dyndns - Update Dynamic DNS address to DDNS provider
 #
 #   Copyright
 #
@@ -56,7 +56,7 @@
 #
 #   Test commands (developer only information)
 #
-#       dyndns.pl --system custom --test-account --urlping-linksys4 -d 4 2>&1 | tee ~/dyndns-custom.log
+#       dyndns --system custom --test-account --urlping-linksys4 -d 4 2>&1 | tee ~/dyndns-custom.log
 
 # {{{ Import
 
@@ -107,7 +107,7 @@ IMPORT: # This is just a syntactic sugar: actually no-op
     #   The following variable is updated by Emacs setup whenever
     #   this file is saved.
 
-    $VERSION = '2010.0301.1155';
+    $VERSION = '2010.0301.1247';
 }
 
 # }}}
@@ -399,15 +399,50 @@ sub InitializeModules ()
 
 =head1 NAME
 
-dyndns.pl - Update IP address to dynamic DNS (DDNS) provider
+dyndns - Update IP address to dynamic DNS (DDNS) provider
 
 =head1 SYNOPSIS
 
-    dyndns.pl --login LOGIN --password PASSWORD \
-              --host yourhost.dyndns.org
+    dyndns --login LOGIN --password PASSWORD \
+           --host yourhost.dyndns.org
 
 Note: By Default this program expects www.dyndns.org provider. If you use
 other provider, see option B<--provider>
+
+=head1 DESCRIPTION
+
+A Perl client for updating dynamic DNS IP information at supported
+providers (see C<--provider>).
+
+The dynamic DNS services allow mapping a dynamic IP address to a
+static hostname. This way the host can be refered by name instead of
+the changing IP address from the ISP's pool. Some DDNS providers offer
+a single account and a single host namefree of charge. Please check
+the information from the Providers' pages.
+
+Separate files are used for remembering the last IP address to prevent
+updating the same IP address again. This is necessary in order to comply
+guidelines of the providers where multiple updates of the same IP address
+could cause your domain to be blocked. You should not normally need to
+touch the files where the ip addresses are stored.
+
+If you know what you are doing and desperately need a forced update,
+delete the IP files and start program with apropriate arguments.
+Without the information about previous IP address, program sends a new
+update request to the provider.
+
+Program has been designed to work under any version of Windows or
+Linux, possibly Mac OS included. It may not work under other Unix/BSD
+variants. Please see BUGS section how to provide details to add
+support for other operating systems.
+
+Visit the page of the provider and create an account. Write down the
+login name, password and host name you registered.
+
+For Windows operating systems, you need to install Perl. There are two
+Perl incarnatons: Native Windows version (Activestate Perl) and Cygwin
+version. The C<http://www.cygwin.com/> is recommended as it more closely
+follows the original Perl environment.
 
 =head1 OPTIONS
 
@@ -422,11 +457,10 @@ than B<--verbose>, B<--debug> or B<--test> should be appended or
 results are undefined. Each file must contain complete DDNS account
 configuration.
 
-The FILE part wll go through Perl's C<glob()> function, meaning that
-the filenames are expanded if standard shell wild card is supplied.
-Series of configuration files can be run at once e.g. within directory
-C</etc/dyndns/> by using a single option. The order of the files processed
-is alphabetical:
+The FILE part will go through Perl's C<glob()> function, meaning that
+the filenames are expanded. Series of configuration files can be run
+at once e.g. within directory C</etc/dyndns/> by using a single
+option. The order of the files processed is alphabetical:
 
     --config=/etc/dyndns/*
 
@@ -503,6 +537,8 @@ update a static host. The default value is C<dyndns> and you cannot use
 other options (statdns|custom) unless you donate and gain access to the
 more advanced features.
 
+See the DDNS provider's pages for more information.
+
 =item B<--wildcard>
 
 Turn on wildcard option. The wildcard aliases C<*.yourhost.ourdomain.ext>
@@ -517,10 +553,10 @@ to the same address as C<yourhost.ourdomain.ext>
 =item B<-D, --daemon [WAIT-MINUTES]>
 
 Enter daemon mode. The term "daemon" refers to a standalone processes
-which keep serving until killed. In daemon mode program enters
-into infinite loop where IP address changes are checked periodically.
-For each new ip address check, program waits for WAIT-MINUTES.
-Messages in this mode are reported using syslog(3); if available.
+which keep serving until killed. In daemon mode program enters into
+infinite loop where IP address changes are checked periodically. For
+each new ip address check, program waits for WAIT-MINUTES. Messages in
+this mode are reported using syslog(3); if available.
 
 This option is designed to be used in systems that do not provide Unix-like
 cron capabilities (e.g under Windows OS). It is better to use cron(8) and
@@ -647,7 +683,7 @@ an optional string argument C<exitcode> which causes program to
 indicate changed ip address with standard shell status code
 (in bash shell that would available at variable C<$?>):
 
-    $ dyndns.pl --query-ipchange exitcode --file-default \
+    $ dyndns --query-ipchange exitcode --file-default \
       --provider dyndns --host xxx.dyndns.org
     $ echo $?
 
@@ -692,7 +728,7 @@ FILE> from where all relevant information if read.
 Here is an example which supposed that directory C</var/log/dyndns/>
 already exists:
 
-    $ dyndns.pl --file-default --query-ipfile \
+    $ dyndns --file-default --query-ipfile \
       --provider dyndns --host xxx.dyndns.org
     /var/log/dyndns/eth0-dyndns-dyndns-xxx-dyndns.org.log
 
@@ -827,7 +863,7 @@ down the service.
 
 =item B<--urlping-dyndns>
 
-Contact to www.dyndns.org service to obtain IP address information. This
+Contact http://www.dyndns.org service to obtain IP address information. This
 is shorthand to more general optiopn B<--urlping>.
 
 =item B<--urlping-linksys [TYPE]>
@@ -899,11 +935,11 @@ contacting DDNS provider.
 
 Print help
 
-=item B<--Help-html>
+=item B<--help-html>
 
 Print help in HTML format.
 
-=item B<--Help-man>
+=item B<--help-man>
 
 Print help page in Unix manual page format. You want to feed this output to
 B<nroff -man> in order to read it.
@@ -921,7 +957,7 @@ This is for developer only. Run internal integrity tests.
 
 This is for developer only. Uses DYNDNS test account options. All command
 line values that set host information or provider are ignored. Refer to
-client page at http://clients.dyndns.org/devel/
+client page at http://clients.dyndns.org/devel
 
 =item B<--verbose>
 
@@ -933,81 +969,38 @@ Print version and contact information.
 
 =back
 
-=head1 README
-
-Perl client for updating a dynamic DNS IP information at supported
-providers (see C<--provider>). Visit the page of the provider and create an
-account. Write down the login name, password and host name you registered.
-
-Program has been designed to work under any version of Windows or
-Linux, possibly Mac OS included. It may not work under other Unix
-variants due to different commands and outputs to get network IP
-assignment information. Please see BUGS section how to provide details
-to add support to other operating systems.
-
-The dynamic DNS service allows mapping a dynamic IP address to a static
-hostname. This way the computer can be refereed by name instead of ever
-changing IP address from ISP's pool. The DDNS providers have may have basic
-services, like single account and single host name, which may still be free
-of charge. Please check the current status form the pages of the providers.
-
-Separate files are used for remembering the last IP address to prevent
-updating the same IP address again. This is necessary in order to comply
-guidelines of the providers where multiple updates of the same IP address
-could cause your domain to be blocked. You should not normally need to
-touch the files where the ip addresses are stored.
-
-If you know what you are doing and desperately need a forced update,
-delete the IP files and start program with apropriate arguments.
-Without the information about previous IP address, program sends a new
-update request to the provider.
-
-For windows operating systems, you need to install Perl. There are two
-Perl incarnatons: Native Windows version (Activestate Perl) and Cygwin
-version. It is recommended that you install Cygwin suite, which
-includes Perl from C<http://www.cygwin.com/>. The Cygwin is a Unix
-layer running on top of windws and makes it possible to use cron jobs
-etc. just like in Linux systems. If you have no prior experience on
-Unix/Linux, then the Activestate Perl might be better for Windows.
-Activestate includes a Windows installer, but the Perl programs must
-be run through Perl interpreter. For Activestate, put programs along
-PATH and use command line call with option B<-S> to instruct to search
-PATH:
-
-    perl -S dyndns.pl [options]
-
 =head1 EXAMPLES
 
 To check current IP address:
 
-  dyndns.pl --query [--urlping...]
-                    |
-                    Select correct option to do the "ping" for IP
+  dyndns --query [--urlping...]
+                 |
+                 Select correct option to do the "ping" for IP
 
 Show where the ip file is/would be stored with given connect options.
 The option B<--file-default> uses OS's default directory structure.
 
-  dyndns.pl --file-default --query-ipfile --provider dyndns \
-            --host xxx.dyndns.org
+  dyndns --file-default --query-ipfile --provider dyndns \
+          --host xxx.dyndns.org
 
 To upate account information to DDNS provider:
 
-  dyndns.pl --login <login> --password <pass> --host your.dyndns.org
+  dyndns --provider dyndns --login <login> --password <pass> --host your.dyndns.org
 
-If you have a cable or DSL and your router can display a web page
-containing the world known IP address, you can instruct to "ping"
-it. Suppose that router occupies address 192.168.1.1 and page that
-displays the world known IP is C<status.html>, and you have to log in
-the router using username C<foo> and password C<bar>:
+If your router can display a web page containing the world known IP
+address, you can instruct to "ping" it. Suppose that router is at
+address 192.168.1.1 and page that displays the world known IP is
+C<status.html>, and you have to log in to the router using username
+C<foo> and password C<bar>:
 
-  dyndns.pl --urlping http://192.168.1.1/Status.html \
-            --urlping-login foo                      \
-            --urlping-pass  bar                      \
+  dyndns --urlping http://192.168.1.1/Status.html \
+         --urlping-login foo                      \
+         --urlping-pass  bar                      \
 
 If the default regexp does not find IP address from the page, supply
 your own match with option B<--urlping-regexp>. In case of doubt, add
 option B<--debug 1> and examine the responses. In serious doubt, contact
-the maintainer (see option B<--Version>) and send the full debug
+the maintainer (see option B<--version>) and send the full debug
 output.
 
 Tip: if you run a local web server, provider C<www.dyndns.org> can direct
