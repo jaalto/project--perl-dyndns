@@ -6,14 +6,17 @@ cross-platform solution for DHCP ISP-connected users to obtain
 permanent DNS, MX, and Web hosting service from a DDNS provider (e.g.
 dyndns.org). Works anywhere where Perl is installed.
 
+Source package directories
+
     bin/	    The program
     doc/            Documentation in various formats
-    etc/template    Example files for permanent DDNS configurations
+    examples/       Example files for DDNS configurations
 
 Important files
 
+    INSTALL			Install instructions
     doc/license/LICENSE.txt 	Licensing information
-    bin/ChangeLog		Project change records
+    ChangeLog			Project change records
 
 Project contacts
 
@@ -25,5 +28,20 @@ Project contacts
 
     Source code repository
       See freshmeat page
+
+    Depends
+      Perl (any version)
+
+      Extenal CPAN libraries:
+
+	  [ Debian: libwww-perl ]
+	  HTTP::Request::Common
+	  HTTP::Headers
+	  LWP::UserAgent
+	  LWP::Simple
+
+	  # optional: used only is available
+	  [ Debian: libsys-syslog-perl ]
+	  Sys::Syslog
 
 End of file
