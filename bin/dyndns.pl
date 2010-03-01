@@ -107,7 +107,7 @@ IMPORT: # This is just a syntactic sugar: actually no-op
     #   The following variable is updated by Emacs setup whenever
     #   this file is saved.
 
-    $VERSION = '2010.0301.1308';
+    $VERSION = '2010.0301.1321';
 }
 
 # }}}
@@ -795,8 +795,6 @@ after its match point is the wanted address.
 
 =head2 Cable, DSL and router options
 
-=over 4
-
 If you do not have direct access to world known C<real> IP address, but to
 a subnet IP address, then you cannot determine your outside world IP
 address from your machine directly. See picture below:
@@ -846,6 +844,8 @@ the above fictional service, the options needed would be:
 NOTE: The text to match from web page is not text/plain, but text/html,
 so you must look at the HTML page's sources to match the IP
 address correctly without the bold <b> tags etc.
+
+=over 4
 
 =item B<--urlping URL>
 
