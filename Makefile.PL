@@ -62,7 +62,10 @@ sub installbin
 sub postamble
 {
     return '
--include install.mk
+include install.mk
+
+install-test::
+	$(MAKE) DESTDIR=tmp install
 
 doc-doc:
 	$(MAKE) -C doc
