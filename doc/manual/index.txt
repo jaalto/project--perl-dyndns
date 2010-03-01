@@ -369,59 +369,56 @@ OPTIONS
         next word after its match point is the wanted address.
 
   Cable, DSL and router options
-        If you do not have direct access to world known "real" IP address,
-        but to a subnet IP address, then you cannot determine your outside
-        world IP address from your machine directly. See picture below:
+    If you do not have direct access to world known "real" IP address, but
+    to a subnet IP address, then you cannot determine your outside world IP
+    address from your machine directly. See picture below:
 
-                                router/subnet                    Internet
-                               +-------------+                +-----------+
-           Your PC:            |             | maps address   |           |
-           connect to ISP -->  | ROUTER      | -------------> |           |
-                               | 192.168.... |                | 80.1.1.1  |
-           local ip says:      +-------------+                +-----------+
-           192.168.xxx.xxx                                    THE REAL IP
+                            router/subnet                    Internet
+                           +-------------+                +-----------+
+       Your PC:            |             | maps address   |           |
+       connect to ISP -->  | ROUTER      | -------------> |           |
+                           | 192.168.... |                | 80.1.1.1  |
+       local ip says:      +-------------+                +-----------+
+       192.168.xxx.xxx                                    THE REAL IP
 
-        ASDL and cable modem and other connections may not be directly
-        connected to Internet, but to a router to allow subnnetting internal
-        hosts. This makes several computers to access the Internet while the
-        ISP has offered only one visible IP address to you. The router makes
-        the mapping of the local subnet IP to the world known IP address,
-        provided by the ISP when the connection was established.
+    ASDL and cable modem and other connections may not be directly connected
+    to Internet, but to a router to allow subnnetting internal hosts. This
+    makes several computers to access the Internet while the ISP has offered
+    only one visible IP address to you. The router makes the mapping of the
+    local subnet IP to the world known IP address, provided by the ISP when
+    the connection was established.
 
-        You need some way to find out what is the real IP is. The simplest
-        way is to connect to a some web page, which runs a reverse lookup
-        service which can show the connecting IP address.
+    You need some way to find out what is the real IP is. The simplest way
+    is to connect to a some web page, which runs a reverse lookup service
+    which can show the connecting IP address.
 
-        Note: the following web web page does not exists. To find a service
-        that is able to display your IP address, do a google search. Let's
-        say, that you found a fictional service
-        "http://www.example.com/showip" and somewhere in the web page it
-        reads:
+    Note: the following web web page does not exists. To find a service that
+    is able to display your IP address, do a google search. Let's say, that
+    you found a fictional service "http://www.example.com/showip" and
+    somewhere in the web page it reads:
 
-                Your IP address is: 212.111.11.10
+            Your IP address is: 212.111.11.10
 
-        This is what you need. To automate the lookup from web page, you
-        need to instruct the program to connect to URL page and tell how to
-        read the ip from page by using a regular expression. Consult Perl's
-        manual page "perlre" if you are unfamiliar with the regular
-        expressions. For the above fictional service, the options needed
-        would be:
+    This is what you need. To automate the lookup from web page, you need to
+    instruct the program to connect to URL page and tell how to read the ip
+    from page by using a regular expression. Consult Perl's manual page
+    "perlre" if you are unfamiliar with the regular expressions. For the
+    above fictional service, the options needed would be:
 
-            --urlping         "http://showip.org/?showit.pl"
-            --urlping-regexp  "address is:\s+([\d.]+)"
-                                          |  ||
-                                          |  |+- Read all digits and periods
-                                          |  |
-                                          |  +- capturing parentheses
-                                          |
-                                          +- expect any number of whitespaces
+        --urlping         "http://showip.org/?showit.pl"
+        --urlping-regexp  "address is:\s+([\d.]+)"
+                                      |  ||
+                                      |  |+- Read all digits and periods
+                                      |  |
+                                      |  +- capturing parentheses
+                                      |
+                                      +- expect any number of whitespaces
 
-        NOTE: The text to match from web page is not text/plain, but
-        text/html, so you must look at the HTML page's sources to match the
-        IP address correctly without the bold <b> tags etc.
+    NOTE: The text to match from web page is not text/plain, but text/html,
+    so you must look at the HTML page's sources to match the IP address
+    correctly without the bold <b> tags etc.
 
-        --urlping URL
-
+    --urlping URL
         Web page where world known IP address can be read. If you find a Web
         server that is running some program, which can show your IP addres,
         use it. The example below connects to site and calls CGI program to
@@ -434,13 +431,11 @@ OPTIONS
         not increase the load in the "ping" site and cause admin's to shut
         down the service.
 
-        --urlping-dyndns
-
+    --urlping-dyndns
         Contact http://www.dyndns.org service to obtain IP address
         information. This is shorthand to more general optiopn --urlping.
 
-        --urlping-linksys [TYPE]
-
+    --urlping-linksys [TYPE]
         Specialized router option for Linksys products.
 
         This option connects to Linksys Wireless LAN 4-point router, whose
@@ -461,18 +456,15 @@ OPTIONS
          - WRT54GL, Wireless WRT54GL Wireless-G Broadband Router.
            Page: http://192.168.1.1/Status_Router.asp
 
-        --urlping-login LOGIN
-
+    --urlping-login LOGIN
         If "--urlping" web page requires authentication, supply user name
         for a secured web page.
 
-        --urlping-password LOGIN
-
+    --urlping-password LOGIN
         If "--urlping" web page requires authentication, supply password for
         a secured web page.
 
-        --urlping-regexp REGEXP
-
+    --urlping-regexp REGEXP
         After connecting to page with --urlping URL, the web page is
         examined for REGEXP. The regexp must catch the IP to perl match $1.
         Use non-capturing parenthesis to control the match as needed. For
@@ -762,12 +754,4 @@ AUTHOR
     conditions set forth in GNU General Public License v2 or later (GNU
     GPL); or, at your option, distributed under the terms of GNU Free
     Documentation License version 1.2 or later (GNU FDL).
-
-POD ERRORS
-    Hey! The above document had some coding errors, which are explained
-    below:
-
-    Around line 798:
-        You can't have =items (as at line 850) unless the first thing after
-        the =over is an =item
 
