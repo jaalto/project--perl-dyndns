@@ -158,6 +158,7 @@ doc: man html txt
 perl-test:
 	# perl-test - Check syntax
 	perl -cw $(PL_SCRIPT)
+	podchecker $(PL_SCRIPT)
 
 # Rule: test - Run tests
 test: perl-test
