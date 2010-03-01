@@ -1,3 +1,15 @@
+2010-03-01 Mon  Jari Aalto  <jari.aalto@cante.net>
+
+	* INSTALL: Update requirements and manual install.
+
+	* bin/dyndns.pl
+	(top level): Update copyright template.
+	(HandleCommandLineArgsMain): Change all options to
+	use lowercase names: instead of --Version, use --version etc.
+	(Help): Document that --provider option supports only dyndns at
+	this time.
+	(Initialize): Add AUTHOR, URL, LICENSE.
+
 2009-03-18  Jari Aalto  <jari.aalto@cante.net>
 
 	* dyndns.pl (top level, Help): Copyright year update.
