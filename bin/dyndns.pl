@@ -107,7 +107,7 @@ IMPORT: # This is just a syntactic sugar: actually no-op
     #   The following variable is updated by Emacs setup whenever
     #   this file is saved.
 
-    $VERSION = '2010.0301.1248';
+    $VERSION = '2010.0301.1308';
 }
 
 # }}}
@@ -650,7 +650,7 @@ Supported list of TYPES in alphabetical order:
                 http://www.no-ip.com/
 
 NOTE: as of 2010, the support for sites of hnorg, noip is probably
-non-working due to chnages in the interfaces. Please use only dyndns
+non-working due to changes in the interfaces. Please use only dyndns
 at this time.
 
 =item B<--query>
