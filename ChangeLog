@@ -1,3 +1,12 @@
+2010-03-02 Tue  Jari Aalto  <jari.aalto@cante.net>
+
+	* bin/dyndns.pl (Help::EXAMPLES): Add crontab(5) entry.
+
+	* Makefile (dist-git): Run 'test'.
+	(dist-snap): Run 'test'.
+
+	* INSTALL (INSTALL): Correct crontab explanation.
+
 2010-03-01 Mon  Jari Aalto  <jari.aalto@cante.net>
 
 	* INSTALL: Update requirements and manual install.
