@@ -107,7 +107,7 @@ IMPORT: # This is just a syntactic sugar: actually no-op
     #   The following variable is updated by Emacs setup whenever
     #   this file is saved.
 
-    $VERSION = '2010.0301.1321';
+    $VERSION = '2010.0302.1535';
 }
 
 # }}}
@@ -971,6 +971,11 @@ Print version and contact information.
 
 =head1 EXAMPLES
 
+To update IP address periodically, use crontab(5) entry. The update
+will happen only if IP has changed since last time:
+
+    0 0-23 * * * perl <absolute path>/dyndns <options>
+
 To check current IP address:
 
   dyndns --query [--urlping...]
@@ -1216,17 +1221,17 @@ Sys::Syslog
 
 =head1 COREQUISITES
 
-None.
+Uses standard Perl modules.
 
-=head1 OSNAMES
+=head1 AVAILABILITY
 
-C<any>
+Homepage is at http://freshmeat.net/projects/perl-dyndns
 
 =head1 AUTHOR
 
-Copyright (C) 1999-2009 Jari Aalto. All rights reserved. This program
-is free software; you can redistribute and/or modify program under the
-terms of GNU General Public license v2 or later.
+This program is free software; you can redistribute and/or modify
+program under the terms of GNU General Public license either version 2
+of the License, or (at your option) any later version.
 
 This documentation may be distributed subject to the terms and
 conditions set forth in GNU General Public License v2 or later (GNU
