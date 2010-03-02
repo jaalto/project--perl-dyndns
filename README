@@ -21,18 +21,22 @@ Important files
 Project details
 
     Homepage
-      http://freshmeat.net/projects/perl-dyndns
+
+	http://freshmeat.net/projects/perl-dyndns
 
     Reporting bugs
-      See freshmeat page
+
+	See freshmeat page
 
     Source code repository
-      See freshmeat page
+
+	See freshmeat page
 
     Depends
-      Perl (any version)
 
-      Extenal CPAN libraries:
+	Perl (any version)
+
+	Extenal CPAN libraries (required):
 
 	  [ Debian: libwww-perl ]
 	  HTTP::Request::Common
@@ -40,9 +44,12 @@ Project details
 	  LWP::UserAgent
 	  LWP::Simple
 
-	  # optional: used only is available
-	  [ Debian: libsys-syslog-perl ]
-	  Sys::Syslog
+	Extenal CPAN libraries (optional):
+
+	  Used only if module is available. In Debian this is packaged
+	  as libsys-syslog-perl
+
+		Sys::Syslog
 
 	External commands needed:
 
