@@ -1,3 +1,14 @@
+2010-03-13 Sat  Jari Aalto  <jari.aalto@cante.net>
+
+	* bin/dyndns.pl (top level): rearrange globals, use
+        comamnds.
+        (Version*): new.
+
+2010-03-12 Sat  Jari Aalto  <jari.aalto@cante.net>
+
+	* bin/dyndns.pl:
+	(top level): English qw( -no_match_vars )
+
 2010-03-02 Tue  Jari Aalto  <jari.aalto@cante.net>
 
 	* bin/dyndns.pl (Help::EXAMPLES): Add crontab(5) entry.

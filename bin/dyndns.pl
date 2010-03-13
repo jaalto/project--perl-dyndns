@@ -62,6 +62,27 @@
 
 #   Standard perl modules
 
+# ****************************************************************************
+#
+#   Globals
+#
+# ****************************************************************************
+
+use vars qw ( $VERSION );
+
+#   This is for use of Makefile.PL and ExtUtils::MakeMaker
+#
+#   The following variable is updated by Emacs setup whenever
+#   this file is saved.
+
+$VERSION = '2010.0313.1632';
+
+# ****************************************************************************
+#
+#   Standard perl modules
+#
+# ****************************************************************************
+
 use strict;
 use English;
 use File::Basename;
@@ -69,7 +90,25 @@ use Getopt::Long;
 use autouse 'Pod::Text'     => qw( pod2text );
 use autouse 'Pod::Html'     => qw( pod2html );
 
-#   External CPAN moudules
+IMPORT: # This is just a syntactic sugar: actually no-op
+{
+    #   Import following environment variables
+
+    use Env;
+    use vars qw
+    (
+        $PATH
+        $TMPDIR
+        $SYSTEMROOT
+        $WINDIR
+    );
+}
+
+# ****************************************************************************
+#
+#   Modules from CPAN
+#
+# ****************************************************************************
 
 my @REQUIRE_FATAL =   # Without these the program won't work
 (
@@ -86,29 +125,6 @@ my @REQUIRE_OPTIONAL =
 
 #  Will be set at runtime
 my @FEATURE_LIST_MODULES;
-
-IMPORT: # This is just a syntactic sugar: actually no-op
-{
-    #   Import following environment variables
-
-    use Env;
-    use vars qw
-    (
-        $PATH
-        $TMPDIR
-        $SYSTEMROOT
-        $WINDIR
-    );
-
-    use vars qw ( $VERSION );
-
-    #   This is for use of Makefile.PL and ExtUtils::MakeMaker
-    #
-    #   The following variable is updated by Emacs setup whenever
-    #   this file is saved.
-
-    $VERSION = '2010.0302.1535';
-}
 
 # }}}
 # {{{ Initialize
@@ -1304,6 +1320,12 @@ sub VersionInfo ()
     Version() . " $AUTHOR $LICENSE $URL"
 }
 
+sub VersionPrint ()
+{
+    print( VersionInfo() . "\n");
+    exit 0;
+}
+
 # ************************************************************** &args *******
 #
 #   DESCRIPTION
@@ -1507,7 +1529,7 @@ sub HandleCommandLineArgsMain ()
         , "wildcard"            => \$wildcard
     );
 
-    $version                and print( VersionInfo() . "\n"), exit;
+    $version                and VersionPrint();
 
     $help                   and Help();
     $helpHTML               and Help undef, -html;
