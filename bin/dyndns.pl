@@ -1268,8 +1268,8 @@ sub Help ( ; $ $ )
     }
     elsif ( $type eq -man )
     {
-        eval "use Pod::Man";
-        $EVAL_ERROR  and  die "$id: Cannot generate Man $EVAL_ERROR";
+	eval "use Pod::Man"
+	    or "$id: Cannot generate Man: $EVAL_ERROR";
 
         my %options;
         $options{center} = 'Perl Dynamic DNS Update Client';
@@ -1279,7 +1279,7 @@ sub Help ( ; $ $ )
     }
     else
     {
-        pod2text $PROGRAM_NAME;
+	system "pod2text $PROGRAM_NAME";
     }
 
     if ( defined $msg )

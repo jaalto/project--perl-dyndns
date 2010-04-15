@@ -1,3 +1,8 @@
+2010-04-15 Thu  Jari Aalto  <jari.aalto@cante.net>
+
+	* bin/dyndns.pl (Help): Fix Perl 5.10 bug in pod2text().
+	(Help): rewrite eval Pod::Man call.
+
 2010-03-13 Sat  Jari Aalto  <jari.aalto@cante.net>
 
 	* bin/dyndns.pl (top level): rearrange globals, use
