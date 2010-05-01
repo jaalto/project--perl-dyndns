@@ -1,3 +1,8 @@
+2010-05-01 Sat  Jari Aalto  <jari.aalto@cante.net>
+
+	* bin/dyndns.pl (HandleCommandLineArgs): Remove
+	"require_order" from Getopt::Long::config().
+
 2010-04-15 Thu  Jari Aalto  <jari.aalto@cante.net>
 
 	* bin/dyndns.pl (Help): Fix Perl 5.10 bug in pod2text().

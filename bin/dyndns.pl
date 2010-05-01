@@ -1471,7 +1471,6 @@ sub HandleCommandLineArgsMain ()
     Getopt::Long::config( qw
     (
         no_ignore_case
-        require_order
     ));
 
     GetOptions      # Getopt::Long
@@ -3986,6 +3985,7 @@ sub GetIpAddressIfconfig ()
     push @regexpList, $modifier . $inet . "addr:" . $base;
     push @regexpList, $modifier . $inet . $base;
 
+    $debug  and  print "$id: CMD [$cmd]\n";
 
     my $ip;
 
@@ -4037,6 +4037,9 @@ sub GetIpAddress ()
 
     if ( $OPT_HTTP_PING )
     {
+
+	$debug  and  print "$id: OPT_HTTP_PING\n";
+
         $ret = HttpPing -url    => $OPT_HTTP_PING
                       , -regexp => $OPT_HTTP_PING_REGEXP
                       , -login  => $OPT_HTTP_PING_LOGIN
@@ -4045,10 +4048,12 @@ sub GetIpAddress ()
     }
     elsif ( $OPT_HTTP_PING_DYNDNS )
     {
+	$debug  and  print "$id: OPT_HTTP_PING_DYNDNS\n";
         $ret = HttpPingDyndns();
     }
     elsif ( $OPT_HTTP_PING_LINKSYS )
     {
+	$debug  and  print "$id: OPT_HTTP_PING_LINKSYS $OPT_HTTP_PING_LINKSYS\n";
 
 	local $ARG = $OPT_HTTP_PING_LINKSYS;
 
@@ -4069,10 +4074,12 @@ sub GetIpAddress ()
     }
     elsif ( $WIN32 )
     {
+	$debug  and  print "$id: WIN32\n";
         $ret = GetIpAddressWin32();
     }
     elsif ( -x "/sbin/ifconfig"  or  -x "/usr/sbin/ifconfig")
     {
+	$debug  and  print "$id: ifconfig\n";
         $ret = GetIpAddressIfconfig();
     }
     else
