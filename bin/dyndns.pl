@@ -75,7 +75,7 @@ use vars qw ( $VERSION );
 #   The following variable is updated by Emacs setup whenever
 #   this file is saved.
 
-$VERSION = '2010.0313.1632';
+$VERSION = '2010.0521.0711';
 
 # ****************************************************************************
 #
@@ -1212,10 +1212,6 @@ you find bugs or need new features.
 
 The program is primarily developed and maintained to support dyndns.org.
 The other providers haven't been tested since 2003.
-
-=head1 AVAILABILITY
-
-http://freshmeat.net/projects/perl-dyndns
 
 =head1 STANDARDS
 

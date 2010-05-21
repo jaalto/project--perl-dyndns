@@ -1,3 +1,8 @@
+2010-05-21 Fri  Jari Aalto  <jari.aalto@cante.net>
+
+	* bin/dyndns.pl (InitializeModules): (HELP): Remove duplicate
+	section AVAILABILITY.
+
 2010-05-01 Sat  Jari Aalto  <jari.aalto@cante.net>
 
 	* bin/dyndns.pl (HandleCommandLineArgs): Remove
