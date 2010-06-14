@@ -1,3 +1,7 @@
+2010-06-14 Mon  Jari Aalto  <jari.aalto@cante.net>
+
+	* bin/dyndns.pl (StringMatch): Add $LIB to $id variable.
+
 2010-05-21 Fri  Jari Aalto  <jari.aalto@cante.net>
 
 	* bin/dyndns.pl (InitializeModules): (HELP): Remove duplicate

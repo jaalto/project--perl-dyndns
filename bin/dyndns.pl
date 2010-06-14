@@ -75,7 +75,7 @@ use vars qw ( $VERSION );
 #   The following variable is updated by Emacs setup whenever
 #   this file is saved.
 
-$VERSION = '2010.0521.0711';
+$VERSION = '2010.0614.0931';
 
 # ****************************************************************************
 #
@@ -2713,7 +2713,7 @@ sub IPvalidate ($)
 
 sub StringMatch ( $ $ )
 {
-    my $id = "StringMatch";
+    my $id = "$LIB.StringMatch";
     my ($itemRef, $searchRef  ) =  @ARG;
 
     unless ( @$itemRef )
