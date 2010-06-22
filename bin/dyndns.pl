@@ -1184,13 +1184,26 @@ and copied one directorory up in order to use option B<--config
 If program is run with Windows Activestate Perl, the log file is stored to
 file C<C:/syslog.txt>.
 
-=head1 SEE ALSO
+=head1 EXIT STATUS
 
-syslog(3), Debian package ddclient(1)
+Not defined.
 
-See other dyndns.org clients at http://clients.dyndns.org/
+=head1 DEPENDENCIES
 
-=head1 BUGS
+Uses standard Perl modules.
+
+HTTP::Headers
+HTTP::Request::Common
+LWP::UserAgent
+LWP::Simple
+Sys::Syslog
+
+=head1 STANDARDS
+
+The client specification is at
+https://www.dyndns.com/developers/specs/
+
+=head1 BUGS AND LIMITATIONS
 
 =head2 Cygwin syslog
 
@@ -1213,31 +1226,16 @@ you find bugs or need new features.
 The program is primarily developed and maintained to support dyndns.org.
 The other providers haven't been tested since 2003.
 
-=head1 STANDARDS
+=head1 SEE ALSO
 
-The client specification is at
-https://www.dyndns.com/developers/specs/
+syslog(3),
+Debian package ddclient(1)
 
-=head1 SCRIPT CATEGORIES
-
-C<CPAN/Administrative>
-C<CPAN/Networking>
-
-=head1 PREREQUISITES
-
-HTTP::Headers
-HTTP::Request::Common
-LWP::UserAgent
-LWP::Simple
-Sys::Syslog
-
-=head1 COREQUISITES
-
-Uses standard Perl modules.
+See other client software at http://clients.dyndns.org
 
 =head1 AVAILABILITY
 
-Homepage is at http://freshmeat.net/projects/perl-dyndns
+http://freshmeat.net/projects/perl-dyndns
 
 =head1 AUTHOR
 
@@ -1245,7 +1243,7 @@ This program is free software; you can redistribute and/or modify
 program under the terms of GNU General Public license either version 2
 of the License, or (at your option) any later version.
 
-This documentation may be distributed subject to the terms and
+The documentation may be distributed subject to the terms and
 conditions set forth in GNU General Public License v2 or later (GNU
 GPL); or, at your option, distributed under the terms of GNU Free
 Documentation License version 1.2 or later (GNU FDL).
