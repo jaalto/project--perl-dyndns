@@ -208,6 +208,8 @@ OPTIONS
             /var/log/            (system's standard)
             $HOME/tmp or $HOME   if process is not running under root
 
+        This options is by default activated if --file is not in used.
+
     --proxy HOST
         Use HOST as outgoing HTTP proxy.
 
@@ -521,6 +523,11 @@ OPTIONS
         Print version and contact information.
 
 EXAMPLES
+    To update IP address periodically, use crontab(5) entry. The update will
+    happen only if IP has changed since last time:
+
+        0 0-23 * * * perl <absolute path>/dyndns <options>
+
     To check current IP address:
 
       dyndns --query [--urlping...]
@@ -702,12 +709,19 @@ FILES
     If program is run with Windows Activestate Perl, the log file is stored
     to file "C:/syslog.txt".
 
-SEE ALSO
-    syslog(3), Debian package ddclient(1)
+EXIT STATUS
+    Not defined.
 
-    See other dyndns.org clients at http://clients.dyndns.org/
+DEPENDENCIES
+    Uses standard Perl modules.
 
-BUGS
+    HTTP::Headers HTTP::Request::Common LWP::UserAgent LWP::Simple
+    Sys::Syslog
+
+STANDARDS
+    The client specification is at https://www.dyndns.com/developers/specs/
+
+BUGS AND LIMITATIONS
   Cygwin syslog
     There is no syslog daemon in Cygwin. The Cygwin POSIX emulation layer
     takes care about syslog requests. On NT and above systems it logs to the
@@ -726,32 +740,21 @@ BUGS
     The program is primarily developed and maintained to support dyndns.org.
     The other providers haven't been tested since 2003.
 
+SEE ALSO
+    syslog(3), Debian package ddclient(1)
+
+    See other client software at http://clients.dyndns.org
+
 AVAILABILITY
     http://freshmeat.net/projects/perl-dyndns
 
-STANDARDS
-    The client specification is at https://www.dyndns.com/developers/specs/
-
-SCRIPT CATEGORIES
-    "CPAN/Administrative" "CPAN/Networking"
-
-PREREQUISITES
-    HTTP::Headers HTTP::Request::Common LWP::UserAgent LWP::Simple
-    Sys::Syslog
-
-COREQUISITES
-    None.
-
-OSNAMES
-    "any"
-
 AUTHOR
-    Copyright (C) 1999-2009 Jari Aalto. All rights reserved. This program is
-    free software; you can redistribute and/or modify program under the
-    terms of GNU General Public license v2 or later.
+    This program is free software; you can redistribute and/or modify
+    program under the terms of GNU General Public license either version 2
+    of the License, or (at your option) any later version.
 
-    This documentation may be distributed subject to the terms and
-    conditions set forth in GNU General Public License v2 or later (GNU
-    GPL); or, at your option, distributed under the terms of GNU Free
-    Documentation License version 1.2 or later (GNU FDL).
+    The documentation may be distributed subject to the terms and conditions
+    set forth in GNU General Public License v2 or later (GNU GPL); or, at
+    your option, distributed under the terms of GNU Free Documentation
+    License version 1.2 or later (GNU FDL).
 

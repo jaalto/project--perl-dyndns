@@ -34,8 +34,10 @@
 	<li><a href="#troubleshooting">TROUBLESHOOTING</a></li>
 	<li><a href="#environment">ENVIRONMENT</a></li>
 	<li><a href="#files">FILES</a></li>
-	<li><a href="#see_also">SEE ALSO</a></li>
-	<li><a href="#bugs">BUGS</a></li>
+	<li><a href="#exit_status">EXIT STATUS</a></li>
+	<li><a href="#dependencies">DEPENDENCIES</a></li>
+	<li><a href="#standards">STANDARDS</a></li>
+	<li><a href="#bugs_and_limitations">BUGS AND LIMITATIONS</a></li>
 	<ul>
 
 		<li><a href="#cygwin_syslog">Cygwin syslog</a></li>
@@ -43,12 +45,8 @@
 		<li><a href="#about_providers_hnorg_and_noip">About providers hnorg and noip</a></li>
 	</ul>
 
+	<li><a href="#see_also">SEE ALSO</a></li>
 	<li><a href="#availability">AVAILABILITY</a></li>
-	<li><a href="#standards">STANDARDS</a></li>
-	<li><a href="#script_categories">SCRIPT CATEGORIES</a></li>
-	<li><a href="#prerequisites">PREREQUISITES</a></li>
-	<li><a href="#corequisites">COREQUISITES</a></li>
-	<li><a href="#osnames">OSNAMES</a></li>
 	<li><a href="#author">AUTHOR</a></li>
 </ul>
 
@@ -276,6 +274,7 @@ Windows, %WINDIR% is used. Under Linux the PREFIXes searched are</p>
     /var/log/dyndns/     (if directory exists)
     /var/log/            (system's standard)
     $HOME/tmp or $HOME   if process is not running under root</pre>
+<p>This options is by default activated if <strong>--file</strong> is not in used.</p>
 </dd>
 <dt><strong><a name="proxy_host" class="item"><strong>--proxy HOST</strong></a></strong></dt>
 
@@ -616,6 +615,10 @@ client page at <a href="http://clients.dyndns.org/devel">http://clients.dyndns.o
 </p>
 <hr />
 <h1><a name="examples">EXAMPLES</a></h1>
+<p>To update IP address periodically, use <code>crontab(5)</code> entry. The update
+will happen only if IP has changed since last time:</p>
+<pre>
+    0 0-23 * * * perl &lt;absolute path&gt;/dyndns &lt;options&gt;</pre>
 <p>To check current IP address:</p>
 <pre>
   dyndns --query [--urlping...]
@@ -801,13 +804,28 @@ file <code>C:/syslog.txt</code>.</p>
 <p>
 </p>
 <hr />
-<h1><a name="see_also">SEE ALSO</a></h1>
-<p><code>syslog(3)</code>, Debian package <code>ddclient(1)</code></p>
-<p>See other dyndns.org clients at <a href="http://clients.dyndns.org/">http://clients.dyndns.org/</a></p>
+<h1><a name="exit_status">EXIT STATUS</a></h1>
+<p>Not defined.</p>
 <p>
 </p>
 <hr />
-<h1><a name="bugs">BUGS</a></h1>
+<h1><a name="dependencies">DEPENDENCIES</a></h1>
+<p>Uses standard Perl modules.</p>
+<p>HTTP::Headers
+HTTP::Request::Common
+LWP::UserAgent
+LWP::Simple
+Sys::Syslog</p>
+<p>
+</p>
+<hr />
+<h1><a name="standards">STANDARDS</a></h1>
+<p>The client specification is at
+<a href="https://www.dyndns.com/developers/specs/">https://www.dyndns.com/developers/specs/</a></p>
+<p>
+</p>
+<hr />
+<h1><a name="bugs_and_limitations">BUGS AND LIMITATIONS</a></h1>
 <p>
 </p>
 <h2><a name="cygwin_syslog">Cygwin syslog</a></h2>
@@ -831,47 +849,23 @@ The other providers haven't been tested since 2003.</p>
 <p>
 </p>
 <hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><code>syslog(3)</code>,
+Debian package <code>ddclient(1)</code></p>
+<p>See other client software at <a href="http://clients.dyndns.org">http://clients.dyndns.org</a></p>
+<p>
+</p>
+<hr />
 <h1><a name="availability">AVAILABILITY</a></h1>
 <p><a href="http://freshmeat.net/projects/perl-dyndns">http://freshmeat.net/projects/perl-dyndns</a></p>
 <p>
 </p>
 <hr />
-<h1><a name="standards">STANDARDS</a></h1>
-<p>The client specification is at
-<a href="https://www.dyndns.com/developers/specs/">https://www.dyndns.com/developers/specs/</a></p>
-<p>
-</p>
-<hr />
-<h1><a name="script_categories">SCRIPT CATEGORIES</a></h1>
-<p><code>CPAN/Administrative</code>
-<code>CPAN/Networking</code></p>
-<p>
-</p>
-<hr />
-<h1><a name="prerequisites">PREREQUISITES</a></h1>
-<p>HTTP::Headers
-HTTP::Request::Common
-LWP::UserAgent
-LWP::Simple
-Sys::Syslog</p>
-<p>
-</p>
-<hr />
-<h1><a name="corequisites">COREQUISITES</a></h1>
-<p>None.</p>
-<p>
-</p>
-<hr />
-<h1><a name="osnames">OSNAMES</a></h1>
-<p><code>any</code></p>
-<p>
-</p>
-<hr />
 <h1><a name="author">AUTHOR</a></h1>
-<p>Copyright (C) 1999-2009 Jari Aalto. All rights reserved. This program
-is free software; you can redistribute and/or modify program under the
-terms of GNU General Public license v2 or later.</p>
-<p>This documentation may be distributed subject to the terms and
+<p>This program is free software; you can redistribute and/or modify
+program under the terms of GNU General Public license either version 2
+of the License, or (at your option) any later version.</p>
+<p>The documentation may be distributed subject to the terms and
 conditions set forth in GNU General Public License v2 or later (GNU
 GPL); or, at your option, distributed under the terms of GNU Free
 Documentation License version 1.2 or later (GNU FDL).</p>
