@@ -1,5 +1,7 @@
 2010-10-11 Mon  Jari Aalto  <jari.aalto@cante.net>
 
+	* Makefile (PERL): New variable.
+
 	* bin/dyndns.pl (HELP): Document that --file-default is
 	default setting unless --file is given.
 	(HandleCommandLineArgsMain): Activate ipfileDefault

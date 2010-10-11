@@ -76,6 +76,7 @@ DATE		= `date +"%Y.%m%d"`
 VERSION		= $(DATE)
 RELEASE		= $(PACKAGE)-$(VERSION)
 
+PERL		= perl
 BIN		= $(PACKAGE)
 PL_SCRIPT	= bin/$(BIN).pl
 
