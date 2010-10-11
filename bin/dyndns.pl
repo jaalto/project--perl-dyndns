@@ -75,7 +75,7 @@ use vars qw ( $VERSION );
 #   The following variable is updated by Emacs setup whenever
 #   this file is saved.
 
-$VERSION = '2010.0614.0931';
+$VERSION = '2010.1011.1151';
 
 # ****************************************************************************
 #
@@ -641,6 +641,8 @@ Windows, %WINDIR% is used. Under Linux the PREFIXes searched are
     /var/log/dyndns/     (if directory exists)
     /var/log/            (system's standard)
     $HOME/tmp or $HOME   if process is not running under root
+
+This options is by default activated if B<--file> is not in used.
 
 =item B<--proxy HOST>
 
@@ -1543,6 +1545,11 @@ sub HandleCommandLineArgsMain ()
     $OPT_WILDCARD = 'ON'    if defined $wildcard;
     $OPT_MX       = 'YES'   if defined $mx;
     $OPT_OFFLINE  = 'YES'   if defined $offline;
+
+    unless ( $OPT_IP_FILE  or  $ipfileDefault )
+    {
+	$ipfileDefault = 'on';
+    }
 
     if ( $ipfileDefault )
     {
@@ -3969,7 +3976,7 @@ sub GetIpAddressIfconfig ()
     #       collisions:46 txqueuelen:100
     #       Interrupt:11 Base address:0xec00
 
-    # my $re = 'inet[ \t]+addr:[ \t]*(\d[\d.]+)';
+    # my $re = '(?sm)inet[ \t]+addr:[ \t]*(\d[\d.]+)';
 
     my $modifier  = '(?sm)';
     my $inet      = 'inet[ \t]+';
@@ -3977,6 +3984,7 @@ sub GetIpAddressIfconfig ()
 
     my @regexpList;
     push @regexpList, $modifier . $inet . "addr:" . $base;
+    push @regexpList, $modifier . $inet . '[^\r\n:]+:' . $base;
     push @regexpList, $modifier . $inet . $base;
 
     $debug  and  print "$id: CMD [$cmd]\n";
@@ -5234,8 +5242,24 @@ sub TestDriver ()
     }
 
     my (@response, $ip);
-    my $linuxDefaultRegexp = '(?sm)inet[ \t]+addr:[ \t]*(\d[\d.]+)';
+
+    # Copy from GetIpAddressIfconfig()
+    my $modifier  = '(?sm)';
+    my $inet      = 'inet[ \t]+';
+    my $base      = '[ \t]*(\d[\d.]+)';
+
+    my $linuxDefaultRegexp = $modifier . $inet . "addr:" . $base;
+
     my $regexp;
+
+    # locale: pt_BR
+    @response = split /\r?\n/, '
+eth0      Link encap:Ethernet  Endereço de HW 00:15:c5:1b:e1:de
+          inet end.: 189.29.36.92  Bcast:189.29.39.255  Masc:255.255.248.0';
+
+    $regexp =  $modifier . $inet . '[^\r\n:]+:' . $base;
+
+    $ip = IpAddressGenericParser $regexp, @response;
 
     @response = split /\r?\n/, '
 eth0      Link encap:Ethernet  HWaddr 00:10:5A:64:8D:32
@@ -6548,6 +6572,7 @@ sub Main ()
 
 # }}}
 
+# TestDriver; die;
 # TestDriverLinksysBEFW11S4; die;
 # TestDriverLinksysBEFW11S4v4; die;
 # TestDriverLinksysWRT54GL; die;

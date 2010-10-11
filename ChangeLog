@@ -1,3 +1,12 @@
+2010-10-11 Mon  Jari Aalto  <jari.aalto@cante.net>
+
+	* bin/dyndns.pl (HELP): Document that --file-default is
+	default setting unless --file is given.
+	(HandleCommandLineArgsMain): Activate ipfileDefault
+	unless OPT_IP_FILE is not set. Debian bug #593255.
+	(GetIpAddressIfconfig): Improve regexp to work with pt_BR
+	locale. Debian Bug #593253.
+
 2010-06-14 Mon  Jari Aalto  <jari.aalto@cante.net>
 
 	* bin/dyndns.pl (StringMatch): Add $LIB to $id variable.
