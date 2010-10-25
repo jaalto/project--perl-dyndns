@@ -1,3 +1,7 @@
+2010-10-25 Tue  Jari Aalto  <jari.aalto@cante.net>
+
+	* bin/dyndns.pl (HELP): Adjust wording.
+
 2010-10-11 Mon  Jari Aalto  <jari.aalto@cante.net>
 
 	* Makefile (PERL): New variable.

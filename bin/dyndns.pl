@@ -75,7 +75,7 @@ use vars qw ( $VERSION );
 #   The following variable is updated by Emacs setup whenever
 #   this file is saved.
 
-$VERSION = '2010.1011.1220';
+$VERSION = '2010.1025.2107';
 
 # ****************************************************************************
 #
@@ -422,13 +422,11 @@ dyndns - Update IP address to dynamic DNS (DDNS) provider
     dyndns --login LOGIN --password PASSWORD \
            --host yourhost.dyndns.org
 
-Note: By Default this program expects www.dyndns.org provider. If you use
-other provider, see option B<--provider>
-
 =head1 DESCRIPTION
 
-A Perl client for updating dynamic DNS IP information at supported
-providers (see C<--provider>).
+A cross platform Perl client for updating dynamic DNS IP information
+at supported providers (see C<--provider>). By Default this program
+expects www.dyndns.org provider.
 
 The dynamic DNS services allow mapping a dynamic IP address to a
 static hostname. This way the host can be refered by name instead of
@@ -440,7 +438,7 @@ Separate files are used for remembering the last IP address to prevent
 updating the same IP address again. This is necessary in order to comply
 guidelines of the providers where multiple updates of the same IP address
 could cause your domain to be blocked. You should not normally need to
-touch the files where the ip addresses are stored.
+touch the files where the IP addresses are stored.
 
 If you know what you are doing and desperately need a forced update,
 delete the IP files and start program with apropriate arguments.
@@ -640,9 +638,9 @@ Windows, %WINDIR% is used. Under Linux the PREFIXes searched are
 
     /var/log/dyndns/     (if directory exists)
     /var/log/            (system's standard)
-    $HOME/tmp or $HOME   if process is not running under root
+    $HOME/tmp or $HOME   If process is not running under root
 
-This options is by default activated if B<--file> is not in used.
+This options is by default activated if B<--file> is not in use.
 
 =item B<--proxy HOST>
 
@@ -674,8 +672,8 @@ at this time.
 =item B<--query>
 
 Query current IP address and quit. B<Note:> if you use router, you may
-need --urlping* option, otherwise the IP address returned is your subnet's
-DHCP IP and not the ISP's Internet IP.
+need B<--urlping*> options, otherwise the IP address returned is your
+subnet's DHCP IP and not the ISP's Internet IP.
 
 Output of the command is at least two string. The second string is
 C<last-ip-info-not-available> if the saved ip file name is not specified.
@@ -1032,10 +1030,10 @@ delegation, like if it we accessed using `www.your.dyndns.org'.
 
 =head1 CONFIGURATION FILE
 
-Instead of supplying options at command line, the options can be stored to
-configuration files. For each DDNS account and different domains, a
-separate configuration file must be created. The configuration files are
-read with option B<--config>.
+Instead of supplying options at command line, they can be stored to
+a configuration file. For each DDNS account and different domains, a
+separate configuration file must be created. The configuration files
+are read with option B<--config>.
 
 The syntax of the configuration file includes comments that start with (#).
 Anything after hash-sign is interpreted as comment. Values are set in KEY =
@@ -1056,7 +1054,7 @@ respectively. All host name values below are fictional.
     disable  = no       # [default]
 
     ethernet = eth0     # [default]
-    group    = mygourp  # [noip]
+    group    = mygourp  # Provider [noip] only.
     host     = host1.dyndns.org, host1.dyndns.org
 
     #   If you route mail. See dyndns.org documentation for details
@@ -1077,7 +1075,7 @@ respectively. All host name values below are fictional.
     urlping-password = mypass
 
     urlping          = fictional.showip.org
-    urlping-regexp   = (Address|addr:)\s+([0-9.]+)
+    urlping-regexp   = (?:Address|addr:)\s+([0-9.]+)
 
     #   Where IPs are stored. Directory name or Directory name with
     #   additional file prefix. The directory part must exist. You could
@@ -1112,7 +1110,7 @@ option descriptions. E.g. option 'ethernet' in configuration file
 corresponds to B<--ethernet> command line option. The normal configuration
 file for average user would only include few lines:
 
-    #   /etc/dyndns/myhost.dyndns.org.conf
+    # /etc/dyndns/myhost.dyndns.org.conf
 
     host             = myhost.dyndns.org
     file             = default      # Use OS's default location
@@ -1146,7 +1144,7 @@ To add support for routers that can be connected through HTTP protocol
 or with some other commands, please provide connection details and
 full HTTP response:
 
-  lynx -dump http://192.168.1.0/your-network/router/page.html
+  wget -O <route-model>-dump.html http://192.168.1.0/your-network/router/page.html
 
 =head1 TROUBLESHOOTING
 
@@ -1177,11 +1175,11 @@ In Linux the syslog message files are:
     /etc/syslog.conf         daemon.err daemon.warning
     /var/log/daemon.log
 
-There is no default location where program would search for configuration
-files. At installation, configuration examples are put in directory
-C</etc/dyndns/examples>. It is recommended that the examples are modified
-and copied one directorory up in order to use option B<--config
-/etc/dyndns/*>.
+There is no default location where program would search for
+configuration files. Configuration files may be found in directory
+C</etc/dyndns/examples>. It is recommended that the examples are
+modified and copied one directorory up in order to use option
+B<--config /etc/dyndns/*>.
 
 If program is run with Windows Activestate Perl, the log file is stored to
 file C<C:/syslog.txt>.
@@ -1202,7 +1200,7 @@ Sys::Syslog
 
 =head1 STANDARDS
 
-The client specification is at
+The I<dyndns> provider's client specification is at
 https://www.dyndns.com/developers/specs/
 
 =head1 BUGS AND LIMITATIONS
