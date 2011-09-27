@@ -66,14 +66,13 @@
 <pre>
     dyndns --login LOGIN --password PASSWORD \
            --host yourhost.dyndns.org</pre>
-<p>Note: By Default this program expects www.dyndns.org provider. If you use
-other provider, see option <strong>--provider</strong></p>
 <p>
 </p>
 <hr />
 <h1><a name="description">DESCRIPTION</a></h1>
-<p>A Perl client for updating dynamic DNS IP information at supported
-providers (see <code>--provider</code>).</p>
+<p>A cross platform Perl client for updating dynamic DNS IP information
+at supported providers (see <code>--provider</code>). By Default this program
+expects www.dyndns.org provider.</p>
 <p>The dynamic DNS services allow mapping a dynamic IP address to a
 static hostname. This way the host can be refered by name instead of
 the changing IP address from the ISP's pool. Some DDNS providers offer
@@ -83,7 +82,7 @@ the information from the Providers' pages.</p>
 updating the same IP address again. This is necessary in order to comply
 guidelines of the providers where multiple updates of the same IP address
 could cause your domain to be blocked. You should not normally need to
-touch the files where the ip addresses are stored.</p>
+touch the files where the IP addresses are stored.</p>
 <p>If you know what you are doing and desperately need a forced update,
 delete the IP files and start program with apropriate arguments.
 Without the information about previous IP address, program sends a new
@@ -273,8 +272,8 @@ Windows, %WINDIR% is used. Under Linux the PREFIXes searched are</p>
 <pre>
     /var/log/dyndns/     (if directory exists)
     /var/log/            (system's standard)
-    $HOME/tmp or $HOME   if process is not running under root</pre>
-<p>This options is by default activated if <strong>--file</strong> is not in used.</p>
+    $HOME/tmp or $HOME   If process is not running under root</pre>
+<p>This options is by default activated if <strong>--file</strong> is not in use.</p>
 </dd>
 <dt><strong><a name="proxy_host" class="item"><strong>--proxy HOST</strong></a></strong></dt>
 
@@ -308,8 +307,8 @@ at this time.</p>
 
 <dd>
 <p>Query current IP address and quit. <strong>Note:</strong> if you use router, you may
-need --urlping* option, otherwise the IP address returned is your subnet's
-DHCP IP and not the ISP's Internet IP.</p>
+need <strong>--urlping*</strong> options, otherwise the IP address returned is your
+subnet's DHCP IP and not the ISP's Internet IP.</p>
 <p>Output of the command is at least two string. The second string is
 <code>last-ip-info-not-available</code> if the saved ip file name is not specified.
 In order to program to know where to look for saved IP files you need to
@@ -653,10 +652,10 @@ delegation, like if it we accessed using `www.your.dyndns.org'.</p>
 </p>
 <hr />
 <h1><a name="configuration_file">CONFIGURATION FILE</a></h1>
-<p>Instead of supplying options at command line, the options can be stored to
-configuration files. For each DDNS account and different domains, a
-separate configuration file must be created. The configuration files are
-read with option <strong>--config</strong>.</p>
+<p>Instead of supplying options at command line, they can be stored to
+a configuration file. For each DDNS account and different domains, a
+separate configuration file must be created. The configuration files
+are read with option <strong>--config</strong>.</p>
 <p>The syntax of the configuration file includes comments that start with (#).
 Anything after hash-sign is interpreted as comment. Values are set in KEY =
 VALUE fashion, where spaces are non-significant. Keys are not case
@@ -675,7 +674,7 @@ respectively. All host name values below are fictional.</p>
     disable  = no       # [default]</pre>
 <pre>
     ethernet = eth0     # [default]
-    group    = mygourp  # [noip]
+    group    = mygourp  # Provider [noip] only.
     host     = host1.dyndns.org, host1.dyndns.org</pre>
 <pre>
     #   If you route mail. See dyndns.org documentation for details
@@ -696,7 +695,7 @@ respectively. All host name values below are fictional.</p>
     urlping-password = mypass</pre>
 <pre>
     urlping          = fictional.showip.org
-    urlping-regexp   = (Address|addr:)\s+([0-9.]+)</pre>
+    urlping-regexp   = (?:Address|addr:)\s+([0-9.]+)</pre>
 <pre>
     #   Where IPs are stored. Directory name or Directory name with
     #   additional file prefix. The directory part must exist. You could
@@ -730,7 +729,7 @@ option descriptions. E.g. option 'ethernet' in configuration file
 corresponds to <strong>--ethernet</strong> command line option. The normal configuration
 file for average user would only include few lines:</p>
 <pre>
-    #   /etc/dyndns/myhost.dyndns.org.conf</pre>
+    # /etc/dyndns/myhost.dyndns.org.conf</pre>
 <pre>
     host             = myhost.dyndns.org
     file             = default      # Use OS's default location
@@ -763,7 +762,7 @@ parentheses are examples from Linux:</p>
 or with some other commands, please provide connection details and
 full HTTP response:</p>
 <pre>
-  lynx -dump <a href="http://192.168.1.0/your-network/router/page.html">http://192.168.1.0/your-network/router/page.html</a></pre>
+  wget -O &lt;route-model&gt;-dump.html <a href="http://192.168.1.0/your-network/router/page.html">http://192.168.1.0/your-network/router/page.html</a></pre>
 <p>
 </p>
 <hr />
@@ -794,11 +793,11 @@ documentation what additional options you need to supply with them.</p>
 <pre>
     /etc/syslog.conf         daemon.err daemon.warning
     /var/log/daemon.log</pre>
-<p>There is no default location where program would search for configuration
-files. At installation, configuration examples are put in directory
-<code>/etc/dyndns/examples</code>. It is recommended that the examples are modified
-and copied one directorory up in order to use option <strong>--config
-/etc/dyndns/*</strong>.</p>
+<p>There is no default location where program would search for
+configuration files. Configuration files may be found in directory
+<code>/etc/dyndns/examples</code>. It is recommended that the examples are
+modified and copied one directorory up in order to use option
+<strong>--config /etc/dyndns/*</strong>.</p>
 <p>If program is run with Windows Activestate Perl, the log file is stored to
 file <code>C:/syslog.txt</code>.</p>
 <p>
@@ -820,7 +819,7 @@ Sys::Syslog</p>
 </p>
 <hr />
 <h1><a name="standards">STANDARDS</a></h1>
-<p>The client specification is at
+<p>The <em>dyndns</em> provider's client specification is at
 <a href="https://www.dyndns.com/developers/specs/">https://www.dyndns.com/developers/specs/</a></p>
 <p>
 </p>

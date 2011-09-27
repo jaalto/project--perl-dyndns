@@ -5,12 +5,10 @@ SYNOPSIS
         dyndns --login LOGIN --password PASSWORD \
                --host yourhost.dyndns.org
 
-    Note: By Default this program expects www.dyndns.org provider. If you
-    use other provider, see option --provider
-
 DESCRIPTION
-    A Perl client for updating dynamic DNS IP information at supported
-    providers (see "--provider").
+    A cross platform Perl client for updating dynamic DNS IP information at
+    supported providers (see "--provider"). By Default this program expects
+    www.dyndns.org provider.
 
     The dynamic DNS services allow mapping a dynamic IP address to a static
     hostname. This way the host can be refered by name instead of the
@@ -22,7 +20,7 @@ DESCRIPTION
     updating the same IP address again. This is necessary in order to comply
     guidelines of the providers where multiple updates of the same IP
     address could cause your domain to be blocked. You should not normally
-    need to touch the files where the ip addresses are stored.
+    need to touch the files where the IP addresses are stored.
 
     If you know what you are doing and desperately need a forced update,
     delete the IP files and start program with apropriate arguments. Without
@@ -206,9 +204,9 @@ OPTIONS
 
             /var/log/dyndns/     (if directory exists)
             /var/log/            (system's standard)
-            $HOME/tmp or $HOME   if process is not running under root
+            $HOME/tmp or $HOME   If process is not running under root
 
-        This options is by default activated if --file is not in used.
+        This options is by default activated if --file is not in use.
 
     --proxy HOST
         Use HOST as outgoing HTTP proxy.
@@ -237,7 +235,7 @@ OPTIONS
 
     --query
         Query current IP address and quit. Note: if you use router, you may
-        need --urlping* option, otherwise the IP address returned is your
+        need --urlping* options, otherwise the IP address returned is your
         subnet's DHCP IP and not the ISP's Internet IP.
 
         Output of the command is at least two string. The second string is
@@ -564,8 +562,8 @@ EXAMPLES
     domain delegation, like if it we accessed using `www.your.dyndns.org'.
 
 CONFIGURATION FILE
-    Instead of supplying options at command line, the options can be stored
-    to configuration files. For each DDNS account and different domains, a
+    Instead of supplying options at command line, they can be stored to a
+    configuration file. For each DDNS account and different domains, a
     separate configuration file must be created. The configuration files are
     read with option --config.
 
@@ -588,7 +586,7 @@ CONFIGURATION FILE
         disable  = no       # [default]
 
         ethernet = eth0     # [default]
-        group    = mygourp  # [noip]
+        group    = mygourp  # Provider [noip] only.
         host     = host1.dyndns.org, host1.dyndns.org
 
         #   If you route mail. See dyndns.org documentation for details
@@ -609,7 +607,7 @@ CONFIGURATION FILE
         urlping-password = mypass
 
         urlping          = fictional.showip.org
-        urlping-regexp   = (Address|addr:)\s+([0-9.]+)
+        urlping-regexp   = (?:Address|addr:)\s+([0-9.]+)
 
         #   Where IPs are stored. Directory name or Directory name with
         #   additional file prefix. The directory part must exist. You could
@@ -644,7 +642,7 @@ CONFIGURATION FILE
     corresponds to --ethernet command line option. The normal configuration
     file for average user would only include few lines:
 
-        #   /etc/dyndns/myhost.dyndns.org.conf
+        # /etc/dyndns/myhost.dyndns.org.conf
 
         host             = myhost.dyndns.org
         file             = default      # Use OS's default location
@@ -677,7 +675,7 @@ SUPPORT REQUESTS
     or with some other commands, please provide connection details and full
     HTTP response:
 
-      lynx -dump http://192.168.1.0/your-network/router/page.html
+      wget -O <route-model>-dump.html http://192.168.1.0/your-network/router/page.html
 
 TROUBLESHOOTING
     1. Turn on --debug to see exact details how the program runs and what
@@ -701,10 +699,10 @@ FILES
         /var/log/daemon.log
 
     There is no default location where program would search for
-    configuration files. At installation, configuration examples are put in
-    directory "/etc/dyndns/examples". It is recommended that the examples
-    are modified and copied one directorory up in order to use option
-    --config /etc/dyndns/*.
+    configuration files. Configuration files may be found in directory
+    "/etc/dyndns/examples". It is recommended that the examples are modified
+    and copied one directorory up in order to use option --config
+    /etc/dyndns/*.
 
     If program is run with Windows Activestate Perl, the log file is stored
     to file "C:/syslog.txt".
@@ -719,7 +717,8 @@ DEPENDENCIES
     Sys::Syslog
 
 STANDARDS
-    The client specification is at https://www.dyndns.com/developers/specs/
+    The *dyndns* provider's client specification is at
+    https://www.dyndns.com/developers/specs/
 
 BUGS AND LIMITATIONS
   Cygwin syslog
