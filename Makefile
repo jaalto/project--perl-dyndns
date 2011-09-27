@@ -105,6 +105,7 @@ distclean: clean
 
 realclean: clean
 
+# Rule: dist-git - [maintainer] release from Git repository
 dist-git: test
 	rm -f $(DIST_DIR)/$(RELEASE)*
 
@@ -121,13 +122,14 @@ dist-git: test
 dist-snap: test
 	@echo gt tar -q -z -p $(PACKAGE) -c -D master
 
-# Rule: dist - [maintainer] release from Git repository
+# Rule: dist - alias for dist-git
 dist: dist-git
 
+# Rule: dist-ls - [maintainer] list of release files
 dist-ls:
 	@ls -1tr $(DIST_DIR)/$(PACKAGE)*
 
-# Rule: dist - [maintainer] list of release files
+# Rule: ls - alias for dist-ls
 ls: dist-ls
 
 bin/$(PACKAGE).1: $(PL_SCRIPT)

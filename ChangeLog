@@ -1,3 +1,7 @@
+2011-09-27 Tue  Jari Aalto  <jari.aalto@cante.net>
+
+	* Makefile: Adjust comment for 'make help'.
+
 2010-10-25 Tue  Jari Aalto  <jari.aalto@cante.net>
 
 	* bin/dyndns.pl (HELP): Adjust wording.
