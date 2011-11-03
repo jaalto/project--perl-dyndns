@@ -3887,7 +3887,7 @@ sub GetIpAddressWin32 (; $)
 
 
     my $modifier  = '(?sm)';
-    my $base      = '(?:inet|IP)(.|\s)Add?res[^\r\n:]+:[ \t]*(\d+\.[\d.]+)';
+    my $base      = '(?:inet|IP)(?:.|\s)Add?res[^\r\n:]+:[ \t]*(\d+\.[\d.]+)';
 
     my @regexpList;
     push @regexpList, $modifier . 'PPP.*' . $base;
@@ -5386,6 +5386,7 @@ lo        Link encap:Lokale Schleife
           RX bytes:2155983999 (2.0 GiB)  TX bytes:2155983999 (2.0 GiB)';
 
     Banner " German";
+
     $ip = IpAddressGenericParser 'inet\s+Add?res.*?[ \t:](\d[\d.]+)', @response;
 
     print "$id: END\n";
@@ -6590,7 +6591,7 @@ sub TestMain ()
 }
 
 Initialize();
-# TestMain();
+TestMain();
 Main();
 
 # End of file
