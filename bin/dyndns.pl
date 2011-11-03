@@ -4,7 +4,7 @@
 #
 #   Copyright
 #
-#       Copyright (C) 1999-2010 Jari Aalto
+#       Copyright (C) 1999-2011 Jari Aalto
 #
 #   License
 #
@@ -57,10 +57,6 @@
 #   Test commands (developer only information)
 #
 #       dyndns --system custom --test-account --urlping-linksys4 -d 4 2>&1 | tee ~/dyndns-custom.log
-
-# {{{ Import
-
-#   Standard perl modules
 
 # ****************************************************************************
 #
@@ -126,9 +122,6 @@ my @REQUIRE_OPTIONAL =
 #  Will be set at runtime
 my @FEATURE_LIST_MODULES;
 
-# }}}
-# {{{ Initialize
-
 # ****************************************************************************
 #
 #   DESCRIPTION
@@ -147,12 +140,12 @@ my @FEATURE_LIST_MODULES;
 
 sub Initialize ()
 {
-    use vars qw		# declare global variables
+    use vars qw         # declare global variables
     (
         $PROGNAME
         $LIB
-	$LICENSE
-	$AUTHOR
+        $LICENSE
+        $AUTHOR
         $URL
 
         $WIN32
@@ -174,7 +167,7 @@ sub Initialize ()
 
     $PROGNAME   = basename $PROGRAM_NAME;
     $LIB        = $PROGNAME;
-    $LICENSE	= "GPL-2+";
+    $LICENSE    = "GPL-2+";
     $AUTHOR     = "Jari Aalto";
     $URL        = "http://freshmeat.net/projects/perl-dyndns";
 
@@ -373,7 +366,7 @@ sub InitializeModules ()
               . "  cpan>install $module\n" ;
         }
 
-	push @FEATURE_LIST_MODULES, $module;
+        push @FEATURE_LIST_MODULES, $module;
     }
 
     for my $module ( @REQUIRE_FATAL )
@@ -391,9 +384,6 @@ sub InitializeModules ()
         }
     }
 }
-
-# }}}
-# {{{ Help page
 
 # ***************************************************************** &help ****
 #
@@ -1262,8 +1252,8 @@ sub Help ( ; $ $ )
     }
     elsif ( $type eq -man )
     {
-	eval { require Pod::Man; 1 }
-	    or die "$id: Cannot generate Man: $EVAL_ERROR";
+        eval { require Pod::Man; 1 }
+            or die "$id: Cannot generate Man: $EVAL_ERROR";
 
         my %options;
         $options{center} = 'Perl Dynamic DNS Update Client';
@@ -1273,7 +1263,7 @@ sub Help ( ; $ $ )
     }
     else
     {
-	system "pod2text $PROGRAM_NAME";
+        system "pod2text $PROGRAM_NAME";
     }
 
     if ( defined $msg )
@@ -1284,9 +1274,6 @@ sub Help ( ; $ $ )
 
     exit 0;
 }
-
-# }}}
-# {{{ Command line arguments
 
 # ****************************************************************************
 #
@@ -1546,13 +1533,13 @@ sub HandleCommandLineArgsMain ()
 
     unless ( $OPT_IP_FILE  or  $ipfileDefault )
     {
-	$ipfileDefault = 'on';
+        $ipfileDefault = 'on';
     }
 
     if ( $ipfileDefault )
     {
         $OPT_IP_FILE = SystemLogDir();
-	$debug  and   print "$id: OPT_IP_FILE = $OPT_IP_FILE\n";
+        $debug  and   print "$id: OPT_IP_FILE = $OPT_IP_FILE\n";
     }
 
     #   Because this is defined as ':s', this string will be "" if
@@ -1583,7 +1570,7 @@ sub HandleCommandLineArgsMain ()
 
    if ( ($OPT_QUERY_IP_FILE || $OPT_QUERY_IP_SAVED)
          and
-	 not defined @OPT_HOST
+         not defined @OPT_HOST
        )
     {
         warn "$id: Option --host should be included with queries.";
@@ -1628,9 +1615,6 @@ sub HandleCommandLineArgsMain ()
         }
     }
 }
-
-# }}}
-# {{{ Logging
 
 # ****************************************************************************
 #
@@ -1787,8 +1771,8 @@ sub LogSyslog ($)
     }
     else  # no syslog
     {
-	$msg .= "\n" unless m,\n\Z,;
-	print STDERR "$date $prefix $pString $msg";
+        $msg .= "\n" unless m,\n\Z,;
+        print STDERR "$date $prefix $pString $msg";
     }
 }
 
@@ -1830,9 +1814,6 @@ sub Log ($;$)
         print STDERR $msg;
     }
 }
-
-# }}}
-# {{{ Variables
 
 # ****************************************************************************
 #
@@ -1988,10 +1969,10 @@ sub VariableCheckValidity (; $)
         #
         # LAN:
         #      MAC Address: zzzzz
-        #    Å† IP Address: 192.168.1.1
+        #      IP Address: 192.168.1.1
         # WAN:x
         #      MAC Address: zzzzz
-        #    Å† IP Address: xxx.xxx.xxx.xxx    << READ THIS
+        #      IP Address: xxx.xxx.xxx.xxx    << READ THIS
 
         my $ip    = '([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)';
         my $maybe = '(?i)(?:WAN.+?IP\s+Address.+?)';
@@ -2054,9 +2035,6 @@ sub VariableCheckMinimum (; $)
 
     $stat;
 }
-
-# }}}
-# {{{ Misc functions
 
 # ****************************************************************************
 #
@@ -2195,13 +2173,13 @@ sub SystemLogDir ()
 
     if ( not $WIN32  and  $EUID == 0 )
     {
-	$root = "yes";
+        $root = "yes";
     }
 
     if ( -d '/var/log'   and ($WIN32 or $root) )
     {
-	#  Under Win32/Cygwin this directory may exist, but user
-	#  does not have permission to it under *nix.
+        #  Under Win32/Cygwin this directory may exist, but user
+        #  does not have permission to it under *nix.
 
         $ret = '/var/log';
 
@@ -2235,8 +2213,8 @@ sub SystemLogDir ()
     }
     elsif (not $root)
     {
-	$ret = "$HOME"      if  -d "$HOME";
-	$ret = "$HOME/tmp"  if  -d "$HOME/tmp";
+        $ret = "$HOME"      if  -d "$HOME";
+        $ret = "$HOME/tmp"  if  -d "$HOME/tmp";
     }
     else
     {
@@ -2430,15 +2408,15 @@ sub ConfigFileRead ($)
     #   files
 
     {
-	no strict;
-	for my $name ( @CONFIG_COMMAND_LINE_TABLE )
-	{
-	    if ( defined ${$name} )
-	    {
-		$globalHash{ $name } = ${$name};
-		$debug > 1  and  printf "$id: GLOBAL $name = %s\n", ${$name};
-	    }
-	}
+        no strict;
+        for my $name ( @CONFIG_COMMAND_LINE_TABLE )
+        {
+            if ( defined ${$name} )
+            {
+                $globalHash{ $name } = ${$name};
+                $debug > 1  and  printf "$id: GLOBAL $name = %s\n", ${$name};
+            }
+        }
     }
 
     my $expanded;
@@ -2604,20 +2582,20 @@ sub IPfileNameGlobbed ()
     $debug      and  print "$id: OPT_IP_FILE [$file]\n";
 
     $debug and print "$id: OPT_QUERY_IP_FILE [$OPT_QUERY_IP_FILE] "
-	           . "OPT_QUERY_IP_SAVED [$OPT_QUERY_IP_SAVED] "
-		   . "OPT_QUERY_IP_CHANGED [$OPT_QUERY_IP_CHANGED]\n";
+                   . "OPT_QUERY_IP_SAVED [$OPT_QUERY_IP_SAVED] "
+                   . "OPT_QUERY_IP_CHANGED [$OPT_QUERY_IP_CHANGED]\n";
 
     if ( not $file
-	 and not ($OPT_QUERY_IP_FILE
-		  or $OPT_QUERY_IP_SAVED
-		  or ($OPT_QUERY_IP_CHANGED eq -undef) )
+         and not ($OPT_QUERY_IP_FILE
+                  or $OPT_QUERY_IP_SAVED
+                  or ($OPT_QUERY_IP_CHANGED eq -undef) )
        )
     {
-	#  Nothing to check. We donÅ‰t need to look at previously saved file
-	#  User is probably calling with --query or --query-linksys
+        #  Nothing to check. We don't need to look at previously saved file
+        #  User is probably calling with --query or --query-linksys
 
-	$debug and print "$id: Nothing to do\n";
-	return;
+        $debug and print "$id: Nothing to do\n";
+        return;
     }
 
     unless ( $file )
@@ -3309,9 +3287,6 @@ sub Ping ($)
     $ret;
 }
 
-# }}}
-# {{{ IP addresses
-
 # ****************************************************************************
 #
 #   DESCRIPTION
@@ -3912,7 +3887,7 @@ sub GetIpAddressWin32 (; $)
 
 
     my $modifier  = '(?sm)';
-    my $base      = 'IP\s+Add?resse?[^\r\n:]+:[ \t]*(\d[\d.]+)';
+    my $base      = '(?:inet|IP)(.|\s)Add?res[^\r\n:]+:[ \t]*(\d+\.[\d.]+)';
 
     my @regexpList;
     push @regexpList, $modifier . 'PPP.*' . $base;
@@ -4038,7 +4013,7 @@ sub GetIpAddress ()
     if ( $OPT_HTTP_PING )
     {
 
-	$debug  and  print "$id: OPT_HTTP_PING\n";
+        $debug  and  print "$id: OPT_HTTP_PING\n";
 
         $ret = HttpPing -url    => $OPT_HTTP_PING
                       , -regexp => $OPT_HTTP_PING_REGEXP
@@ -4048,38 +4023,38 @@ sub GetIpAddress ()
     }
     elsif ( $OPT_HTTP_PING_DYNDNS )
     {
-	$debug  and  print "$id: OPT_HTTP_PING_DYNDNS\n";
+        $debug  and  print "$id: OPT_HTTP_PING_DYNDNS\n";
         $ret = HttpPingDyndns();
     }
     elsif ( $OPT_HTTP_PING_LINKSYS )
     {
-	$debug  and  print "$id: OPT_HTTP_PING_LINKSYS $OPT_HTTP_PING_LINKSYS\n";
+        $debug  and  print "$id: OPT_HTTP_PING_LINKSYS $OPT_HTTP_PING_LINKSYS\n";
 
-	local $ARG = $OPT_HTTP_PING_LINKSYS;
+        local $ARG = $OPT_HTTP_PING_LINKSYS;
 
-	if ( /BEFW11S4/i )
-	{
-	    $ret = HttpPingWlanLinksysBEFW11S4
-		     $OPT_HTTP_PING_LOGIN, $OPT_HTTP_PING_PASSWORD;
-	}
-	if ( /WRT54GL/i )
-	{
-	    $ret = HttpPingWlanLinksysWRT54GL
-		     $OPT_HTTP_PING_LOGIN, $OPT_HTTP_PING_PASSWORD;
-	}
-	else
-	{
-	    warn "$id: Unknown product code: $ARG. Please contact maintainer.";
-	}
+        if ( /BEFW11S4/i )
+        {
+            $ret = HttpPingWlanLinksysBEFW11S4
+                     $OPT_HTTP_PING_LOGIN, $OPT_HTTP_PING_PASSWORD;
+        }
+        if ( /WRT54GL/i )
+        {
+            $ret = HttpPingWlanLinksysWRT54GL
+                     $OPT_HTTP_PING_LOGIN, $OPT_HTTP_PING_PASSWORD;
+        }
+        else
+        {
+            warn "$id: Unknown product code: $ARG. Please contact maintainer.";
+        }
     }
     elsif ( $WIN32 )
     {
-	$debug  and  print "$id: WIN32\n";
+        $debug  and  print "$id: WIN32\n";
         $ret = GetIpAddressWin32();
     }
     elsif ( -x "/sbin/ifconfig"  or  -x "/usr/sbin/ifconfig")
     {
-	$debug  and  print "$id: ifconfig\n";
+        $debug  and  print "$id: ifconfig\n";
         $ret = GetIpAddressIfconfig();
     }
     else
@@ -4408,9 +4383,6 @@ sub StatusCodeParseHNorg( $ )
     $code, $desc;
 }
 
-# }}}
-# {{{ Test drivers
-
 # ****************************************************************************
 #
 #   DESCRIPTION
@@ -4595,7 +4567,7 @@ Expires: Thu, 13 Dec 1969 10:29:00 GMT
 Client-Date: Sat, 22 Feb 2003 19:23:34 GMT
 Client-Response-Num: 1
 
-<HTML><HEAD><TITLE>Setup</TITLE><META http-equiv=Content-Language content=en-us><META http-equiv=Content-Type content='text/html; charset=iso-8859-1'><style fprolloverstyle>BODY{FONT: 10pt Arial,Helvetica,sans-serif; COLOR: black}TH {FONT: bold 10pt Arial,Helvetica,sans-serif; COLOR: white;}TABLE {FONT: 10pt Arial,Helvetica,sans-serif; COLOR: black; BORDER: Medium White None; border-collapse: collapse}TD{font-size: 8pt; font-family: Arial, Helvetica, sans-serif}.num{FONT: 8pt Courier,serif;}.bar{background-color:white;}A{text-decoration: none;} A:link{color: #FFFFFF;}       A:visited{color: #FFFFFF;}.small A:link {	COLOR: #b5b5e6}.small A:visited {COLOR: #b5b5e6}A:hover {color: #00FFFF}.small A:hover {color: #00FFFF}</style><meta http-equiv=refresh content=60;url=RouterStatus.htm></HEAD><SCRIPT language=JavaScript>function pppoeAction(F,I){F.hid_dialAction.value = I;F.submit();}function DHCPAct(F,I){F.hid_dhcpAction.value = I;F.submit();}function showAlert(){alert('');}</SCRIPT><BODY ><DIV align=center><TABLE cellSpacing=0 cellPadding=0 width=809 border=0><TBODY><TR><TD width=95><IMG height=57 src='UI_Linksys.gif' width=165 border=0></TD><TD vAlign=bottom align=right width=714 bgColor=#6666cc><FONT style='FONT-SIZE: 7pt' color=#ffffff face=Arial>Firmware Version: 1.50.10&nbsp;&nbsp;</FONT></TD></TR><TR><TD width=808 colSpan=2 bgColor=#6666cc><IMG height=11 src='UI_10.gif' width=809 border=0></TD></TR></TBODY></TABLE><TABLE height=77 cellSpacing=0 cellPadding=0 width=809 bgColor=black border=0><TBODY><TR><TD style='FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal' borderColor=#000000 align=middle height=49 width=163><H3 style='MARGIN-TOP: 1px; MARGIN-BOTTOM: 1px'><FONT style='FONT-SIZE: 15pt' face=Arial color=#ffffff>Status</FONT></H3></TD><TD style='FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal' vAlign=center borderColor=#000000 width=646 bgColor=#000000 height=49><TABLE style='FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; BORDER-COLLAPSE: collapse; FONT-VARIANT: normal' height=33 cellSpacing=0 cellPadding=0 bgColor=#6666cc border=0><TBODY><TR><TD style='font-size:10pt; font-weight:bolder' bgColor=#6666cc height=33 align=right><FONT color='#ffffff'>Wireless-B Broadband Router&nbsp;<TD align=middle borderColor=#000000 borderColorLight=#000000 width=109 bgColor=#000000 borderColorDark=#000000 height=12 rowSpan=2><FONT color=#ffffff><SPAN style='FONT-SIZE: 8pt'><B>BEFW11S4</B></SPAN></FONT></TD></TR><TR><TD style='FONT-WEIGHT: normal; FONT-SIZE: 1pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal' width=537 bgColor=#000000 height=1>&nbsp;</TD></TR><TR><TD width=646 bgColor=#000000 colSpan=2 height=32><TABLE id=AutoNumber1 style='FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; BORDER-COLLAPSE: collapse; FONT-VARIANT: normal' height=6 cellSpacing=0 cellPadding=0 width=637 border=0><TBODY><TR style='BORDER-RIGHT: medium none; BORDER-TOP: medium none; FONT-WEIGHT: normal; FONT-SIZE: 1pt; BORDER-LEFT: medium none; COLOR: black; BORDER-BOTTOM: medium none; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal' bgColor=#6666cc align=middle><TD width=73  height=1><IMG height=10 src=UI_06.gif width=73  border=0></TD><TD width=73  height=1><IMG height=10 src=UI_06.gif width=73  border=0></TD><TD width=73  height=1><IMG height=10 src=UI_06.gif width=73  border=0></TD><TD width=113 height=1><IMG height=10 src=UI_06.gif width=113 border=0></TD><TD width=95  height=1><IMG height=10 src=UI_06.gif width=95  border=0></TD><TD width=73  height=1><IMG height=10 src=UI_07.gif width=73  border=0></TD><TD width=146 height=1><IMG height=10 src=UI_06.gif width=146 border=0></TD></TR><TR><TD bgColor=000000 height=20 align=middle><FONT style='FONT-WEIGHT: 700' color=#ffffff><A style='TEXT-DECORATION: none' href='index.htm'>Setup</a></FONT></TD><TD align=middle bgColor=000000 height=20><FONT style='FONT-WEIGHT: 700' color=#ffffff><A style='TEXT-DECORATION: none' href='WLbasic.htm'>Wireless</A></FONT></TD><TD align=middle bgColor=000000 height=20><FONT style='FONT-WEIGHT: 700' color=#ffffff><A style='TEXT-DECORATION: none' href='Filter.htm'>Security</A></FONT></TD><TD align=middle bgColor=000000 height=20><FONT style='FONT-WEIGHT: 700' color=#ffffff><A style='TEXT-DECORATION: none' href='Forwarding.htm'>Applications &amp; Gaming</A></FONT></TD><TD align=middle bgColor=000000 height=20><FONT style='FONT-WEIGHT: 700' color=#ffffff><A style='TEXT-DECORATION: none' href='Management.htm'>Administration</A></FONT></TD><TD align=middle bgColor=6666cc height=20><FONT style='FONT-WEIGHT: 700' color=#ffffff><A style='TEXT-DECORATION: none'  href='RouterStatus.htm'>Status</A></FONT></TD></TR><TR><TD width=643 bgColor=#6666cc colSpan=7 height=21><TABLE height=21 cellSpacing=0 cellPadding=0 bordercolor=black><TR align=center><TD width=220><FONT style='COLOR: white'>Router</font></TD><TD><P class=bar>&nbsp;</P></TD><TD width=220 class=small><A href='LanStatus.htm'>Local Network</A></TD><td width=220>&nbsp;</td><td width=220>&nbsp;</td></TR></TABLE></TD></TR></TABLE></TD></TR></TABLE></TD></TR></TABLE><TABLE height=5 cellSpacing=0 cellPadding=0 width=806 bgColor=black border=0><TR bgColor=black><TD style='FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal' borderColor=#e7e7e7 width=163 bgColor=#e7e7e7 height=1><IMG height=15 src='UI_03.gif' width=164 border=0></TD><TD style='FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal' width=646 height=1><IMG height=15 src='UI_02.gif' width=645 border=0></TD></TR></TABLE><TABLE id=AutoNumber9 style='BORDER-COLLAPSE: collapse' borderColor=#111111 height=23 cellSpacing=0 cellPadding=0 width=809 border=0><TR><TD width=633><TABLE cellSpacing=0 cellPadding=0 border=0><TR><TD width=156 bgColor=#000000 colSpan=3 height=25><P align=right><B><FONT style='FONT-SIZE: 9pt' face=Arial color=#ffffff>Router Information</FONT></B></P></TD><TD width=8 bgColor=#000000 height=25>&nbsp;</TD><TD width=14 height=25>&nbsp;</TD><TD width=17 height=25>&nbsp;</TD><TD width=13 height=25>&nbsp;</TD><TD width=101 height=25>&nbsp;</TD><TD width=296 height=25>&nbsp;</TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25>&nbsp;</TD><TD width=8 height=25 background='UI_04.gif'>&nbsp;</TD><TD colspan=3 height=25>&nbsp;</TD><TD width=101 height=25><FONT style='FONT-SIZE: 8pt'>Firmware Version:</FONT></TD><TD><FONT style='FONT-SIZE: 8pt'><B>1.50.10, Jan 16 2004</B></FONT></TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25>&nbsp;</TD><TD width=8 height=25 background='UI_04.gif'>&nbsp;</TD><TD colspan=3 height=25>&nbsp;</TD><TD><FONT style='FONT-SIZE: 8pt'>MAC Address:</FONT></TD><TD><FONT style='FONT-SIZE: 8pt'><B>00-0F-66-23-C2-56</B></FONT></TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#000000 colSpan=3 height=25><P align=right><B><FONT style='FONT-SIZE: 9pt' color=#ffffff>Internet</FONT></B></P></TD><TD width=8 bgColor=#000000 height=25>&nbsp;</TD><TD colSpan=6>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25><P align=right><b>Configuration Type</b></TD><TD width=8 height=25 background='UI_04.gif'>&nbsp;</TD><TD colspan=3 height=25>&nbsp;</TD><TD><FONT style='FONT-SIZE: 8pt'>Login Type:</FONT></TD><TD><FONT style='FONT-SIZE: 8pt'><B>PPPOE</B></FONT></TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><form name=F1 method=get action=Gozila.cgi><input type=hidden name='RouterStatus.htm' value=255><input type=hidden name=hid_returnPoint value=''><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25>&nbsp;</TD><TD width=8 height=25><IMG height=35 src='UI_04.gif' width=8 border=0></TD><TD colspan=3 bgColor=#ffffff height=25>&nbsp;</TD><TD width=101 bgColor=#ffffff height=25><FONT style='FONT-SIZE: 8pt'>Login Status:</FONT></TD><TD width=296 bgColor=#ffffff height=25><FONT style='FONT-SIZE: 8pt'><B><input type=hidden name=hid_dialAction value=0>Connected <input type=button value='Disconnect' onClick='pppoeAction(this.form,2)'></B></FONT></TD><TD width=13 bgColor=#ffffff height=25>&nbsp;</TD><TD width=15 bgColor=#ffffff height=25><IMG height=35 src='UI_05.gif' width=15 border=0></TD></TR></form><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25>&nbsp;</TD><TD width=8 height=25 background='UI_04.gif'>&nbsp;</TD><TD colspan=3 height=25>&nbsp;</TD><TD><FONT style='FONT-SIZE: 8pt'>Internet IP Address:</FONT></TD><TD><FONT style='FONT-SIZE: 8pt'><B>69.110.12.53</B></FONT></TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25>&nbsp;</TD><TD width=8 height=25 background='UI_04.gif'>&nbsp;</TD><TD colspan=3 height=25>&nbsp;</TD><TD><FONT style='FONT-SIZE: 8pt'>DNS 1:</FONT></TD><TD><FONT style='FONT-SIZE: 8pt'><B>63.203.35.55</B></FONT></TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25>&nbsp;</TD><TD width=8 height=25 background='UI_04.gif'>&nbsp;</TD><TD colspan=3 height=25>&nbsp;</TD><TD height=25><FONT style='FONT-SIZE: 8pt'>DNS 2:</FONT></TD><TD height=25><FONT style='FONT-SIZE: 8pt'><B>206.13.28.12</B></FONT></TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25>&nbsp;</TD><TD width=8 height=25 background='UI_04.gif'>&nbsp;</TD><TD colspan=3 height=25>&nbsp;</TD><TD height=25><FONT style='FONT-SIZE: 8pt'>DNS 3:</FONT></TD><TD height=25><FONT style='FONT-SIZE: 8pt'><B>0.0.0.0</B></FONT></TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=1>&nbsp;</TD><TD width=8 background='UI_04.gif'>&nbsp;</TD><TD colspan=6 height=1>&nbsp;</TD><TD width=15 height=1 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=1>&nbsp;</TD><TD width=8 background='UI_04.gif'>&nbsp;</TD><TD colSpan=6><HR color=#b5b5e6 SIZE=1></TD><TD width=15 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=1>&nbsp;</TD><TD width=8 background='UI_04.gif'>&nbsp;</TD><TD colspan=6 height=1>&nbsp;</TD><TD width=15 height=1 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25>&nbsp;</TD><TD width=8 height=25 background='UI_04.gif'>&nbsp;</TD><TD colspan=3 height=25>&nbsp;</TD><TD colSpan=2 height=25> </TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR></form><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=1>&nbsp;</TD><TD width=8 background='UI_04.gif'>&nbsp;</TD><TD colspan=6 height=1>&nbsp;</TD><TD width=15 height=1 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=1>&nbsp;</TD><TD width=8 background='UI_04.gif'>&nbsp;</TD><TD colspan=6 height=1>&nbsp;</TD><TD width=15 height=1 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 colspan=3 bgColor=#e7e7e7 height=5>&nbsp;</TD><TD width=8 height=5 background='UI_04.gif'>&nbsp;</TD><TD colspan=6>&nbsp;</TD><TD width=15 height=5 background='UI_05.gif'>&nbsp;</TD></TR></TABLE></TD><TD vAlign=top width=176 bgColor=#6666cc><TABLE cellSpacing=0 cellPadding=0 width=176 border=0><TR><TD width=11 bgColor=#6666cc height=25>&nbsp;</TD><TD width=156 bgColor=#6666cc height=25><FONT color=white size=3><b>Router Status</b></font><p><FONT color=white>This screen provides the Router's current status information in a read-only format.<p><b>Login Type</b><br>This field shows the Internet login status. When you choose PPPoE, RAS, PPTP, or HBS as the login method, you can click the <b>Connect</b> button to log in. If you click the <b>Disconnect</b> button, the Router will not dial up again until you click the <b>Connect</b> button.<p>If your connection is DHCP or Static IP, the Status screen will show you the Internet IP Address, Subnet mask,<p><a target="_blank" href="HRouterStatus.htm"><b><u>More...</u></b></TD><TD width=9 bgColor=#6666cc height=25>&nbsp;</TD></TR></TABLE></TD></TR><TR><TD width=809 colSpan=2><TABLE cellSpacing=0 cellPadding=0 border=0><TR><TD width=156 bgColor=#e7e7e7 height=30>&nbsp;</TD><TD width=8 background='UI_04.gif'>&nbsp;</TD><TD width=131>&nbsp;</TD><TD width=323>&nbsp;</TD><TD width=15 background='UI_05.gif'>&nbsp;</TD><TD width=176 bgColor=#6666cc rowSpan=2><IMG height=64 src='UI_Cisco.gif' width=176 border=0></TD></TR><TR><TD width=156 bgColor=#000000>&nbsp;</TD><TD width=8 bgColor=#000000>&nbsp;</TD><TD width=131 bgColor=#6666cc>&nbsp;</TD><TD width=323 bgColor=#6666cc><DIV align=center><TABLE height=19 cellSpacing=0 cellPadding=0 width=117 align=right border=0><TR><TD align=middle width=101 bgColor=#434a8f><!--<INPUT onclick=window.location.replace('RouterStatus.htm') type=button value=Refresh>--><FONT style='FONT-WEIGHT: 700; FONT-SIZE: 8pt' face=Arial color=#ffffff><A href='RouterStatus.htm'>Refresh</A></TD><TD width=8 bgColor=#6666cc>&nbsp;</TD></TR></TABLE></DIV></TD><TD width=15 bgColor=#000000 height=33>&nbsp;</TD></TR></TABLE></TD></TR></TABLE></DIV></BODY></HTML>
+<HTML><HEAD><TITLE>Setup</TITLE><META http-equiv=Content-Language content=en-us><META http-equiv=Content-Type content='text/html; charset=iso-8859-1'><style fprolloverstyle>BODY{FONT: 10pt Arial,Helvetica,sans-serif; COLOR: black}TH {FONT: bold 10pt Arial,Helvetica,sans-serif; COLOR: white;}TABLE {FONT: 10pt Arial,Helvetica,sans-serif; COLOR: black; BORDER: Medium White None; border-collapse: collapse}TD{font-size: 8pt; font-family: Arial, Helvetica, sans-serif}.num{FONT: 8pt Courier,serif;}.bar{background-color:white;}A{text-decoration: none;} A:link{color: #FFFFFF;}       A:visited{color: #FFFFFF;}.small A:link {  COLOR: #b5b5e6}.small A:visited {COLOR: #b5b5e6}A:hover {color: #00FFFF}.small A:hover {color: #00FFFF}</style><meta http-equiv=refresh content=60;url=RouterStatus.htm></HEAD><SCRIPT language=JavaScript>function pppoeAction(F,I){F.hid_dialAction.value = I;F.submit();}function DHCPAct(F,I){F.hid_dhcpAction.value = I;F.submit();}function showAlert(){alert('');}</SCRIPT><BODY ><DIV align=center><TABLE cellSpacing=0 cellPadding=0 width=809 border=0><TBODY><TR><TD width=95><IMG height=57 src='UI_Linksys.gif' width=165 border=0></TD><TD vAlign=bottom align=right width=714 bgColor=#6666cc><FONT style='FONT-SIZE: 7pt' color=#ffffff face=Arial>Firmware Version: 1.50.10&nbsp;&nbsp;</FONT></TD></TR><TR><TD width=808 colSpan=2 bgColor=#6666cc><IMG height=11 src='UI_10.gif' width=809 border=0></TD></TR></TBODY></TABLE><TABLE height=77 cellSpacing=0 cellPadding=0 width=809 bgColor=black border=0><TBODY><TR><TD style='FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal' borderColor=#000000 align=middle height=49 width=163><H3 style='MARGIN-TOP: 1px; MARGIN-BOTTOM: 1px'><FONT style='FONT-SIZE: 15pt' face=Arial color=#ffffff>Status</FONT></H3></TD><TD style='FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal' vAlign=center borderColor=#000000 width=646 bgColor=#000000 height=49><TABLE style='FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; BORDER-COLLAPSE: collapse; FONT-VARIANT: normal' height=33 cellSpacing=0 cellPadding=0 bgColor=#6666cc border=0><TBODY><TR><TD style='font-size:10pt; font-weight:bolder' bgColor=#6666cc height=33 align=right><FONT color='#ffffff'>Wireless-B Broadband Router&nbsp;<TD align=middle borderColor=#000000 borderColorLight=#000000 width=109 bgColor=#000000 borderColorDark=#000000 height=12 rowSpan=2><FONT color=#ffffff><SPAN style='FONT-SIZE: 8pt'><B>BEFW11S4</B></SPAN></FONT></TD></TR><TR><TD style='FONT-WEIGHT: normal; FONT-SIZE: 1pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal' width=537 bgColor=#000000 height=1>&nbsp;</TD></TR><TR><TD width=646 bgColor=#000000 colSpan=2 height=32><TABLE id=AutoNumber1 style='FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; BORDER-COLLAPSE: collapse; FONT-VARIANT: normal' height=6 cellSpacing=0 cellPadding=0 width=637 border=0><TBODY><TR style='BORDER-RIGHT: medium none; BORDER-TOP: medium none; FONT-WEIGHT: normal; FONT-SIZE: 1pt; BORDER-LEFT: medium none; COLOR: black; BORDER-BOTTOM: medium none; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal' bgColor=#6666cc align=middle><TD width=73  height=1><IMG height=10 src=UI_06.gif width=73  border=0></TD><TD width=73  height=1><IMG height=10 src=UI_06.gif width=73  border=0></TD><TD width=73  height=1><IMG height=10 src=UI_06.gif width=73  border=0></TD><TD width=113 height=1><IMG height=10 src=UI_06.gif width=113 border=0></TD><TD width=95  height=1><IMG height=10 src=UI_06.gif width=95  border=0></TD><TD width=73  height=1><IMG height=10 src=UI_07.gif width=73  border=0></TD><TD width=146 height=1><IMG height=10 src=UI_06.gif width=146 border=0></TD></TR><TR><TD bgColor=000000 height=20 align=middle><FONT style='FONT-WEIGHT: 700' color=#ffffff><A style='TEXT-DECORATION: none' href='index.htm'>Setup</a></FONT></TD><TD align=middle bgColor=000000 height=20><FONT style='FONT-WEIGHT: 700' color=#ffffff><A style='TEXT-DECORATION: none' href='WLbasic.htm'>Wireless</A></FONT></TD><TD align=middle bgColor=000000 height=20><FONT style='FONT-WEIGHT: 700' color=#ffffff><A style='TEXT-DECORATION: none' href='Filter.htm'>Security</A></FONT></TD><TD align=middle bgColor=000000 height=20><FONT style='FONT-WEIGHT: 700' color=#ffffff><A style='TEXT-DECORATION: none' href='Forwarding.htm'>Applications &amp; Gaming</A></FONT></TD><TD align=middle bgColor=000000 height=20><FONT style='FONT-WEIGHT: 700' color=#ffffff><A style='TEXT-DECORATION: none' href='Management.htm'>Administration</A></FONT></TD><TD align=middle bgColor=6666cc height=20><FONT style='FONT-WEIGHT: 700' color=#ffffff><A style='TEXT-DECORATION: none'  href='RouterStatus.htm'>Status</A></FONT></TD></TR><TR><TD width=643 bgColor=#6666cc colSpan=7 height=21><TABLE height=21 cellSpacing=0 cellPadding=0 bordercolor=black><TR align=center><TD width=220><FONT style='COLOR: white'>Router</font></TD><TD><P class=bar>&nbsp;</P></TD><TD width=220 class=small><A href='LanStatus.htm'>Local Network</A></TD><td width=220>&nbsp;</td><td width=220>&nbsp;</td></TR></TABLE></TD></TR></TABLE></TD></TR></TABLE></TD></TR></TABLE><TABLE height=5 cellSpacing=0 cellPadding=0 width=806 bgColor=black border=0><TR bgColor=black><TD style='FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal' borderColor=#e7e7e7 width=163 bgColor=#e7e7e7 height=1><IMG height=15 src='UI_03.gif' width=164 border=0></TD><TD style='FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-VARIANT: normal' width=646 height=1><IMG height=15 src='UI_02.gif' width=645 border=0></TD></TR></TABLE><TABLE id=AutoNumber9 style='BORDER-COLLAPSE: collapse' borderColor=#111111 height=23 cellSpacing=0 cellPadding=0 width=809 border=0><TR><TD width=633><TABLE cellSpacing=0 cellPadding=0 border=0><TR><TD width=156 bgColor=#000000 colSpan=3 height=25><P align=right><B><FONT style='FONT-SIZE: 9pt' face=Arial color=#ffffff>Router Information</FONT></B></P></TD><TD width=8 bgColor=#000000 height=25>&nbsp;</TD><TD width=14 height=25>&nbsp;</TD><TD width=17 height=25>&nbsp;</TD><TD width=13 height=25>&nbsp;</TD><TD width=101 height=25>&nbsp;</TD><TD width=296 height=25>&nbsp;</TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25>&nbsp;</TD><TD width=8 height=25 background='UI_04.gif'>&nbsp;</TD><TD colspan=3 height=25>&nbsp;</TD><TD width=101 height=25><FONT style='FONT-SIZE: 8pt'>Firmware Version:</FONT></TD><TD><FONT style='FONT-SIZE: 8pt'><B>1.50.10, Jan 16 2004</B></FONT></TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25>&nbsp;</TD><TD width=8 height=25 background='UI_04.gif'>&nbsp;</TD><TD colspan=3 height=25>&nbsp;</TD><TD><FONT style='FONT-SIZE: 8pt'>MAC Address:</FONT></TD><TD><FONT style='FONT-SIZE: 8pt'><B>00-0F-66-23-C2-56</B></FONT></TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#000000 colSpan=3 height=25><P align=right><B><FONT style='FONT-SIZE: 9pt' color=#ffffff>Internet</FONT></B></P></TD><TD width=8 bgColor=#000000 height=25>&nbsp;</TD><TD colSpan=6>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25><P align=right><b>Configuration Type</b></TD><TD width=8 height=25 background='UI_04.gif'>&nbsp;</TD><TD colspan=3 height=25>&nbsp;</TD><TD><FONT style='FONT-SIZE: 8pt'>Login Type:</FONT></TD><TD><FONT style='FONT-SIZE: 8pt'><B>PPPOE</B></FONT></TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><form name=F1 method=get action=Gozila.cgi><input type=hidden name='RouterStatus.htm' value=255><input type=hidden name=hid_returnPoint value=''><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25>&nbsp;</TD><TD width=8 height=25><IMG height=35 src='UI_04.gif' width=8 border=0></TD><TD colspan=3 bgColor=#ffffff height=25>&nbsp;</TD><TD width=101 bgColor=#ffffff height=25><FONT style='FONT-SIZE: 8pt'>Login Status:</FONT></TD><TD width=296 bgColor=#ffffff height=25><FONT style='FONT-SIZE: 8pt'><B><input type=hidden name=hid_dialAction value=0>Connected <input type=button value='Disconnect' onClick='pppoeAction(this.form,2)'></B></FONT></TD><TD width=13 bgColor=#ffffff height=25>&nbsp;</TD><TD width=15 bgColor=#ffffff height=25><IMG height=35 src='UI_05.gif' width=15 border=0></TD></TR></form><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25>&nbsp;</TD><TD width=8 height=25 background='UI_04.gif'>&nbsp;</TD><TD colspan=3 height=25>&nbsp;</TD><TD><FONT style='FONT-SIZE: 8pt'>Internet IP Address:</FONT></TD><TD><FONT style='FONT-SIZE: 8pt'><B>69.110.12.53</B></FONT></TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25>&nbsp;</TD><TD width=8 height=25 background='UI_04.gif'>&nbsp;</TD><TD colspan=3 height=25>&nbsp;</TD><TD><FONT style='FONT-SIZE: 8pt'>DNS 1:</FONT></TD><TD><FONT style='FONT-SIZE: 8pt'><B>63.203.35.55</B></FONT></TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25>&nbsp;</TD><TD width=8 height=25 background='UI_04.gif'>&nbsp;</TD><TD colspan=3 height=25>&nbsp;</TD><TD height=25><FONT style='FONT-SIZE: 8pt'>DNS 2:</FONT></TD><TD height=25><FONT style='FONT-SIZE: 8pt'><B>206.13.28.12</B></FONT></TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25>&nbsp;</TD><TD width=8 height=25 background='UI_04.gif'>&nbsp;</TD><TD colspan=3 height=25>&nbsp;</TD><TD height=25><FONT style='FONT-SIZE: 8pt'>DNS 3:</FONT></TD><TD height=25><FONT style='FONT-SIZE: 8pt'><B>0.0.0.0</B></FONT></TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=1>&nbsp;</TD><TD width=8 background='UI_04.gif'>&nbsp;</TD><TD colspan=6 height=1>&nbsp;</TD><TD width=15 height=1 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=1>&nbsp;</TD><TD width=8 background='UI_04.gif'>&nbsp;</TD><TD colSpan=6><HR color=#b5b5e6 SIZE=1></TD><TD width=15 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=1>&nbsp;</TD><TD width=8 background='UI_04.gif'>&nbsp;</TD><TD colspan=6 height=1>&nbsp;</TD><TD width=15 height=1 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=25>&nbsp;</TD><TD width=8 height=25 background='UI_04.gif'>&nbsp;</TD><TD colspan=3 height=25>&nbsp;</TD><TD colSpan=2 height=25> </TD><TD width=13 height=25>&nbsp;</TD><TD width=15 height=25 background='UI_05.gif'>&nbsp;</TD></TR></form><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=1>&nbsp;</TD><TD width=8 background='UI_04.gif'>&nbsp;</TD><TD colspan=6 height=1>&nbsp;</TD><TD width=15 height=1 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 bgColor=#e7e7e7 colSpan=3 height=1>&nbsp;</TD><TD width=8 background='UI_04.gif'>&nbsp;</TD><TD colspan=6 height=1>&nbsp;</TD><TD width=15 height=1 background='UI_05.gif'>&nbsp;</TD></TR><TR><TD width=156 colspan=3 bgColor=#e7e7e7 height=5>&nbsp;</TD><TD width=8 height=5 background='UI_04.gif'>&nbsp;</TD><TD colspan=6>&nbsp;</TD><TD width=15 height=5 background='UI_05.gif'>&nbsp;</TD></TR></TABLE></TD><TD vAlign=top width=176 bgColor=#6666cc><TABLE cellSpacing=0 cellPadding=0 width=176 border=0><TR><TD width=11 bgColor=#6666cc height=25>&nbsp;</TD><TD width=156 bgColor=#6666cc height=25><FONT color=white size=3><b>Router Status</b></font><p><FONT color=white>This screen provides the Router's current status information in a read-only format.<p><b>Login Type</b><br>This field shows the Internet login status. When you choose PPPoE, RAS, PPTP, or HBS as the login method, you can click the <b>Connect</b> button to log in. If you click the <b>Disconnect</b> button, the Router will not dial up again until you click the <b>Connect</b> button.<p>If your connection is DHCP or Static IP, the Status screen will show you the Internet IP Address, Subnet mask,<p><a target="_blank" href="HRouterStatus.htm"><b><u>More...</u></b></TD><TD width=9 bgColor=#6666cc height=25>&nbsp;</TD></TR></TABLE></TD></TR><TR><TD width=809 colSpan=2><TABLE cellSpacing=0 cellPadding=0 border=0><TR><TD width=156 bgColor=#e7e7e7 height=30>&nbsp;</TD><TD width=8 background='UI_04.gif'>&nbsp;</TD><TD width=131>&nbsp;</TD><TD width=323>&nbsp;</TD><TD width=15 background='UI_05.gif'>&nbsp;</TD><TD width=176 bgColor=#6666cc rowSpan=2><IMG height=64 src='UI_Cisco.gif' width=176 border=0></TD></TR><TR><TD width=156 bgColor=#000000>&nbsp;</TD><TD width=8 bgColor=#000000>&nbsp;</TD><TD width=131 bgColor=#6666cc>&nbsp;</TD><TD width=323 bgColor=#6666cc><DIV align=center><TABLE height=19 cellSpacing=0 cellPadding=0 width=117 align=right border=0><TR><TD align=middle width=101 bgColor=#434a8f><!--<INPUT onclick=window.location.replace('RouterStatus.htm') type=button value=Refresh>--><FONT style='FONT-WEIGHT: 700; FONT-SIZE: 8pt' face=Arial color=#ffffff><A href='RouterStatus.htm'>Refresh</A></TD><TD width=8 bgColor=#6666cc>&nbsp;</TD></TR></TABLE></DIV></TD><TD width=15 bgColor=#000000 height=33>&nbsp;</TD></TR></TABLE></TD></TR></TABLE></DIV></BODY></HTML>
 EOF
 
     $debug = 1;
@@ -4677,17 +4649,17 @@ A:hover {color: #00FFFF}
 document.title = share.router;
 function DHCPAction(F,I)
 {
-	F.submit_type.value = I;
-	F.submit_button.value = "Status_Router";
-	F.change_action.value = "gozila_cgi";
-	F.submit();
+        F.submit_type.value = I;
+        F.submit_button.value = "Status_Router";
+        F.change_action.value = "gozila_cgi";
+        F.submit();
 }
 function Connect(F,I)
 {
-	F.submit_type.value = I;
-	F.submit_button.value = "Status_Router";
-	F.change_action.value = "gozila_cgi";
-	F.submit();
+        F.submit_type.value = I;
+        F.submit_button.value = "Status_Router";
+        F.change_action.value = "gozila_cgi";
+        F.submit();
 }
 function init()
 {
@@ -4695,35 +4667,35 @@ function init()
 }
 function ShowAlert(M)
 {
-	var str = "";
-	var mode = "";
-	var wan_ip = "81.197.175.198";
-	var wan_proto = "dhcp";
-	var ac_name = "";
-	var srv_name = "";
+        var str = "";
+        var mode = "";
+        var wan_ip = "81.197.175.198";
+        var wan_proto = "dhcp";
+        var ac_name = "";
+        var srv_name = "";
 
-	if(document.status.wan_proto.value == "pppoe")
-		mode = "PPPoE";
-	else if(document.status.wan_proto.value == "l2tp")
-		mode = "L2TP";
-	else if(document.status.wan_proto.value == "heartbeat")
-		mode = "HBS";
-	else
-		mode = "PPTP";
+        if(document.status.wan_proto.value == "pppoe")
+                mode = "PPPoE";
+        else if(document.status.wan_proto.value == "l2tp")
+                mode = "L2TP";
+        else if(document.status.wan_proto.value == "heartbeat")
+                mode = "HBS";
+        else
+                mode = "PPTP";
 
-	if(M == "AUTH_FAIL" || M == "PAP_AUTH_FAIL" || M == "CHAP_AUTH_FAIL")
+        if(M == "AUTH_FAIL" || M == "PAP_AUTH_FAIL" || M == "CHAP_AUTH_FAIL")
                 str = mode + hstatrouter2.authfail;
 //              str = mode + " authentication fail";
-	else if(M == "IP_FAIL" || (M == "TIMEOUT" && wan_ip == "0.0.0.0")) {
-		if(mode == "PPPoE") {
-			if(hstatrouter2.pppoenoip)	// For DE
-				str = hstatrouter2.pppoenoip;
-			else
-				str = hstatrouter2.noip + mode + hstatrouter2.server;
-		}
-		else
-                	str = hstatrouter2.noip + mode + hstatrouter2.server;
-	}
+        else if(M == "IP_FAIL" || (M == "TIMEOUT" && wan_ip == "0.0.0.0")) {
+                if(mode == "PPPoE") {
+                        if(hstatrouter2.pppoenoip)      // For DE
+                                str = hstatrouter2.pppoenoip;
+                        else
+                                str = hstatrouter2.noip + mode + hstatrouter2.server;
+                }
+                else
+                        str = hstatrouter2.noip + mode + hstatrouter2.server;
+        }
 //              str = "Can not get a IP address from " + mode + " server";
         else if(M == "NEG_FAIL")
                 str = mode + hstatrouter2.negfail;
@@ -4734,30 +4706,30 @@ function ShowAlert(M)
         else if(M == "TCP_FAIL" || (M == "TIMEOUT" && wan_ip != "0.0.0.0" && wan_proto == "heartbeat"))
                 str = hstatrouter2.tcpfail + mode + hstatrouter2.server;
 //              str = "Can not build a TCP connection to " + mode + " server";
-	else
+        else
                 str = hstatrouter2.noconn + mode + hstatrouter2.server;
 //              str = "Can not connect to " + mode + " server";
 
-	alert(str);
+        alert(str);
 
-	Refresh();
+        Refresh();
 }
 var value=0;
 function Refresh()
 {
-	var refresh_time = "";
-	if(refresh_time == "")	refresh_time = 60000;
-	if (value>=1)
-	{
-		window.location.replace("Status_Router.asp");
-	}
-	value++;
-	timerID=setTimeout("Refresh()",refresh_time);
+        var refresh_time = "";
+        if(refresh_time == "")  refresh_time = 60000;
+        if (value>=1)
+        {
+                window.location.replace("Status_Router.asp");
+        }
+        value++;
+        timerID=setTimeout("Refresh()",refresh_time);
 }
 function ViewDHCP()
 {
-	dhcp_win = self.open('DHCPTable.asp','inLogTable','alwaysRaised,resizable,scrollbars,width=720,height=600');
-	dhcp_win.focus();
+        dhcp_win = self.open('DHCPTable.asp','inLogTable','alwaysRaised,resizable,scrollbars,width=720,height=600');
+        dhcp_win.focus();
 }
 function localtime()
 {
@@ -4905,7 +4877,7 @@ border=0></TD></TR></TBODY></TABLE>
                       <A href="Status_Performance.asp">System Performance</A></TD>
 -->
                       <TD>&nbsp;</TD>
-		    </TR>
+                    </TR>
                     </TBODY>
                   </TABLE>
                 </TD>
@@ -4990,10 +4962,10 @@ height=23 cellSpacing=0 cellPadding=0 width=809 border=0>
           <TD><b>
 <script language=javascript>
 if("" != "") {
-	document.write("");
+        document.write("");
 }
 else {
-	document.write("elisa-laajakaista.fi");
+        document.write("elisa-laajakaista.fi");
 }
 </script>
 </b></TD>
@@ -5049,20 +5021,20 @@ FOR A SPECIFIC PURPOSE OR NONINFRINGEMENT CONCERNING THIS SOFTWARE
 <script language=javascript>
         var status1 = "Disable";
         var status2 = "&nbsp;";
-	if(status1 == "Status")         status1 = bmenu.statu;
+        if(status1 == "Status")         status1 = bmenu.statu;
         if(status2 == "Connecting")     status2 = hstatrouter2.connecting;
         else    if(status2 == "Disconnected")   status2 = hstatrouter2.disconnected;
         else    if(status2 == "Connected")      status2 = stacontent.conn;
-	document.write(status2);
-	document.write("&nbsp;&nbsp;");
+        document.write(status2);
+        document.write("&nbsp;&nbsp;");
 
-	var but_arg = "";
+        var but_arg = "";
         var wan_proto = "dhcp";
         var but_type = "";
-	if(but_arg == "Connect")        but_value = stacontent.connect;
+        if(but_arg == "Connect")        but_value = stacontent.connect;
         else if(but_arg == "Disconnect")        but_value = hstatrouter2.disconnect;
         but_type = but_arg +"_" + wan_proto;
-	document.write("<INPUT type=button value='"+but_value+"' onClick=Connect(this.form,'"+but_type+"')>");
+        document.write("<INPUT type=button value='"+but_value+"' onClick=Connect(this.form,'"+but_type+"')>");
 </script>
 </B></FONT></TD>
           <TD width=13 height=25>&nbsp;</TD>
@@ -5143,7 +5115,7 @@ FOR A SPECIFIC PURPOSE OR NONINFRINGEMENT CONCERNING THIS SOFTWARE
         <TR>
           <TD width=156 bgColor=#e7e7e7 height=25>&nbsp;</TD>
           <TD width=8 background=image/UI_04.gif height=25>&nbsp;</TD>
-	  <TD width=14 height=25></TD>
+          <TD width=14 height=25></TD>
           <TD colSpan=4 height=25><HR color=#b5b5e6 SIZE=1></TD>
           <TD width=13 height=25>&nbsp;</TD>
           <TD width=15 background=image/UI_05.gif height=25>&nbsp;</TD></TR>
@@ -5221,9 +5193,21 @@ EOF
 
 }
 
+{
+
+    my $staticCounter = 0;
+
 sub TestDriver ()
 {
     my $id = "$LIB.TestDriver";
+
+    sub Banner(@);
+    local *Banner = sub (@)
+    {
+        $staticCounter++;
+        print "-" x 70, " TEST CASE: ", $staticCounter, @ARG, "\n";
+    };
+
     print "$id: BEGIN\n\tAny messages you will now see are not important.\n";
 
     $debug = 10;
@@ -5250,12 +5234,13 @@ sub TestDriver ()
 
     my $regexp;
 
-    # locale: pt_BR
     @response = split /\r?\n/, '
-eth0      Link encap:Ethernet  Endere√ßo de HW 00:15:c5:1b:e1:de
+eth0      Link encap:Ethernet  Endereo de HW 00:15:c5:1b:e1:de
           inet end.: 189.29.36.92  Bcast:189.29.39.255  Masc:255.255.248.0';
 
     $regexp =  $modifier . $inet . '[^\r\n:]+:' . $base;
+
+    Banner();
 
     $ip = IpAddressGenericParser $regexp, @response;
 
@@ -5268,11 +5253,12 @@ eth0      Link encap:Ethernet  HWaddr 00:10:5A:64:8D:32
             collisions:46 txqueuelen:100
             Interrupt:11 Base address:0xec00';
 
+    Banner();
 
     $ip = IpAddressGenericParser  $linuxDefaultRegexp, @response;
 
     @response = split /\r?\n/, '
-tun0: flagsÄ51<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1492
+tun0: flags<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1492
         inet6 fe80::250:4ff:feef:7998%tun0 prefixlen 64 scopeid 0x7
         inet 62.214.32.46 --> 62.214.32.1 netmask 0xff000000
         Opened by PID 65';
@@ -5286,6 +5272,8 @@ tun0: flagsÄ51<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1492
         push @regexpList, $modifier . $inet . "addr:" . $base;
         push @regexpList, $modifier . $inet . $base;
 
+        Banner();
+
         for my $regexp ( @regexpList )
         {
             $ip = IpAddressGenericParser $regexp, join '', @response;
@@ -5294,14 +5282,13 @@ tun0: flagsÄ51<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1492
     }
 
     @response =  split /\r?\n/, '
-tun0: flagsÄ51<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1492
+tun0: flags<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1492
         inet6 fe80::250:4ff:feef:7998%tun0 prefixlen 64 scopeid 0x7
         inet 62.214.33.49 --> 255.255.255.255 netmask 0xffffffff
         inet 62.214.32.12 --> 255.255.255.255 netmask 0xffffffff
         inet 62.214.35.49 --> 255.255.255.255 netmask 0xffffffff
         inet 62.214.33.163 --> 62.214.32.1 netmask 0xff000000
         Opened by PID 64';
-
 
     {
         my $OPT_REGEXP = ".*0xffffffff.*?inet";
@@ -5312,6 +5299,8 @@ tun0: flagsÄ51<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1492
 
         my $try = $modifier . $OPT_REGEXP . $base;
 
+        Banner();
+
         $ip = IpAddressGenericParser $try, @response;
     }
 
@@ -5320,6 +5309,8 @@ Connection-specific DNS Suffix  . :
 IP Address. . . . . . . . . . . . : 212.246.177.28
 Subnet Mask . . . . . . . . . . . : 255.255.255.255
 Default Gateway . . . . . . . . . : 212.246.177.28';
+
+    Banner();
 
     $ip = IpAddressGenericParser 'IP\s+Address.*[ \t](\d[\d.]+)', @response;
 
@@ -5337,9 +5328,10 @@ IP-Adresse. . . . . . . . . . . . : 80.136.27.233
 Subnetzmaske. . . . . . . . . . . : 255.255.255.255
 Standardgateway . . . . . . . . . : 80.136.27.233';
 
+    Banner();
+
     $ip = IpAddressGenericParser '(?sm)PPP.*IP-Adresse[^\r\n:]+:[ \t]*(\d[\d.]+)'
         , @response;
-
 
     @response =  split /\r?\n/, '
 
@@ -5359,23 +5351,45 @@ Ethernet adapter Local Area Connection 3:
         Subnet Mask . . . . . . . . . . . : 255.255.0.0
         Default Gateway . . . . . . . . . : 10.10.0.101';
 
+    Banner " Windows 2000 (A)";
     $ip = IpAddressGenericParser 'IP\s+Address.*[ \t](\d[\d.]+)', @response;
 
     {
-        my $OPT_REGEXP = 'Connection 3:';
-
-        print "\n\n$id: Second IP address [$OPT_REGEXP]\n";
-
+        my $OPT_REGEXP = 'Local Area Connection';
         my $modifier  = '(?sm)';
         my $base      = 'IP\s+Address[^\r\n:]+:[ \t]*(\d[\d.]+)';
         my $re        = $modifier . $OPT_REGEXP . ".*" . $base;
 
+        Banner " Windows 2000 (B)";
         $ip = IpAddressGenericParser $re, @response;
     }
 
+    @response =  split /\r?\n/, '
+
+eth0      Link encap:Ethernet  Hardware Adresse 00:30:18:ad:c3:d8
+          inet Adresse:192.168.2.100  Bcast:192.168.2.255  Maske:255.255.255.0
+          inet6-Adresse: fe80::230:18ff:fead:c3d8/64 G√ºltigkeitsbereich:Verbindung
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metrik:1
+          RX packets:5304043 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:4033822 errors:0 dropped:0 overruns:0 carrier:0
+          Kollisionen:0 Sendewarteschlangenl√§nge:1000
+          RX bytes:1239418613 (1.1 GiB)  TX bytes:1932841726 (1.8 GiB)
+          Interrupt:25 Basisadresse:0x4000
+
+lo        Link encap:Lokale Schleife
+          inet Adresse:127.0.0.1  Maske:255.0.0.0
+          inet6-Adresse: ::1/128 G√ºltigkeitsbereich:Maschine
+          UP LOOPBACK RUNNING  MTU:16436  Metrik:1
+          RX packets:1838254 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:1838254 errors:0 dropped:0 overruns:0 carrier:0
+          Kollisionen:0 Sendewarteschlangenl√§nge:0
+          RX bytes:2155983999 (2.0 GiB)  TX bytes:2155983999 (2.0 GiB)';
+
+    Banner " German";
+    $ip = IpAddressGenericParser 'inet\s+Add?res.*?[ \t:](\d[\d.]+)', @response;
+
     print "$id: END\n";
-    die;
-}
+}}
 
 sub TestDriverSyslogWin32cygwin()
 {
@@ -5389,7 +5403,6 @@ sub TestDriverSyslogWin32cygwin()
     $CYGWIN = 1;
     LogSyslog "[ERROR] $id error-priority test";
     LogSyslog "[WARN] $id warn-priority test";
-
 }
 
 sub TestDriverSyslogWin32native()
@@ -5445,9 +5458,6 @@ sub TestDriverSyslog()
         TestDriverSyslogUnix();
     }
 }
-
-# }}}
-# {{{ Main
 
 # ****************************************************************************
 #
@@ -6107,14 +6117,14 @@ sub ProcessUpdateOne ( % )
 
     $debug  and  print "$id: INPUT file [$file] ip [$ip] last [$lastIP]\n";
 
-    my $valid   = IPvalidate $ip;
+    my $valid = IPvalidate $ip;
     $valid = 1  if $test and $debug;       # Treat it as "okay"
 
-    #  For dyndns.org, the Ip must be updated every 30 days
+    #  For dyndns.org, the IP must be updated every 30 days
     #  in order to keep the account active
 
     my ($oldFile, $days) = IsFileOld $file;
-    my $new              = "$ip $lastIP" !~ /nochange/;
+    my $new = "$ip $lastIP" !~ /nochange/;
 
     if ( $OPT_FORCE )
     {
@@ -6258,7 +6268,7 @@ sub ProcessQueryRequests (%)
             InfoFile()  unless $file;
 
             ($ip, $lastIP)  = GetIpAddressInfo
-                                 -file  => $file
+                                 -file => $file
                                  , -query => $OPT_QUERY
                                  ;
 
@@ -6514,7 +6524,6 @@ sub ProcessUpdateMain ( % )
 
 sub Main ()
 {
-    Initialize();
     InitializeModules();
     HandleCommandLineArgsMain();
     VariableCheckValidity();
@@ -6568,17 +6577,20 @@ sub Main ()
     }
 }
 
-# }}}
+sub TestMain ()
+{
+    # This is only for developers. Uncomment lines to run test cases.
 
-# TestDriver; die;
-# TestDriverLinksysBEFW11S4; die;
-# TestDriverLinksysBEFW11S4v4; die;
-# TestDriverLinksysWRT54GL; die;
-# TestDriverSyslog; die;
-# TestDriverHNorg(); die;
+    TestDriver(); die;
+    # TestDriverLinksysBEFW11S4(); die;
+    # TestDriverLinksysBEFW11S4v4(); die;
+    # TestDriverLinksysWRT54GL(); die;
+    # TestDriverSyslog(); die;
+    # TestDriverHNorg(); die;
+}
 
+Initialize();
+# TestMain();
 Main();
 
-0;                  # Perl scripts (.pl) must return 0, Libraries (.pm) 1
-
-__END__
+# End of file
