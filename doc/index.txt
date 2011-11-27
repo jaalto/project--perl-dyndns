@@ -46,7 +46,7 @@ ns.org
 
 References
 
-   1. http://freshmeat.net/projects/perl-dyndns
+   1. http://freecode.net/projects/perl-dyndns
    2. https://savannah.nongnu.org/projects/perl-dyndns
    3. file://localhost/home/jaalto/vc/project/sforge/perl-dyndns/doc/manual/
    4. http://git.savannah.gnu.org/gitweb/?p=perl-dyndns.git;a=blob;f=bin/ChangeLog;hb=HEAD
