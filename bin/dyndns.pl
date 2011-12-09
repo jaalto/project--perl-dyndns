@@ -169,7 +169,7 @@ sub Initialize ()
     $LIB        = $PROGNAME;
     $LICENSE    = "GPL-2+";
     $AUTHOR     = "Jari Aalto";
-    $URL        = "http://freecode.net/projects/perl-dyndns";
+    $URL        = "http://freecode.com/projects/perl-dyndns";
 
     my $id = "$LIB.Initialize";
 
@@ -1225,7 +1225,7 @@ See other client software at http://clients.dyndns.org
 
 =head1 AVAILABILITY
 
-http://freecode.net/projects/perl-dyndns
+http://freecode.com/projects/perl-dyndns
 
 =head1 AUTHOR
 

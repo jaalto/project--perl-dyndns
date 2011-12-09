@@ -745,7 +745,7 @@ SEE ALSO
     See other client software at http://clients.dyndns.org
 
 AVAILABILITY
-    http://freecode.net/projects/perl-dyndns
+    http://freecode.com/projects/perl-dyndns
 
 AUTHOR
     This program is free software; you can redistribute and/or modify
