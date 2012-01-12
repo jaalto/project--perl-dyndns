@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 #
-#   dyndns - Update Dynamic DNS address to DDNS provider
-#
 #   Copyright
 #
 #       Copyright (C) 1999-2011 Jari Aalto
@@ -64,18 +62,16 @@
 #
 # ****************************************************************************
 
-use vars qw ( $VERSION );
-
 #   This is for use of Makefile.PL and ExtUtils::MakeMaker
 #
 #   The following variable is updated by Emacs setup whenever
 #   this file is saved.
 
-$VERSION = '2011.1103.1916';
+our $VERSION = '2011.1210.1805';
 
 # ****************************************************************************
 #
-#   Standard perl modules
+#   Standard modules
 #
 # ****************************************************************************
 
