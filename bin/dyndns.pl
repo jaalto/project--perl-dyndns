@@ -67,7 +67,7 @@
 #   The following variable is updated by Emacs setup whenever
 #   this file is saved.
 
-our $VERSION = '2011.1210.1805';
+our $VERSION = '2012.0112.1838';
 
 # ****************************************************************************
 #
@@ -6587,7 +6587,7 @@ sub TestMain ()
 }
 
 Initialize();
-TestMain();
+# TestMain();
 Main();
 
 # End of file
