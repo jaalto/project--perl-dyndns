@@ -1,3 +1,7 @@
+2011-12-10 Sat  Jari Aalto  <jari.aalto@cante.net>
+
+	* Makefile: Mnor variable updates.
+
 2011-11-03 Thu  Jari Aalto  <jari.aalto@cante.net>
 
 	* bin/dyndns.pl Remove Emacs folding.el marks.
