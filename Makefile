@@ -24,7 +24,7 @@ This makefile requires GNU Make.
 endif
 
 PACKAGE		= dyndns
-PACKAGE_DOC	= dyndns
+PACKAGE_DOC	= $(PACKAGE)
 
 DESTDIR		=
 prefix		= /usr
@@ -68,6 +68,7 @@ TAR_OPT_NO	= --exclude='.build'	\
 
 INSTALL		= /usr/bin/install
 INSTALL_BIN	= $(INSTALL) -m 755
+INSTALL_DIR 	= $(INSTALL_BIN) -d
 INSTALL_DATA	= $(INSTALL) -m 644
 INSTALL_SUID	= $(INSTALL) -m 4755
 
@@ -133,14 +134,17 @@ dist-ls:
 ls: dist-ls
 
 bin/$(PACKAGE).1: $(PL_SCRIPT)
+	# Make doc: manual page
 	$(PERL) $< --help-man > $@
 	@-rm -f *.x~~ pod*.tmp
 
 doc/manual/index.html: $(PL_SCRIPT)
+	# Make doc: HTML
 	$(PERL) $< --help-html > $@
 	@-rm -f *.x~~ pod*.tmp
 
 doc/manual/index.txt: $(PL_SCRIPT)
+	# Make doc: txt
 	$(PERL) $< --help > $@
 	@-rm -f *.x~~ pod*.tmp
 
@@ -160,15 +164,15 @@ doc: man html txt
 # Rule: perl-test - Check program syntax
 perl-test:
 	# perl-test - Check syntax
-	perl -cw $(PL_SCRIPT)
+	$(PERL) -cw $(PL_SCRIPT)
 	podchecker $(PL_SCRIPT)
 
 # Rule: test - Run tests
 test: perl-test
 
-install-doc:
+install-doc: doc
 	# install-doc - Install documentation
-	$(INSTALL_BIN) -d $(DOCDIR)
+	$(INSTALL_DIR) $(DOCDIR)
 
 	[ ! "$(INSTALL_OBJS_DOC)" ] || \
 		$(INSTALL_DATA) $(INSTALL_OBJS_DOC) $(DOCDIR)
@@ -178,17 +182,17 @@ install-doc:
 
 install-examples:
 	# install-examples - Install example configuration files
-	$(INSTALL_BIN) -d $(EXAMPLESDIR)
+	$(INSTALL_DIR) $(EXAMPLESDIR)
 	$(INSTALL_DATA) $(INSTALL_OBJS_EXAMPLES) $(EXAMPLESDIR)
 
 install-man: man
 	# install-man - Install manual pages
-	$(INSTALL_BIN) -d $(MANDIR1)
+	$(INSTALL_DIR) $(MANDIR1)
 	$(INSTALL_DATA) $(INSTALL_OBJS_MAN) $(MANDIR1)
 
 install-bin:
 	# install-bin - Install programs
-	$(INSTALL_BIN) -d $(BINDIR)
+	$(INSTALL_DIR) $(BINDIR)
 	for f in $(INSTALL_OBJS_BIN); \
 	do \
 		dest=$$(basename $$f | sed -e 's/\.pl$$//' -e 's/\.py$$//' ); \
