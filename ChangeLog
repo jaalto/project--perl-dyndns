@@ -1,3 +1,9 @@
+2014-07-08 Tue  Jari Aalto  <jari.aalto@cante.net>
+
+	* bin/dyndns.pl (HandleCommandLineArgsMain): Fix "defined(@array)
+	is deprecated". Patch thanks to Atle Solbakken
+	<atle@goliathdns.no>
+
 2011-12-10 Sat  Jari Aalto  <jari.aalto@cante.net>
 
 	* Makefile: Mnor variable updates.

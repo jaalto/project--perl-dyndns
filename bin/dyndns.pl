@@ -2,7 +2,7 @@
 #
 #   Copyright
 #
-#       Copyright (C) 1999-2012 Jari Aalto
+#       Copyright (C) 1999-2014 Jari Aalto
 #
 #   License
 #
@@ -67,7 +67,7 @@
 #   The following variable is updated by Emacs setup whenever
 #   this file is saved.
 
-our $VERSION = '2012.0112.1838';
+our $VERSION = '2014.0708.1537';
 
 # ****************************************************************************
 #
@@ -1566,7 +1566,7 @@ sub HandleCommandLineArgsMain ()
 
    if ( ($OPT_QUERY_IP_FILE || $OPT_QUERY_IP_SAVED)
          and
-         not defined @OPT_HOST
+         not @OPT_HOST
        )
     {
         warn "$id: Option --host should be included with queries.";
