@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>dyndns - Update IP address to dynamic DNS provider</title>
+<title></title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <link rev="made" href="mailto:root@localhost" />
 </head>
@@ -10,865 +10,740 @@
 <body style="background-color: white">
 
 
-<!-- INDEX BEGIN -->
-<div name="index">
-<p><a name="__index__"></a></p>
 
-<ul>
-
-	<li><a href="#name">NAME</a></li>
-	<li><a href="#synopsis">SYNOPSIS</a></li>
-	<li><a href="#description">DESCRIPTION</a></li>
-	<li><a href="#options">OPTIONS</a></li>
-	<ul>
-
-		<li><a href="#gneneral_options">Gneneral options</a></li>
-		<li><a href="#additional_options">Additional options</a></li>
-		<li><a href="#cable__dsl_and_router_options">Cable, DSL and router options</a></li>
-		<li><a href="#miscellaneous_options">Miscellaneous options</a></li>
-	</ul>
-
-	<li><a href="#examples">EXAMPLES</a></li>
-	<li><a href="#configuration_file">CONFIGURATION FILE</a></li>
-	<li><a href="#support_requests">SUPPORT REQUESTS</a></li>
-	<li><a href="#troubleshooting">TROUBLESHOOTING</a></li>
-	<li><a href="#environment">ENVIRONMENT</a></li>
-	<li><a href="#files">FILES</a></li>
-	<li><a href="#exit_status">EXIT STATUS</a></li>
-	<li><a href="#dependencies">DEPENDENCIES</a></li>
-	<li><a href="#standards">STANDARDS</a></li>
-	<li><a href="#bugs_and_limitations">BUGS AND LIMITATIONS</a></li>
-	<ul>
-
-		<li><a href="#cygwin_syslog">Cygwin syslog</a></li>
-		<li><a href="#debugging_errors">Debugging errors</a></li>
-		<li><a href="#about_providers_hnorg_and_noip">About providers hnorg and noip</a></li>
-	</ul>
-
-	<li><a href="#see_also">SEE ALSO</a></li>
-	<li><a href="#availability">AVAILABILITY</a></li>
-	<li><a href="#author">AUTHOR</a></li>
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#OPTIONS">OPTIONS</a>
+    <ul>
+      <li><a href="#Gneneral-options">Gneneral options</a></li>
+      <li><a href="#Additional-options">Additional options</a></li>
+      <li><a href="#Cable-DSL-and-router-options">Cable, DSL and router options</a></li>
+      <li><a href="#Miscellaneous-options">Miscellaneous options</a></li>
+    </ul>
+  </li>
+  <li><a href="#EXAMPLES">EXAMPLES</a></li>
+  <li><a href="#CONFIGURATION-FILE">CONFIGURATION FILE</a></li>
+  <li><a href="#SUPPORT-REQUESTS">SUPPORT REQUESTS</a></li>
+  <li><a href="#TROUBLESHOOTING">TROUBLESHOOTING</a></li>
+  <li><a href="#ENVIRONMENT">ENVIRONMENT</a></li>
+  <li><a href="#FILES">FILES</a></li>
+  <li><a href="#EXIT-STATUS">EXIT STATUS</a></li>
+  <li><a href="#DEPENDENCIES">DEPENDENCIES</a></li>
+  <li><a href="#STANDARDS">STANDARDS</a></li>
+  <li><a href="#BUGS-AND-LIMITATIONS">BUGS AND LIMITATIONS</a>
+    <ul>
+      <li><a href="#Cygwin-syslog">Cygwin syslog</a></li>
+      <li><a href="#Debugging-errors">Debugging errors</a></li>
+      <li><a href="#About-providers-hnorg-and-noip">About providers hnorg and noip</a></li>
+    </ul>
+  </li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+  <li><a href="#AVAILABILITY">AVAILABILITY</a></li>
+  <li><a href="#AUTHOR">AUTHOR</a></li>
 </ul>
 
-<hr name="index" />
-</div>
-<!-- INDEX END -->
+<h1 id="NAME">NAME</h1>
 
-<p>
-</p>
-<hr />
-<h1><a name="name">NAME</a></h1>
 <p>dyndns - Update IP address to dynamic DNS (DDNS) provider</p>
-<p>
-</p>
-<hr />
-<h1><a name="synopsis">SYNOPSIS</a></h1>
-<pre>
-    dyndns --login LOGIN --password PASSWORD \
-           --host yourhost.dyndns.org</pre>
-<p>
-</p>
-<hr />
-<h1><a name="description">DESCRIPTION</a></h1>
-<p>A cross platform Perl client for updating dynamic DNS IP information
-at supported providers (see <code>--provider</code>). By Default this program
-expects www.dyndns.org provider.</p>
-<p>The dynamic DNS services allow mapping a dynamic IP address to a
-static hostname. This way the host can be refered by name instead of
-the changing IP address from the ISP's pool. Some DDNS providers offer
-a single account and a single host namefree of charge. Please check
-the information from the Providers' pages.</p>
-<p>Separate files are used for remembering the last IP address to prevent
-updating the same IP address again. This is necessary in order to comply
-guidelines of the providers where multiple updates of the same IP address
-could cause your domain to be blocked. You should not normally need to
-touch the files where the IP addresses are stored.</p>
-<p>If you know what you are doing and desperately need a forced update,
-delete the IP files and start program with apropriate arguments.
-Without the information about previous IP address, program sends a new
-update request to the provider.</p>
-<p>Program has been designed to work under any version of Windows or
-Linux, possibly Mac OS included. It may not work under other Unix/BSD
-variants. Please see BUGS section how to provide details to add
-support for other operating systems.</p>
-<p>Visit the page of the provider and create an account. Write down the
-login name, password and host name you registered.</p>
-<p>For Windows operating systems, you need to install Perl. There are two
-Perl incarnatons: Native Windows version (Activestate Perl) and Cygwin
-version. The <code>http://www.cygwin.com/</code> is recommended as it more closely
-follows the original Perl environment.</p>
-<p>
-</p>
-<hr />
-<h1><a name="options">OPTIONS</a></h1>
-<p>
-</p>
-<h2><a name="gneneral_options">Gneneral options</a></h2>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>    dyndns --login LOGIN --password PASSWORD \
+           --host yourhost.dyndns.org</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>A cross platform Perl client for updating dynamic DNS IP information at supported providers (see <code>--provider</code>). By Default this program expects www.dyndns.org provider.</p>
+
+<p>The dynamic DNS services allow mapping a dynamic IP address to a static hostname. This way the host can be refered by name instead of the changing IP address from the ISP&#39;s pool. Some DDNS providers offer a single account and a single host namefree of charge. Please check the information from the Providers&#39; pages.</p>
+
+<p>Separate files are used for remembering the last IP address to prevent updating the same IP address again. This is necessary in order to comply guidelines of the providers where multiple updates of the same IP address could cause your domain to be blocked. You should not normally need to touch the files where the IP addresses are stored.</p>
+
+<p>If you know what you are doing and desperately need a forced update, delete the IP files and start program with apropriate arguments. Without the information about previous IP address, program sends a new update request to the provider.</p>
+
+<p>Program has been designed to work under any version of Windows or Linux, possibly Mac OS included. It may not work under other Unix/BSD variants. Please see BUGS section how to provide details to add support for other operating systems.</p>
+
+<p>Visit the page of the provider and create an account. Write down the login name, password and host name you registered.</p>
+
+<p>For Windows operating systems, you need to install Perl. There are two Perl incarnatons: Native Windows version (Activestate Perl) and Cygwin version. The <code>http://www.cygwin.com/</code> is recommended as it more closely follows the original Perl environment.</p>
+
+<h1 id="OPTIONS">OPTIONS</h1>
+
+<h2 id="Gneneral-options">Gneneral options</h2>
+
 <dl>
-<dt><strong><a name="config_file_config_file" class="item"><strong>--config=FILE [--config=FILE ...]</strong></a></strong></dt>
 
+<dt id="config-FILE---config-FILE"><b>--config=FILE [--config=FILE ...]</b></dt>
 <dd>
-<p>List of configuration files to read. No command line options other
-than <strong>--verbose</strong>, <strong>--debug</strong> or <strong>--test</strong> should be appended or
-results are undefined. Each file must contain complete DDNS account
-configuration.</p>
-<p>The FILE part will go through Perl's <code>glob()</code> function, meaning that
-the filenames are expanded. Series of configuration files can be run
-at once e.g. within directory <code>/etc/dyndns/</code> by using a single
-option. The order of the files processed is alphabetical:</p>
-<pre>
-    --config=/etc/dyndns/*</pre>
+
+<p>List of configuration files to read. No command line options other than <b>--verbose</b>, <b>--debug</b> or <b>--test</b> should be appended or results are undefined. Each file must contain complete DDNS account configuration.</p>
+
+<p>The FILE part will go through Perl&#39;s <code>glob()</code> function, meaning that the filenames are expanded. Series of configuration files can be run at once e.g. within directory <code>/etc/dyndns/</code> by using a single option. The order of the files processed is alphabetical:</p>
+
+<pre><code>    --config=/etc/dyndns/*</code></pre>
+
 <p>See section CONFIGURATION FILE for more information how to write the files.</p>
-</dd>
-<dt><strong><a name="host_host1_host_host2" class="item"><strong>--host=host1 [--host=host2 ...]</strong></a></strong></dt>
 
+</dd>
+<dt id="host-host1---host-host2"><b>--host=host1 [--host=host2 ...]</b></dt>
 <dd>
+
 <p>Use registered HOST(s).</p>
-</dd>
-<dt><strong><a name="group_group" class="item"><strong>--group GROUP</strong></a></strong></dt>
 
-<dd>
-<p><strong>This option is only for --provider noip</strong></p>
-<p>Assign IP to GROUP. Do you have many hosts that all update to the same
-IP address? Update a group instead of a many hosts.</p>
 </dd>
-<dt><strong><a name="login_login" class="item"><strong>--login LOGIN</strong></a></strong></dt>
-
+<dt id="group-GROUP"><b>--group GROUP</b></dt>
 <dd>
-<p>DDNS account's LOGIN name.</p>
+
+<p><b>This option is only for --provider noip</b></p>
+
+<p>Assign IP to GROUP. Do you have many hosts that all update to the same IP address? Update a group instead of a many hosts.</p>
+
 </dd>
-<dt><strong><a name="mxhost_mx_host_name" class="item"><strong>--mxhost MX-HOST-NAME</strong></a></strong></dt>
-
+<dt id="login-LOGIN"><b>--login LOGIN</b></dt>
 <dd>
-<p><strong>This option is only for --provider dyndns</strong></p>
-<p>Update account information with MX hostname. Specifies a Mail eXchanger for
-use with the host being modified. Must resolve to an <strong>static</strong> IP address,
-or it will be ignored. If you don't know DNS, don't touch this option.</p>
-<p>The servers you list need to be correctly configured to accept mail for
-your hostname, or this will do no good. Setting up a server as an MX
-without permission of the administrator may get them angry at you. If
-someone is contacted about such an infraction, your MX record will be
-removed and possibly further action taken to prevent it from happening
-again. Any mail sent to a misconfigured server listed as an MX may bounce,
-and may be lost.</p>
+
+<p>DDNS account&#39;s LOGIN name.</p>
+
 </dd>
-<dt><strong><a name="mx_option" class="item"><strong>--mx-option</strong></a></strong></dt>
-
+<dt id="mxhost-MX-HOST-NAME"><b>--mxhost MX-HOST-NAME</b></dt>
 <dd>
-<p><strong>This option is only for --provider dyndns</strong></p>
-<p>Turn on MX option. Request that the MX in the previous parameter be set up
-as a backup. This means that mail will first attempt to deliver to your
-host directly, and will be delivered to the MX listed as a backup.</p>
+
+<p><b>This option is only for --provider dyndns</b></p>
+
+<p>Update account information with MX hostname. Specifies a Mail eXchanger for use with the host being modified. Must resolve to an <b>static</b> IP address, or it will be ignored. If you don&#39;t know DNS, don&#39;t touch this option.</p>
+
+<p>The servers you list need to be correctly configured to accept mail for your hostname, or this will do no good. Setting up a server as an MX without permission of the administrator may get them angry at you. If someone is contacted about such an infraction, your MX record will be removed and possibly further action taken to prevent it from happening again. Any mail sent to a misconfigured server listed as an MX may bounce, and may be lost.</p>
+
+</dd>
+<dt id="mx-option"><b>--mx-option</b></dt>
+<dd>
+
+<p><b>This option is only for --provider dyndns</b></p>
+
+<p>Turn on MX option. Request that the MX in the previous parameter be set up as a backup. This means that mail will first attempt to deliver to your host directly, and will be delivered to the MX listed as a backup.</p>
+
 <p>Note regarding provider <code>noip</code>:</p>
-<p>Update clients cannot change this value. Clients can only submit requests
-to the php script to update the A record. Changes such as MX records
-must be done through website.</p>
-</dd>
-<dt><strong><a name="offline" class="item"><strong>--offline</strong></a></strong></dt>
 
+<p>Update clients cannot change this value. Clients can only submit requests to the php script to update the A record. Changes such as MX records must be done through website.</p>
+
+</dd>
+<dt id="offline"><b>--offline</b></dt>
 <dd>
+
 <p>If given, set the host to offline mode.</p>
-<p><code>Note:</code> [dyndns] This feature is only available to donators. The
-&quot;!donator&quot; return message will appear if this is set on a non-donator
-host.</p>
-<p>This is useful if you will be going offline for an extended period of
-time. If someone else gets your old IP your users will not go to your
-old IP address.</p>
-</dd>
-<dt><strong><a name="password_password" class="item"><strong>--password PASSWORD</strong></a></strong></dt>
 
-<dd>
-<p>DDNS account's PASSWORD.</p>
-</dd>
-<dt><strong><a name="system_dyndns_statdns_custom" class="item"><strong>--system {dyndns|statdns|custom}</strong></a></strong></dt>
+<p><code>Note:</code> [dyndns] This feature is only available to donators. The &quot;!donator&quot; return message will appear if this is set on a non-donator host.</p>
 
-<dd>
-<p><strong>This option is only for --provider dyndns</strong></p>
-<p>The system you wish to use for this update. <code>dyndns</code> will update a dynamic
-host, <code>custom</code> will update a MyDynDNS Custom DNS host and <code>statdns</code> will
-update a static host. The default value is <code>dyndns</code> and you cannot use
-other options (statdns|custom) unless you donate and gain access to the
-more advanced features.</p>
-<p>See the DDNS provider's pages for more information.</p>
-</dd>
-<dt><strong><a name="wildcard" class="item"><strong>--wildcard</strong></a></strong></dt>
+<p>This is useful if you will be going offline for an extended period of time. If someone else gets your old IP your users will not go to your old IP address.</p>
 
+</dd>
+<dt id="password-PASSWORD"><b>--password PASSWORD</b></dt>
 <dd>
-<p>Turn on wildcard option. The wildcard aliases <code>*.yourhost.ourdomain.ext</code>
-to the same address as <code>yourhost.ourdomain.ext</code></p>
+
+<p>DDNS account&#39;s PASSWORD.</p>
+
+</dd>
+<dt id="system-dyndns-statdns-custom"><b>--system {dyndns|statdns|custom}</b></dt>
+<dd>
+
+<p><b>This option is only for --provider dyndns</b></p>
+
+<p>The system you wish to use for this update. <code>dyndns</code> will update a dynamic host, <code>custom</code> will update a MyDynDNS Custom DNS host and <code>statdns</code> will update a static host. The default value is <code>dyndns</code> and you cannot use other options (statdns|custom) unless you donate and gain access to the more advanced features.</p>
+
+<p>See the DDNS provider&#39;s pages for more information.</p>
+
+</dd>
+<dt id="wildcard"><b>--wildcard</b></dt>
+<dd>
+
+<p>Turn on wildcard option. The wildcard aliases <code>*.yourhost.ourdomain.ext</code> to the same address as <code>yourhost.ourdomain.ext</code></p>
+
 </dd>
 </dl>
-<p>
-</p>
-<h2><a name="additional_options">Additional options</a></h2>
-<dl>
-<dt><strong><a name="d_daemon_wait_minutes" class="item"><strong>-D, --daemon [WAIT-MINUTES]</strong></a></strong></dt>
 
+<h2 id="Additional-options">Additional options</h2>
+
+<dl>
+
+<dt id="D---daemon-WAIT-MINUTES"><b>-D, --daemon [WAIT-MINUTES]</b></dt>
 <dd>
-<p>Enter daemon mode. The term &quot;daemon&quot; refers to a standalone processes
-which keep serving until killed. In daemon mode program enters into
-infinite loop where IP address changes are checked periodically. For
-each new ip address check, program waits for WAIT-MINUTES. Messages in
-this mode are reported using <code>syslog(3)</code>; if available.</p>
-<p>This option is designed to be used in systems that do not provide Unix-like
-cron capabilities (e.g under Windows OS). It is better to use <code>cron(8)</code> and
-define an entry using <code>crontab(5)</code> notation to run the update in periodic
-intervals. This will use less memory when Perl is not permanently kept in
-memory like it would with option <strong>--daemon</strong>.</p>
+
+<p>Enter daemon mode. The term &quot;daemon&quot; refers to a standalone processes which keep serving until killed. In daemon mode program enters into infinite loop where IP address changes are checked periodically. For each new ip address check, program waits for WAIT-MINUTES. Messages in this mode are reported using syslog(3); if available.</p>
+
+<p>This option is designed to be used in systems that do not provide Unix-like cron capabilities (e.g under Windows OS). It is better to use cron(8) and define an entry using crontab(5) notation to run the update in periodic intervals. This will use less memory when Perl is not permanently kept in memory like it would with option <b>--daemon</b>.</p>
+
 <p>The update to DDNS provider happens only if</p>
-<pre>
-    1) IP address changes
+
+<pre><code>    1) IP address changes
     2) or it has taken 30 days since last update.
-       (See DDNS providers' account expiration time documentation)</pre>
-<p>The minimum sleep time is 5 minutes. Program will not allow faster
-wake up times(*). The value can be expressed in formats:</p>
-<pre>
-    15      Plain number, minutes
+       (See DDNS providers&#39; account expiration time documentation)</code></pre>
+
+<p>The minimum sleep time is 5 minutes. Program will not allow faster wake up times(*). The value can be expressed in formats:</p>
+
+<pre><code>    15      Plain number, minutes
     15m     (m)inutes. Same sa above
     1h      (h)ours
-    1d      (d)days</pre>
-<p>This options is primarily for permanent Internet connection. If you
-have a dial-up connection, it is better to arrange the IP update at
-the same time as when the connection is started. In Linux this would
-happen during <code>ifup(1)</code>.</p>
-<p>(*) Perl language is CPU intensive so any faster check would put
-considerable strain on system resources. Normally a value of 30 or 60
-minutes will work fine in most cases. Monitor the ISP's IP rotation
-time to adjust the time in to use sufficiently long wake up times.</p>
-</dd>
-<dt><strong><a name="ethernet_card" class="item"><strong>--ethernet [CARD]</strong></a></strong></dt>
+    1d      (d)days</code></pre>
 
-<dd>
-<p>In Linux system, the automatic IP detection uses program
-<code>ifconfig(1)</code>. If you have multiple network cards, select the correct
-card with this option. The default device used for query is <code>eth0</code>.</p>
-</dd>
-<dt><strong><a name="file_prefix" class="item"><strong>--file PREFIX</strong></a></strong></dt>
+<p>This options is primarily for permanent Internet connection. If you have a dial-up connection, it is better to arrange the IP update at the same time as when the connection is started. In Linux this would happen during <code>ifup(1)</code>.</p>
 
+<p>(*) Perl language is CPU intensive so any faster check would put considerable strain on system resources. Normally a value of 30 or 60 minutes will work fine in most cases. Monitor the ISP&#39;s IP rotation time to adjust the time in to use sufficiently long wake up times.</p>
+
+</dd>
+<dt id="ethernet-CARD"><b>--ethernet [CARD]</b></dt>
 <dd>
-<p>Prefix where to save IP information. This can be a) a absolute path name to
-a file b) directory where to save or c) directory + prefix where to save.
-Make sure that files in this location do not get deleted. If they are
-deleted and you happen to update SAME ip twice within a short period -
-according to www.dyndns.org FAQ - your address may be blocked.</p>
-<p>On Windows platform all filenames must use forward slashs like
-<code>C:/somedir/to/</code>, not <code>C:\somedir\to\</code>.</p>
-<p>The PREFIX is only used as a basename for supported DDNS accounts (see
-<strong>--provider</strong>). The saved filename is constructed like this:</p>
-<pre>
-   PREFIX&lt;ethernet-card&gt;-&lt;update-system&gt;-&lt;host&gt;-&lt;provider&gt;.log
+
+<p>In Linux system, the automatic IP detection uses program <code>ifconfig(1)</code>. If you have multiple network cards, select the correct card with this option. The default device used for query is <code>eth0</code>.</p>
+
+</dd>
+<dt id="file-PREFIX"><b>--file PREFIX</b></dt>
+<dd>
+
+<p>Prefix where to save IP information. This can be a) a absolute path name to a file b) directory where to save or c) directory + prefix where to save. Make sure that files in this location do not get deleted. If they are deleted and you happen to update SAME ip twice within a short period - according to www.dyndns.org FAQ - your address may be blocked.</p>
+
+<p>On Windows platform all filenames must use forward slashs like <code>C:/somedir/to/</code>, not <code>C:\somedir\to\</code>.</p>
+
+<p>The PREFIX is only used as a basename for supported DDNS accounts (see <b>--provider</b>). The saved filename is constructed like this:</p>
+
+<pre><code>   PREFIX&lt;ethernet-card&gt;-&lt;update-system&gt;-&lt;host&gt;-&lt;provider&gt;.log
                           |
-                          See option --system</pre>
-<p>A sample filename in Linux could be something like this if PREFIX were set
-to <code>/var/log/dyndns/</code>:</p>
-<pre>
-    /var/log/dyndns/eth0-statdns-my.dyndns.org-dyndns.log</pre>
-</dd>
-<dt><strong><a name="f_file_default" class="item"><strong>-f, --file-default</strong></a></strong></dt>
+                          See option --system</code></pre>
 
-<dd>
-<p>Use reasonable default for saved IP file PREFIX (see <strong>--file</strong>). Under
-Windows, %WINDIR% is used. Under Linux the PREFIXes searched are</p>
-<pre>
-    /var/log/dyndns/     (if directory exists)
-    /var/log/            (system's standard)
-    $HOME/tmp or $HOME   If process is not running under root</pre>
-<p>This options is by default activated if <strong>--file</strong> is not in use.</p>
-</dd>
-<dt><strong><a name="proxy_host" class="item"><strong>--proxy HOST</strong></a></strong></dt>
+<p>A sample filename in Linux could be something like this if PREFIX were set to <code>/var/log/dyndns/</code>:</p>
 
+<pre><code>    /var/log/dyndns/eth0-statdns-my.dyndns.org-dyndns.log</code></pre>
+
+</dd>
+<dt id="f---file-default"><b>-f, --file-default</b></dt>
 <dd>
+
+<p>Use reasonable default for saved IP file PREFIX (see <b>--file</b>). Under Windows, %WINDIR% is used. Under Linux the PREFIXes searched are</p>
+
+<pre><code>    /var/log/dyndns/     (if directory exists)
+    /var/log/            (system&#39;s standard)
+    $HOME/tmp or $HOME   If process is not running under root</code></pre>
+
+<p>This options is by default activated if <b>--file</b> is not in use.</p>
+
+</dd>
+<dt id="proxy-HOST"><b>--proxy HOST</b></dt>
+<dd>
+
 <p>Use HOST as outgoing HTTP proxy.</p>
-</dd>
-<dt><strong><a name="p_provider_type" class="item"><strong>-P, --provider TYPE</strong></a></strong></dt>
 
+</dd>
+<dt id="P---provider-TYPE"><b>-P, --provider TYPE</b></dt>
 <dd>
-<p>By default, program connects to <code>dyndns.org</code> to update the dynamic IP
-address. There are many free dynamic DNS providers are reported.
-Supported list of TYPES in alphabetical order:</p>
-<pre>
-    hnorg       No domain name limists
+
+<p>By default, program connects to <code>dyndns.org</code> to update the dynamic IP address. There are many free dynamic DNS providers are reported. Supported list of TYPES in alphabetical order:</p>
+
+<pre><code>    hnorg       No domain name limists
                 Basic DDNS service is free (as of 2003-10-02)
-                <a href="http://hn.org/">http://hn.org/</a></pre>
-<pre>
+                http://hn.org/
+
     dyndns      No domain name limits.
                 Basic DDNS service is free (as of 2003-10-02)
-                <a href="http://www.dyndns.org/">http://www.dyndns.org/</a>
-                See also <a href="http://members.dyndns.org/">http://members.dyndns.org/</a></pre>
-<pre>
+                http://www.dyndns.org/
+                See also http://members.dyndns.org/
+
     noip        No domain name limits.
                 Basic DDNS service is free (as of 2003-10-02)
-                <a href="http://www.no-ip.com/">http://www.no-ip.com/</a></pre>
-<p>NOTE: as of 2010, the support for sites of hnorg, noip is probably
-non-working due to changes in the interfaces. Please use only dyndns
-at this time.</p>
-</dd>
-<dt><strong><a name="query" class="item"><strong>--query</strong></a></strong></dt>
+                http://www.no-ip.com/</code></pre>
 
+<p>NOTE: as of 2010, the support for sites of hnorg, noip is probably non-working due to changes in the interfaces. Please use only dyndns at this time.</p>
+
+</dd>
+<dt id="query"><b>--query</b></dt>
 <dd>
-<p>Query current IP address and quit. <strong>Note:</strong> if you use router, you may
-need <strong>--urlping*</strong> options, otherwise the IP address returned is your
-subnet's DHCP IP and not the ISP's Internet IP.</p>
-<p>Output of the command is at least two string. The second string is
-<code>last-ip-info-not-available</code> if the saved ip file name is not specified.
-In order to program to know where to look for saved IP files you need to
-give some <strong>--file*</strong> or <strong>--config</strong> option. The second string can also be
-<code>nochange</code> if current IP address is same as what was found from saved
-file. Examples:</p>
-<pre>
-    100.197.1.6 last-ip-info-not-available
+
+<p>Query current IP address and quit. <b>Note:</b> if you use router, you may need <b>--urlping*</b> options, otherwise the IP address returned is your subnet&#39;s DHCP IP and not the ISP&#39;s Internet IP.</p>
+
+<p>Output of the command is at least two string. The second string is <code>last-ip-info-not-available</code> if the saved ip file name is not specified. In order to program to know where to look for saved IP files you need to give some <b>--file*</b> or <b>--config</b> option. The second string can also be <code>nochange</code> if current IP address is same as what was found from saved file. Examples:</p>
+
+<pre><code>    100.197.1.6 last-ip-info-not-available
     100.197.1.6 100.197.1.7
     100.197.1.6 nochange 18
                          |
-                         How many days since last saved IP</pre>
-<p><strong>Note for tool developers:</strong> additional information may be provided in
-future. Don't rely on the count of the output words, but instead parse
-output from left to right.</p>
-</dd>
-<dt><strong><a name="query_ipchanged_exitcode" class="item"><strong>--query-ipchanged ['exitcode']</strong></a></strong></dt>
+                         How many days since last saved IP</code></pre>
 
+<p><b>Note for tool developers:</b> additional information may be provided in future. Don&#39;t rely on the count of the output words, but instead parse output from left to right.</p>
+
+</dd>
+<dt id="query-ipchanged-exitcode"><b>--query-ipchanged [&#39;exitcode&#39;]</b></dt>
 <dd>
-<p>Print message if IP has changed or not. This option can take
-an optional string argument <code>exitcode</code> which causes program to
-indicate changed ip address with standard shell status code
-(in bash shell that would available at variable <code>$?</code>):</p>
-<pre>
-    $ dyndns --query-ipchange exitcode --file-default \
+
+<p>Print message if IP has changed or not. This option can take an optional string argument <code>exitcode</code> which causes program to indicate changed ip address with standard shell status code (in bash shell that would available at variable <code>$?</code>):</p>
+
+<pre><code>    $ dyndns --query-ipchange exitcode --file-default \
       --provider dyndns --host xxx.dyndns.org
-    $ echo $?</pre>
-<pre>
-    ... the status code of shell ($?) would be:</pre>
-<pre>
+    $ echo $?
+
+    ... the status code of shell ($?) would be:
+
     0   true value, changed
-    1   false value, error code, i.e. not changed</pre>
+    1   false value, error code, i.e. not changed</code></pre>
+
 <p>Without the <code>exitcode</code> argument, the returned strings are:</p>
-<pre>
-                Current IP address
+
+<pre><code>                Current IP address
                 |
     changed  35 111.222.333.444
     nochange 18
              |
-             Days since last IP update. Based on saved IP file's
-             time stamp.</pre>
-<p>If the last saved IP file's time stamp is too old, then even if the IP were
-not really changed, the situation is reported with word <code>changed</code>. This is
-due to time limits the DDNS providers have. The account would expire unless
-it is updated in NN days.</p>
-<p><strong>Note for tool developers:</strong> additional information may be provided in
-future. Don't rely on the count of the output words, but instead parse
-output from left to right.</p>
-</dd>
-<dt><strong><a name="query_ipfile" class="item"><strong>--query-ipfile</strong></a></strong></dt>
+             Days since last IP update. Based on saved IP file&#39;s
+             time stamp.</code></pre>
 
+<p>If the last saved IP file&#39;s time stamp is too old, then even if the IP were not really changed, the situation is reported with word <code>changed</code>. This is due to time limits the DDNS providers have. The account would expire unless it is updated in NN days.</p>
+
+<p><b>Note for tool developers:</b> additional information may be provided in future. Don&#39;t rely on the count of the output words, but instead parse output from left to right.</p>
+
+</dd>
+<dt id="query-ipfile"><b>--query-ipfile</b></dt>
 <dd>
+
 <p>Print the name of the IP file and quit.</p>
-<p><strong>Note:</strong> In order for this option to work, you must supply all other
-options would be normally pass to update the DDNS account, because the Ip
-filename depends on these options. Alternatively provide option <strong>--config
-FILE</strong> from where all relevant information if read.</p>
-<pre>
-    --ethernet      [optional, defaults to eth0]
+
+<p><b>Note:</b> In order for this option to work, you must supply all other options would be normally pass to update the DDNS account, because the Ip filename depends on these options. Alternatively provide option <b>--config FILE</b> from where all relevant information if read.</p>
+
+<pre><code>    --ethernet      [optional, defaults to eth0]
     --provider      [optional, defaults to dyndns]
     --system        [optional, defaults to dyndns]
-    --host          required.</pre>
-<p>Here is an example which supposed that directory <code>/var/log/dyndns/</code>
-already exists:</p>
-<pre>
-    $ dyndns --file-default --query-ipfile \
-      --provider dyndns --host xxx.dyndns.org
-    /var/log/dyndns/eth0-dyndns-dyndns-xxx-dyndns.org.log</pre>
-</dd>
-<dt><strong><a name="regexp_regexp" class="item"><strong>--regexp REGEXP</strong></a></strong></dt>
+    --host          required.</code></pre>
 
+<p>Here is an example which supposed that directory <code>/var/log/dyndns/</code> already exists:</p>
+
+<pre><code>    $ dyndns --file-default --query-ipfile \
+      --provider dyndns --host xxx.dyndns.org
+    /var/log/dyndns/eth0-dyndns-dyndns-xxx-dyndns.org.log</code></pre>
+
+</dd>
+<dt id="regexp-REGEXP"><b>--regexp REGEXP</b></dt>
 <dd>
-<p>In host, which has multiple netword cards, the response can include
-multiple IP addresses. The default is to pick always the first choice, but
-that may not be what is wanted. The regexp MUST not contain capturing
-parentheses: if you need one, use non-capturing choice (?:). Refer to Perl
-manual page <code>perlre</code> for more information about non-cpaturing regular
-expression parentheses.</p>
+
+<p>In host, which has multiple netword cards, the response can include multiple IP addresses. The default is to pick always the first choice, but that may not be what is wanted. The regexp MUST not contain capturing parentheses: if you need one, use non-capturing choice (?:). Refer to Perl manual page <code>perlre</code> for more information about non-cpaturing regular expression parentheses.</p>
+
 <p>Here is an example from Windows:</p>
-<pre>
-    Ethernet adapter {3C317757-AEE8-4DA7-9B68-C67B4D344103}:</pre>
-<pre>
+
+<pre><code>    Ethernet adapter {3C317757-AEE8-4DA7-9B68-C67B4D344103}:
+
         Connection-specific DNS Suffix  . :
         Autoconfiguration IP Address. . . : 169.254.241.150
         Subnet Mask . . . . . . . . . . . : 255.255.0.0
-        Default Gateway . . . . . . . . . :</pre>
-<pre>
-    Ethernet adapter Local Area Connection 3:</pre>
-<pre>
+        Default Gateway . . . . . . . . . :
+
+    Ethernet adapter Local Area Connection 3:
+
         Connection-specific DNS Suffix  . : somewhere.net
         IP Address. . . . . . . . . . . . : 193.10.221.45
         Subnet Mask . . . . . . . . . . . : 255.255.0.0
-        Default Gateway . . . . . . . . . : 10.10.0.101</pre>
-<p>The 193.10.221.45 is the intended dynamic IP address, not the first one.
-To instruct searching from somewhere else in the listing, supply a
-regular expressions that can match a portion in the listing after
-which the IP address appears. In the above case, the regexp could be:</p>
-<pre>
-    --regexp &quot;Connection 3:&quot;</pre>
-<p>In Windows, the words that follow &quot;IP Address&quot; are automatically expected,
-so you should not add them to the regexp.</p>
+        Default Gateway . . . . . . . . . : 10.10.0.101</code></pre>
+
+<p>The 193.10.221.45 is the intended dynamic IP address, not the first one. To instruct searching from somewhere else in the listing, supply a regular expressions that can match a portion in the listing after which the IP address appears. In the above case, the regexp could be:</p>
+
+<pre><code>    --regexp &quot;Connection 3:&quot;</code></pre>
+
+<p>In Windows, the words that follow &quot;IP Address&quot; are automatically expected, so you should not add them to the regexp.</p>
+
 <p>In FreeBSD 4.5, you may get following response:</p>
-<pre>
-    tun0: flags &lt;UP,POINTOPOINT,RUNNING,MULTICAST&gt; mtu 1492
+
+<pre><code>    tun0: flags &lt;UP,POINTOPOINT,RUNNING,MULTICAST&gt; mtu 1492
         inet6 fe80::250:4ff:feef:7998%tun0 prefixlen 64 scopeid 0x7
         inet 62.214.33.49 --&gt; 255.255.255.255 netmask 0xffffffff
         inet 62.214.32.12 --&gt; 255.255.255.255 netmask 0xffffffff
         inet 62.214.35.49 --&gt; 255.255.255.255 netmask 0xffffffff
         inet 62.214.33.163 --&gt; 62.214.32.1 netmask 0xff000000
-        Opened by PID 64</pre>
-<p>The correct IP address to pick from the listing is the one, which does
-not contain netmask 0xffffffff. The picked address for above is
-therefore 62.214.33.163. The regexp that finds that line is:</p>
-<pre>
-    --regexp &quot;.*0xffffffff.*?inet&quot;
+        Opened by PID 64</code></pre>
+
+<p>The correct IP address to pick from the listing is the one, which does not contain netmask 0xffffffff. The picked address for above is therefore 62.214.33.163. The regexp that finds that line is:</p>
+
+<pre><code>    --regexp &quot;.*0xffffffff.*?inet&quot;
                |            |
                |            Search minimum match until word &quot;inet&quot;
-               search maximum match</pre>
-<p>This will match all the way until the the last line with netmask
-0xffffffff, after which shortest match <code>.*?</code> to <code>inet</code> is reached to read
-the number following it. The regexp must make sure that the next word
-after its match point is the wanted address.</p>
+               search maximum match</code></pre>
+
+<p>This will match all the way until the the last line with netmask 0xffffffff, after which shortest match <code>.*?</code> to <code>inet</code> is reached to read the number following it. The regexp must make sure that the next word after its match point is the wanted address.</p>
+
 </dd>
 </dl>
-<p>
-</p>
-<h2><a name="cable__dsl_and_router_options">Cable, DSL and router options</a></h2>
-<p>If you do not have direct access to world known <code>real</code> IP address, but to
-a subnet IP address, then you cannot determine your outside world IP
-address from your machine directly. See picture below:</p>
-<pre>
-                        router/subnet                    Internet
+
+<h2 id="Cable-DSL-and-router-options">Cable, DSL and router options</h2>
+
+<p>If you do not have direct access to world known <code>real</code> IP address, but to a subnet IP address, then you cannot determine your outside world IP address from your machine directly. See picture below:</p>
+
+<pre><code>                        router/subnet                    Internet
                        +-------------+                +-----------+
    Your PC:            |             | maps address   |           |
    connect to ISP --&gt;  | ROUTER      | -------------&gt; |           |
                        | 192.168.... |                | 80.1.1.1  |
    local ip says:      +-------------+                +-----------+
-   192.168.xxx.xxx                                    THE REAL IP</pre>
-<p>ASDL and cable modem and other connections may not be directly connected to
-Internet, but to a router to allow subnnetting internal hosts. This makes
-several computers to access the Internet while the ISP has offered only one
-visible IP address to you. The router makes the mapping of the local subnet
-IP to the world known IP address, provided by the ISP when the connection
-was established.</p>
-<p>You need some way to find out what is the real IP is. The simplest way is
-to connect to a some web page, which runs a reverse lookup service which
-can show the connecting IP address.</p>
-<p>Note: the following web web page does not exists. To find a service
-that is able to display your IP address, do a google search. Let's
-say, that you found a fictional service
-<code>http://www.example.com/showip</code> and somewhere in the web page it
-reads:</p>
-<pre>
-        Your IP address is: 212.111.11.10</pre>
-<p>This is what you need. To automate the lookup from web page, you need
-to instruct the program to connect to URL page and tell how to read
-the ip from page by using a regular expression. Consult Perl's manual
-page <code>perlre</code> if you are unfamiliar with the regular expressions. For
-the above fictional service, the options needed would be:</p>
-<pre>
-    --urlping         &quot;<a href="http://showip.org/?showit.pl&quot">http://showip.org/?showit.pl&quot</a>;
+   192.168.xxx.xxx                                    THE REAL IP</code></pre>
+
+<p>ASDL and cable modem and other connections may not be directly connected to Internet, but to a router to allow subnnetting internal hosts. This makes several computers to access the Internet while the ISP has offered only one visible IP address to you. The router makes the mapping of the local subnet IP to the world known IP address, provided by the ISP when the connection was established.</p>
+
+<p>You need some way to find out what is the real IP is. The simplest way is to connect to a some web page, which runs a reverse lookup service which can show the connecting IP address.</p>
+
+<p>Note: the following web web page does not exists. To find a service that is able to display your IP address, do a google search. Let&#39;s say, that you found a fictional service <code>http://www.example.com/showip</code> and somewhere in the web page it reads:</p>
+
+<pre><code>        Your IP address is: 212.111.11.10</code></pre>
+
+<p>This is what you need. To automate the lookup from web page, you need to instruct the program to connect to URL page and tell how to read the ip from page by using a regular expression. Consult Perl&#39;s manual page <code>perlre</code> if you are unfamiliar with the regular expressions. For the above fictional service, the options needed would be:</p>
+
+<pre><code>    --urlping         &quot;http://showip.org/?showit.pl&quot;
     --urlping-regexp  &quot;address is:\s+([\d.]+)&quot;
                                   |  ||
                                   |  |+- Read all digits and periods
                                   |  |
                                   |  +- capturing parentheses
                                   |
-                                  +- expect any number of whitespaces</pre>
-<p>NOTE: The text to match from web page is not text/plain, but text/html,
-so you must look at the HTML page's sources to match the IP
-address correctly without the bold &lt;b&gt; tags etc.</p>
+                                  +- expect any number of whitespaces</code></pre>
+
+<p>NOTE: The text to match from web page is not text/plain, but text/html, so you must look at the HTML page&#39;s sources to match the IP address correctly without the bold &lt;b&gt; tags etc.</p>
+
 <dl>
-<dt><strong><a name="urlping_url" class="item"><strong>--urlping URL</strong></a></strong></dt>
 
+<dt id="urlping-URL"><b>--urlping URL</b></dt>
 <dd>
-<p>Web page where world known IP address can be read. If you find a Web server
-that is running some program, which can show your IP addres, use it. The
-example below connects to site and calls CGI program to make show the
-connector's IP address. Be polite. Making calls like this too often
-may cause putting blocks to your site.</p>
-<pre>
-    <a href="http://www.dyndns.org/cgi-bin/check_ip.cgi">http://www.dyndns.org/cgi-bin/check_ip.cgi</a></pre>
-<p>Be sure to use period of 60 minutes or more with <strong>--daemon</strong> option to
-not increase the load in the &quot;ping&quot; site and cause admin's to shut
-down the service.</p>
+
+<p>Web page where world known IP address can be read. If you find a Web server that is running some program, which can show your IP addres, use it. The example below connects to site and calls CGI program to make show the connector&#39;s IP address. Be polite. Making calls like this too often may cause putting blocks to your site.</p>
+
+<pre><code>    http://www.dyndns.org/cgi-bin/check_ip.cgi</code></pre>
+
+<p>Be sure to use period of 60 minutes or more with <b>--daemon</b> option to not increase the load in the &quot;ping&quot; site and cause admin&#39;s to shut down the service.</p>
+
 </dd>
-<dt><strong><a name="urlping_dyndns" class="item"><strong>--urlping-dyndns</strong></a></strong></dt>
-
+<dt id="urlping-dyndns"><b>--urlping-dyndns</b></dt>
 <dd>
-<p>Contact <a href="http://www.dyndns.org">http://www.dyndns.org</a> service to obtain IP address information. This
-is shorthand to more general optiopn <strong>--urlping</strong>.</p>
+
+<p>Contact http://www.dyndns.org service to obtain IP address information. This is shorthand to more general optiopn <b>--urlping</b>.</p>
+
 </dd>
-<dt><strong><a name="urlping_linksys_type" class="item"><strong>--urlping-linksys [TYPE]</strong></a></strong></dt>
-
+<dt id="urlping-linksys-TYPE"><b>--urlping-linksys [TYPE]</b></dt>
 <dd>
-<p><strong>Specialized router option for Linksys products</strong>.</p>
-<p>This option connects to Linksys Wireless LAN 4-point router, whose page is
-by default at local network address -&lt;http://192.168.1.1/Status.htm&gt;. The
-world known IP address (which is provided by ISP) is parsed from that
-page. The product is typically connected to the cable or DSL modem. Refer
-to routing picture presented previously.</p>
-<p>If the default login and password has been changed, options
-<strong>--urlping-login</strong> and <strong>--urlping-password</strong> must be supplied</p>
-<p>For TYPE information, See &lt;http://www.linksys.com/&gt;. Products codes currently
-supported include:</p>
-<pre>
- - BEFW11S4, Wireless Access Point Router with 4-Port Switch.
-   Page: <a href="http://192.168.1.1/Status.htm">http://192.168.1.1/Status.htm</a>
+
+<p><b>Specialized router option for Linksys products</b>.</p>
+
+<p>This option connects to Linksys Wireless LAN 4-point router, whose page is by default at local network address -&lt;http://192.168.1.1/Status.htm&gt;. The world known IP address (which is provided by ISP) is parsed from that page. The product is typically connected to the cable or DSL modem. Refer to routing picture presented previously.</p>
+
+<p>If the default login and password has been changed, options <b>--urlping-login</b> and <b>--urlping-password</b> must be supplied</p>
+
+<p>For TYPE information, See &lt;http://www.linksys.com/&gt;. Products codes currently supported include:</p>
+
+<pre><code> - BEFW11S4, Wireless Access Point Router with 4-Port Switch.
+   Page: http://192.168.1.1/Status.htm
  - WRT54GL, Wireless WRT54GL Wireless-G Broadband Router.
-   Page: <a href="http://192.168.1.1/Status_Router.asp">http://192.168.1.1/Status_Router.asp</a></pre>
-</dd>
-<dt><strong><a name="urlping_login_login" class="item"><strong>--urlping-login LOGIN</strong></a></strong></dt>
+   Page: http://192.168.1.1/Status_Router.asp</code></pre>
 
-<dd>
-<p>If <code>--urlping</code> web page requires authentication, supply user name for
-a secured web page.</p>
 </dd>
-<dt><strong><a name="urlping_password_login" class="item"><strong>--urlping-password LOGIN</strong></a></strong></dt>
-
+<dt id="urlping-login-LOGIN"><b>--urlping-login LOGIN</b></dt>
 <dd>
-<p>If <code>--urlping</code> web page requires authentication, supply password for
-a secured web page.</p>
+
+<p>If <code>--urlping</code> web page requires authentication, supply user name for a secured web page.</p>
+
 </dd>
-<dt><strong><a name="urlping_regexp_regexp" class="item"><strong>--urlping-regexp REGEXP</strong></a></strong></dt>
-
+<dt id="urlping-password-LOGIN"><b>--urlping-password LOGIN</b></dt>
 <dd>
-<p>After connecting to page with <strong>--urlping URL</strong>, the web page is examined for
-REGEXP. The regexp must catch the IP to perl match $1. Use non-capturing
-parenthesis to control the match as needed. For example this is incorrect:</p>
-<pre>
-    --urlping-regexp &quot;(Address|addr:)\s+([0-9.]+)&quot;
+
+<p>If <code>--urlping</code> web page requires authentication, supply password for a secured web page.</p>
+
+</dd>
+<dt id="urlping-regexp-REGEXP"><b>--urlping-regexp REGEXP</b></dt>
+<dd>
+
+<p>After connecting to page with <b>--urlping URL</b>, the web page is examined for REGEXP. The regexp must catch the IP to perl match $1. Use non-capturing parenthesis to control the match as needed. For example this is incorrect:</p>
+
+<pre><code>    --urlping-regexp &quot;(Address|addr:)\s+([0-9.]+)&quot;
                       |                 |
-                      $1                $2</pre>
-<p>The match MUST be in &quot;$1&quot;, so you must use non-capturing perl paentheses
-for the first one:</p>
-<pre>
-    --urlping-regexp &quot;(?:Address|addr:) +([0-9.]+)&quot;
+                      $1                $2</code></pre>
+
+<p>The match MUST be in &quot;$1&quot;, so you must use non-capturing perl paentheses for the first one:</p>
+
+<pre><code>    --urlping-regexp &quot;(?:Address|addr:) +([0-9.]+)&quot;
                        |                 |
-                       non-capturing     $1</pre>
-<p>If this option is not given, the default value is to find first word
-that matches:</p>
-<pre>
-    ([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)</pre>
+                       non-capturing     $1</code></pre>
+
+<p>If this option is not given, the default value is to find first word that matches:</p>
+
+<pre><code>    ([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)</code></pre>
+
 </dd>
 </dl>
-<p>
-</p>
-<h2><a name="miscellaneous_options">Miscellaneous options</a></h2>
+
+<h2 id="Miscellaneous-options">Miscellaneous options</h2>
+
 <dl>
-<dt><strong><a name="debug_level" class="item"><strong>--debug [LEVEL]</strong></a></strong></dt>
 
+<dt id="debug-LEVEL"><b>--debug [LEVEL]</b></dt>
 <dd>
-<p>Turn on debug with optional positive LEVEL. Use this if you want to know
-details how the program initiates connection or if you experience trouble
-contacting DDNS provider.</p>
+
+<p>Turn on debug with optional positive LEVEL. Use this if you want to know details how the program initiates connection or if you experience trouble contacting DDNS provider.</p>
+
 </dd>
-<dt><strong><a name="help" class="item"><strong>--help</strong></a></strong></dt>
-
+<dt id="help"><b>--help</b></dt>
 <dd>
+
 <p>Print help</p>
-</dd>
-<dt><strong><a name="help_html" class="item"><strong>--help-html</strong></a></strong></dt>
 
+</dd>
+<dt id="help-html"><b>--help-html</b></dt>
 <dd>
+
 <p>Print help in HTML format.</p>
-</dd>
-<dt><strong><a name="help_man" class="item"><strong>--help-man</strong></a></strong></dt>
 
-<dd>
-<p>Print help page in Unix manual page format. You want to feed this output to
-<strong>nroff -man</strong> in order to read it.</p>
 </dd>
-<dt><strong><a name="test_level" class="item"><strong>--test [LEVEL]</strong></a></strong></dt>
-
+<dt id="help-man"><b>--help-man</b></dt>
 <dd>
-<p>Run in test mode, do not actually update anything. LEVEL 1 allows
-sending HTTP ping options and getting answers.</p>
+
+<p>Print help page in Unix manual page format. You want to feed this output to <b>nroff -man</b> in order to read it.</p>
+
 </dd>
-<dt><strong><a name="test_driver" class="item"><strong>--test-driver</strong></a></strong></dt>
-
+<dt id="test-LEVEL"><b>--test [LEVEL]</b></dt>
 <dd>
+
+<p>Run in test mode, do not actually update anything. LEVEL 1 allows sending HTTP ping options and getting answers.</p>
+
+</dd>
+<dt id="test-driver"><b>--test-driver</b></dt>
+<dd>
+
 <p>This is for developer only. Run internal integrity tests.</p>
-</dd>
-<dt><strong><a name="test_account" class="item"><strong>--test-account</strong></a></strong></dt>
 
-<dd>
-<p>This is for developer only. Uses DYNDNS test account options. All command
-line values that set host information or provider are ignored. Refer to
-client page at <a href="http://clients.dyndns.org/devel">http://clients.dyndns.org/devel</a></p>
 </dd>
-<dt><strong><a name="verbose" class="item"><strong>--verbose</strong></a></strong></dt>
-
+<dt id="test-account"><b>--test-account</b></dt>
 <dd>
+
+<p>This is for developer only. Uses DYNDNS test account options. All command line values that set host information or provider are ignored. Refer to client page at http://clients.dyndns.org/devel</p>
+
+</dd>
+<dt id="verbose"><b>--verbose</b></dt>
+<dd>
+
 <p>Print informational messages.</p>
-</dd>
-<dt><strong><a name="version" class="item"><strong>--version</strong></a></strong></dt>
 
+</dd>
+<dt id="version"><b>--version</b></dt>
 <dd>
+
 <p>Print version and contact information.</p>
+
 </dd>
 </dl>
-<p>
-</p>
-<hr />
-<h1><a name="examples">EXAMPLES</a></h1>
-<p>To update IP address periodically, use <code>crontab(5)</code> entry. The update
-will happen only if IP has changed since last time:</p>
-<pre>
-    0 0-23 * * * perl &lt;absolute path&gt;/dyndns &lt;options&gt;</pre>
+
+<h1 id="EXAMPLES">EXAMPLES</h1>
+
+<p>To update IP address periodically, use crontab(5) entry. The update will happen only if IP has changed since last time:</p>
+
+<pre><code>    0 0-23 * * * perl &lt;absolute path&gt;/dyndns &lt;options&gt;</code></pre>
+
 <p>To check current IP address:</p>
-<pre>
-  dyndns --query [--urlping...]
+
+<pre><code>  dyndns --query [--urlping...]
                  |
-                 Select correct option to do the &quot;ping&quot; for IP</pre>
-<p>Show where the ip file is/would be stored with given connect options.
-The option <strong>--file-default</strong> uses OS's default directory structure.</p>
-<pre>
-  dyndns --file-default --query-ipfile --provider dyndns \
-          --host xxx.dyndns.org</pre>
+                 Select correct option to do the &quot;ping&quot; for IP</code></pre>
+
+<p>Show where the ip file is/would be stored with given connect options. The option <b>--file-default</b> uses OS&#39;s default directory structure.</p>
+
+<pre><code>  dyndns --file-default --query-ipfile --provider dyndns \
+          --host xxx.dyndns.org</code></pre>
+
 <p>To upate account information to DDNS provider:</p>
-<pre>
-  dyndns --provider dyndns --login &lt;login&gt; --password &lt;pass&gt; --host your.dyndns.org</pre>
-<p>If your router can display a web page containing the world known IP
-address, you can instruct to &quot;ping&quot; it. Suppose that router is at
-address 192.168.1.1 and page that displays the world known IP is
-<code>status.html</code>, and you have to log in to the router using username
-<code>foo</code> and password <code>bar</code>:</p>
-<pre>
-  dyndns --urlping <a href="http://192.168.1.1/Status.html">http://192.168.1.1/Status.html</a> \
+
+<pre><code>  dyndns --provider dyndns --login &lt;login&gt; --password &lt;pass&gt; --host your.dyndns.org</code></pre>
+
+<p>If your router can display a web page containing the world known IP address, you can instruct to &quot;ping&quot; it. Suppose that router is at address 192.168.1.1 and page that displays the world known IP is <code>status.html</code>, and you have to log in to the router using username <code>foo</code> and password <code>bar</code>:</p>
+
+<pre><code>  dyndns --urlping http://192.168.1.1/Status.html \
          --urlping-login foo                      \
-         --urlping-pass  bar                      \</pre>
-<p>If the default regexp does not find IP address from the page, supply
-your own match with option <strong>--urlping-regexp</strong>. In case of doubt, add
-option <strong>--debug 1</strong> and examine the responses. In serious doubt, contact
-the maintainer (see option <strong>--version</strong>) and send the full debug
-output.</p>
-<p>Tip: if you run a local web server, provider <code>www.dyndns.org</code> can direct
-calls to it. See option <a href="#wildcard"><code>--wildcard</code></a> to enable `*.your.dyndns.org' domain
-delegation, like if it we accessed using `www.your.dyndns.org'.</p>
-<p>
-</p>
-<hr />
-<h1><a name="configuration_file">CONFIGURATION FILE</a></h1>
-<p>Instead of supplying options at command line, they can be stored to
-a configuration file. For each DDNS account and different domains, a
-separate configuration file must be created. The configuration files
-are read with option <strong>--config</strong>.</p>
-<p>The syntax of the configuration file includes comments that start with (#).
-Anything after hash-sign is interpreted as comment. Values are set in KEY =
-VALUE fashion, where spaces are non-significant. Keys are not case
-sensitive, but values are.</p>
-<p>Below, lines marked with [default] need only be set if the default value
-needs to be changed. Lines marked with [noip] or [dyndns] apply to only
-those providers' DDNS accounts. Notice that some keys, like <code>host</code>, can
-take multple values seprated by colons. On/Off options take values [1/0]
-respectively. All host name values below are fictional.</p>
-<pre>
-    # /etc/dyndns/dyndns.conf</pre>
-<pre>
+         --urlping-pass  bar                      \</code></pre>
+
+<p>If the default regexp does not find IP address from the page, supply your own match with option <b>--urlping-regexp</b>. In case of doubt, add option <b>--debug 1</b> and examine the responses. In serious doubt, contact the maintainer (see option <b>--version</b>) and send the full debug output.</p>
+
+<p>Tip: if you run a local web server, provider <code>www.dyndns.org</code> can direct calls to it. See option <code>--wildcard</code> to enable `*.your.dyndns.org&#39; domain delegation, like if it we accessed using `www.your.dyndns.org&#39;.</p>
+
+<h1 id="CONFIGURATION-FILE">CONFIGURATION FILE</h1>
+
+<p>Instead of supplying options at command line, they can be stored to a configuration file. For each DDNS account and different domains, a separate configuration file must be created. The configuration files are read with option <b>--config</b>.</p>
+
+<p>The syntax of the configuration file includes comments that start with (#). Anything after hash-sign is interpreted as comment. Values are set in KEY = VALUE fashion, where spaces are non-significant. Keys are not case sensitive, but values are.</p>
+
+<p>Below, lines marked with [default] need only be set if the default value needs to be changed. Lines marked with [noip] or [dyndns] apply to only those providers&#39; DDNS accounts. Notice that some keys, like <code>host</code>, can take multple values seprated by colons. On/Off options take values [1/0] respectively. All host name values below are fictional.</p>
+
+<pre><code>    # /etc/dyndns/dyndns.conf
+
     #  Set to &quot;yes&quot; to make this configuration file excluded
-    #  from updates.</pre>
-<pre>
-    disable  = no       # [default]</pre>
-<pre>
+    #  from updates.
+
+    disable  = no       # [default]
+
     ethernet = eth0     # [default]
     group    = mygourp  # Provider [noip] only.
-    host     = host1.dyndns.org, host1.dyndns.org</pre>
-<pre>
+    host     = host1.dyndns.org, host1.dyndns.org
+
     #   If you route mail. See dyndns.org documentation for details
     #   how to set up MX records. If you know nothing about DNS/BIND
-    #   Don't even consider using this option. Misuse or broken
-    #   DNS at your end will probably terminate your 'free' dyndns contract.</pre>
-<pre>
-    mxhost   = mxhost.dyndns.org</pre>
-<pre>
+    #   Don&#39;t even consider using this option. Misuse or broken
+    #   DNS at your end will probably terminate your &#39;free&#39; dyndns contract.
+
+    mxhost   = mxhost.dyndns.org
+
     #   Details how to get the world known IP address, in case the standard
-    #   Linux 'ifconfig' or Windows 'ipconfig' programs cannot be used. This
+    #   Linux &#39;ifconfig&#39; or Windows &#39;ipconfig&#39; programs cannot be used. This
     #   interests mainly Cable, DSL and router owners. NOTE: You may
     #   not use all these options. E.g. [urlping-linksys4] is alternate
-    #   to [urlping] etc. See documentation.</pre>
-<pre>
+    #   to [urlping] etc. See documentation.
+
     urlping-linksys  = BEFW11S4
     urlping-login    = joe
-    urlping-password = mypass</pre>
-<pre>
+    urlping-password = mypass
+
     urlping          = fictional.showip.org
-    urlping-regexp   = (?:Address|addr:)\s+([0-9.]+)</pre>
-<pre>
+    urlping-regexp   = (?:Address|addr:)\s+([0-9.]+)
+
     #   Where IPs are stored. Directory name or Directory name with
     #   additional file prefix. The directory part must exist. You could
-    #   say 'file = /var/log/dyndns/' but that's the default.</pre>
-<pre>
-    file     = default              # Use OS's default location</pre>
-<pre>
-    #   The DDNS account details</pre>
-<pre>
+    #   say &#39;file = /var/log/dyndns/&#39; but that&#39;s the default.
+
+    file     = default              # Use OS&#39;s default location
+
+    #   The DDNS account details
+
     login    = mylogin
     password = mypass
     provider = dyndns               # [default]
-    proxy    = myproxy.myisp.net    # set only if needed for HTTP calls</pre>
-<pre>
+    proxy    = myproxy.myisp.net    # set only if needed for HTTP calls
+
     #   Hou need this option only if you have multiple ethernet cards.
-    #   After which regexp the IP number appers in ifconfig(1) listing?</pre>
-<pre>
-    regexp   = .*0xffffffff.*?inet</pre>
-<pre>
-    #   What account are you using? Select 'dyndns|statdns|custom'</pre>
-<pre>
-    system   = dyndns               # Provider [dyndns] only</pre>
-<pre>
-    #   Yes, delegate all *.mydomain.dyndns.org calls</pre>
-<pre>
-    wildcard = 1</pre>
-<pre>
-    # End of cnfiguration file</pre>
-<p>See the details of all of these options from the corresponding command line
-option descriptions. E.g. option 'ethernet' in configuration file
-corresponds to <strong>--ethernet</strong> command line option. The normal configuration
-file for average user would only include few lines:</p>
-<pre>
-    # /etc/dyndns/myhost.dyndns.org.conf</pre>
-<pre>
+    #   After which regexp the IP number appers in ifconfig(1) listing?
+
+    regexp   = .*0xffffffff.*?inet
+
+    #   What account are you using? Select &#39;dyndns|statdns|custom&#39;
+
+    system   = dyndns               # Provider [dyndns] only
+
+    #   Yes, delegate all *.mydomain.dyndns.org calls
+
+    wildcard = 1
+
+    # End of cnfiguration file</code></pre>
+
+<p>See the details of all of these options from the corresponding command line option descriptions. E.g. option &#39;ethernet&#39; in configuration file corresponds to <b>--ethernet</b> command line option. The normal configuration file for average user would only include few lines:</p>
+
+<pre><code>    # /etc/dyndns/myhost.dyndns.org.conf
+
     host             = myhost.dyndns.org
-    file             = default      # Use OS's default location
+    file             = default      # Use OS&#39;s default location
     login            = mylogin
     password         = mypassword
     provider         = dyndns
-    system           = dyndns       # or 'statdns'
-    wildcard         = 1            # Delegate *.mydomain.dyndns.org</pre>
-<pre>
-    # End of cnfiguration file</pre>
+    system           = dyndns       # or &#39;statdns&#39;
+    wildcard         = 1            # Delegate *.mydomain.dyndns.org
+
+    # End of cnfiguration file</code></pre>
+
 <p>TODO (write Debian daemon scripts) FIXME:</p>
-<pre>
-    update-rc.d dyndns start 3 4 5 6    # Debian</pre>
-<p>
-</p>
-<hr />
-<h1><a name="support_requests">SUPPORT REQUESTS</a></h1>
-<p>For new Operating System, provide all relevant commands, their options,
-examples and their output which answer to following questions. The items in
-parentheses are examples from Linux:</p>
-<pre>
-    - How is the OS detected? Send result of 'id -a', or if file/dir
+
+<pre><code>    update-rc.d dyndns start 3 4 5 6    # Debian</code></pre>
+
+<h1 id="SUPPORT-REQUESTS">SUPPORT REQUESTS</h1>
+
+<p>For new Operating System, provide all relevant commands, their options, examples and their output which answer to following questions. The items in parentheses are examples from Linux:</p>
+
+<pre><code>    - How is the OS detected? Send result of &#39;id -a&#39;, or if file/dir
       structure can be used to detect the system. In Lunux the
       existence of /boot/vmlinuz could indicate that &quot;this is a Linux
       OS&quot;.
-    - What is the command to get network information (commandlike 'ifconfig')
+    - What is the command to get network information (commandlike &#39;ifconfig&#39;)
     - Where are the system configuration files stored (in directory /etc?)
-    - Where are the log files stored (under /var/log?)</pre>
-<p>To add support for routers that can be connected through HTTP protocol
-or with some other commands, please provide connection details and
-full HTTP response:</p>
-<pre>
-  wget -O &lt;route-model&gt;-dump.html <a href="http://192.168.1.0/your-network/router/page.html">http://192.168.1.0/your-network/router/page.html</a></pre>
-<p>
-</p>
-<hr />
-<h1><a name="troubleshooting">TROUBLESHOOTING</a></h1>
-<p>1. Turn on <strong>--debug</strong> to see exact details how the program runs and
-what HTTP requests are sent and received.</p>
-<p>2. Most of the &lt;--query&gt; options can't be used standalone. Please see
-documentation what additional options you need to supply with them.</p>
-<p>
-</p>
-<hr />
-<h1><a name="environment">ENVIRONMENT</a></h1>
-<dl>
-<dt><strong><a name="tmpdir" class="item"><strong>TMPDIR</strong></a></strong></dt>
+    - Where are the log files stored (under /var/log?)</code></pre>
 
+<p>To add support for routers that can be connected through HTTP protocol or with some other commands, please provide connection details and full HTTP response:</p>
+
+<pre><code>  wget -O &lt;route-model&gt;-dump.html http://192.168.1.0/your-network/router/page.html</code></pre>
+
+<h1 id="TROUBLESHOOTING">TROUBLESHOOTING</h1>
+
+<p>1. Turn on <b>--debug</b> to see exact details how the program runs and what HTTP requests are sent and received.</p>
+
+<p>2. Most of the &lt;--query&gt; options can&#39;t be used standalone. Please see documentation what additional options you need to supply with them.</p>
+
+<h1 id="ENVIRONMENT">ENVIRONMENT</h1>
+
+<dl>
+
+<dt id="TMPDIR"><b>TMPDIR</b></dt>
 <dd>
+
 <p>Directory of temporary files. Defaults to system temporary dir.</p>
+
 </dd>
 </dl>
-<p>
-</p>
-<hr />
-<h1><a name="files">FILES</a></h1>
+
+<h1 id="FILES">FILES</h1>
+
 <p>Daemon startup file</p>
-<pre>
-    /etc/default/dyndns</pre>
+
+<pre><code>    /etc/default/dyndns</code></pre>
+
 <p>In Linux the syslog message files are:</p>
-<pre>
-    /etc/syslog.conf         daemon.err daemon.warning
-    /var/log/daemon.log</pre>
-<p>There is no default location where program would search for
-configuration files. Configuration files may be found in directory
-<code>/etc/dyndns/examples</code>. It is recommended that the examples are
-modified and copied one directorory up in order to use option
-<strong>--config /etc/dyndns/*</strong>.</p>
-<p>If program is run with Windows Activestate Perl, the log file is stored to
-file <code>C:/syslog.txt</code>.</p>
-<p>
-</p>
-<hr />
-<h1><a name="exit_status">EXIT STATUS</a></h1>
+
+<pre><code>    /etc/syslog.conf         daemon.err daemon.warning
+    /var/log/daemon.log</code></pre>
+
+<p>There is no default location where program would search for configuration files. Configuration files may be found in directory <code>/etc/dyndns/examples</code>. It is recommended that the examples are modified and copied one directorory up in order to use option <b>--config /etc/dyndns/*</b>.</p>
+
+<p>If program is run with Windows Activestate Perl, the log file is stored to file <code>C:/syslog.txt</code>.</p>
+
+<h1 id="EXIT-STATUS">EXIT STATUS</h1>
+
 <p>Not defined.</p>
-<p>
-</p>
-<hr />
-<h1><a name="dependencies">DEPENDENCIES</a></h1>
+
+<h1 id="DEPENDENCIES">DEPENDENCIES</h1>
+
 <p>Uses standard Perl modules.</p>
-<p>HTTP::Headers
-HTTP::Request::Common
-LWP::UserAgent
-LWP::Simple
-Sys::Syslog</p>
-<p>
-</p>
-<hr />
-<h1><a name="standards">STANDARDS</a></h1>
-<p>The <em>dyndns</em> provider's client specification is at
-<a href="https://www.dyndns.com/developers/specs/">https://www.dyndns.com/developers/specs/</a></p>
-<p>
-</p>
-<hr />
-<h1><a name="bugs_and_limitations">BUGS AND LIMITATIONS</a></h1>
-<p>
-</p>
-<h2><a name="cygwin_syslog">Cygwin syslog</a></h2>
-<p>There is no syslog daemon in Cygwin. The Cygwin POSIX emulation layer takes
-care about syslog requests. On NT and above systems it logs to the
-Windows's event manager, on Win9x and ME a file is created in the root of
-drive <code>C:</code>. See message &lt;http://cygwin.com/ml/cygwin/2002-10/msg00219.html&gt;
-for more details.</p>
-<p>You can see the entries in W2K Start =&gt; Settings =&gt; Administrative Tools
-=&gt; Computer Management: [ System Tools / Event Viewer / Application ]</p>
-<p>
-</p>
-<h2><a name="debugging_errors">Debugging errors</a></h2>
-<p>Please use option <strong>--debug 2</strong> and save the result. Contact maintainer if
-you find bugs or need new features.</p>
-<p>
-</p>
-<h2><a name="about_providers_hnorg_and_noip">About providers hnorg and noip</a></h2>
-<p>The program is primarily developed and maintained to support dyndns.org.
-The other providers haven't been tested since 2003.</p>
-<p>
-</p>
-<hr />
-<h1><a name="see_also">SEE ALSO</a></h1>
-<p><code>syslog(3)</code>,
-Debian package <code>ddclient(1)</code></p>
-<p>See other client software at <a href="http://clients.dyndns.org">http://clients.dyndns.org</a></p>
-<p>
-</p>
-<hr />
-<h1><a name="availability">AVAILABILITY</a></h1>
-<p><a href="http://freecode.com/projects/perl-dyndns">http://freecode.com/projects/perl-dyndns</a></p>
-<p>
-</p>
-<hr />
-<h1><a name="author">AUTHOR</a></h1>
-<p>This program is free software; you can redistribute and/or modify
-program under the terms of GNU General Public license either version 2
-of the License, or (at your option) any later version.</p>
-<p>The documentation may be distributed subject to the terms and
-conditions set forth in GNU General Public License v2 or later (GNU
-GPL); or, at your option, distributed under the terms of GNU Free
-Documentation License version 1.2 or later (GNU FDL).</p>
+
+<p>HTTP::Headers HTTP::Request::Common LWP::UserAgent LWP::Simple Sys::Syslog</p>
+
+<h1 id="STANDARDS">STANDARDS</h1>
+
+<p>The <i>dyndns</i> provider&#39;s client specification is at https://www.dyndns.com/developers/specs/</p>
+
+<h1 id="BUGS-AND-LIMITATIONS">BUGS AND LIMITATIONS</h1>
+
+<h2 id="Cygwin-syslog">Cygwin syslog</h2>
+
+<p>There is no syslog daemon in Cygwin. The Cygwin POSIX emulation layer takes care about syslog requests. On NT and above systems it logs to the Windows&#39;s event manager, on Win9x and ME a file is created in the root of drive <code>C:</code>. See message &lt;http://cygwin.com/ml/cygwin/2002-10/msg00219.html&gt; for more details.</p>
+
+<p>You can see the entries in W2K Start =&gt; Settings =&gt; Administrative Tools =&gt; Computer Management: [ System Tools / Event Viewer / Application ]</p>
+
+<h2 id="Debugging-errors">Debugging errors</h2>
+
+<p>Please use option <b>--debug 2</b> and save the result. Contact maintainer if you find bugs or need new features.</p>
+
+<h2 id="About-providers-hnorg-and-noip">About providers hnorg and noip</h2>
+
+<p>The program is primarily developed and maintained to support dyndns.org. The other providers haven&#39;t been tested since 2003.</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>syslog(3), Debian package ddclient(1)</p>
+
+<p>See other client software at http://clients.dyndns.org</p>
+
+<h1 id="AVAILABILITY">AVAILABILITY</h1>
+
+<p>http://freecode.com/projects/perl-dyndns</p>
+
+<h1 id="AUTHOR">AUTHOR</h1>
+
+<p>This program is free software; you can redistribute and/or modify program under the terms of GNU General Public license either version 2 of the License, or (at your option) any later version.</p>
+
+<p>The documentation may be distributed subject to the terms and conditions set forth in GNU General Public License v2 or later (GNU GPL); or, at your option, distributed under the terms of GNU Free Documentation License version 1.2 or later (GNU FDL).</p>
+
 
 </body>
 
 </html>
+
+
