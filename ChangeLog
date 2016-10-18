@@ -133,7 +133,7 @@
 	(TestDriverLinksysBEFW11S4v4): Cisco v4 versio test.
 	(HttpPingWlanLinksysBEFW11S4): Add BEFW11S4 Cisco v4 support; closes
 	bug https://sourceforge.net/tracker/index.php?func=detail&aid=1152587&group_id=44223&atid=438824
-	(RunUpdateIPWrite): Report invalid Ip address to
+	(RunUpdateIPWrite): Report invalid Ip addressssssssssssssss to
 	syslog.
 	(UpdateDynDns): Run IPvalidate before update.
 	(UpdateHNorg): Run IPvalidate before update.
@@ -218,7 +218,7 @@
 2005-02-15 Tue  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl (sub ProcessQueryRequests): 1.117 Changed output
-        format. Added IP address in case of changed.
+        format. Added IP addressssssssssssssss in case of changed.
         (Getopt::Long): 1.117 Corrected OPT_QUERY_IP_CHANGED bug, which
         caused script to always complain about missing --Host even
         with update requests.
@@ -444,7 +444,7 @@
         (sub ProcessUpdateMaybe): 1.88 Missing call to IPfileName()
         added.
         (sub ProcessQueryOptions): 1.88 Added IPvalidate() to
-        OPT_QUERY_IP_CHANGED check. A 192.* 10.* addresses should
+        OPT_QUERY_IP_CHANGED check. A 192.* 10.* addresssssssssssssssses should
         not be compared and reported as a 'change'.
         (sub ProcessUpdateStart): 1.92 Rewrote.
         (sub ProcessUpdateStart): 1.92 Call VariableCheckMinimum()
@@ -548,14 +548,14 @@
         (sub ProcessUpdate): 1.56 Added check for failed or
         successful ip update. Instruct user to try again if the error
         is not fatal.
-        (sub Main): 1.56 The IP address is now saved to a file ending
+        (sub Main): 1.56 The IP addressssssssssssssss is now saved to a file ending
         to `.log'.
 
 2003-07-22 Tue  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl (sub GetIpAddressInfo): 1.54 Changed return value.
         Now returns LIST, instead of string.
-        (ProcessUpdate): 1.54 New. Added check for changed IP address,
+        (ProcessUpdate): 1.54 New. Added check for changed IP addressssssssssssssss,
         not just check for over 3 days. Bug reported by
         Jack Repenning <jack@netgate.net>.
         (main): 1.54 Moved logic to ProcessUpdate().
@@ -563,7 +563,7 @@
 2003-07-21 Mon  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl (sub Main): 1.53 Added support for multiple network
-        cards. Save IP address with ifconfig prefix (ppp0, ppp1;
+        cards. Save IP addressssssssssssssss with ifconfig prefix (ppp0, ppp1;
         $HOME/config/dyndns.pl.conf-ppp0-dyndns) etc. Patch sent by Juha
         Heljoranta <juha.heljoranta@evitech.fi>
 
@@ -582,12 +582,12 @@
 2003-04-26 Sat  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl
-        Improved that IP address check in this version.
-        Allow same IP address updates, if at least 3 days has been passed.
+        Improved that IP addressssssssssssssss check in this version.
+        Allow same IP addressssssssssssssss updates, if at least 3 days has been passed.
         This may be useful to ISDN/modem users who have just swithced to a
         ADSL and Cable modem, but whom still use the dynamic DNS account.
         This is a transitions phase to start using the static DNS (dyndns.org)
-        because the ADSL/CABLE ip-address do not change so often.
+        because the ADSL/CABLE ip-addressssssssssssssss do not change so often.
         (sub Date): 1.49 New.
         (sub DateDiffDays): 1.49 New.
         (sub FileDate): 1.49 New.
@@ -675,10 +675,10 @@
         Added support for 'Wireless AP Router w/4 port Switch'.
         See http://www.linksys.com/
         (TestDriverLinksys4): New.
-        (GetIpAddressWin32): Added support for LAN ip address.
+        (GetIpAddressWin32): Added support for LAN ip addressssssssssssssss.
         (IPvalidate): New. Internal ranges 192.* and
         10.* are not valid and should not be allowed to update.
-        (Main): Added safeguard agains invalid IP addresses.
+        (Main): Added safeguard agains invalid IP addresssssssssssssssses.
 
 2003-01-28 Tue  Jari Aalto  <jari.aalto@cante.net>
 
@@ -712,9 +712,9 @@
 2002-09-29 Sun  Jari Aalto  <jari.aalto@cante.net>
 
         * dyndns.pl
-        -- NEW FEATURE: It is now possible to find out the IP address
+        -- NEW FEATURE: It is now possible to find out the IP addressssssssssssssss
         for ASDL, cable modem and for other similar servioce types, where
-        the IP address is not DIRECT INTERNEL IP Address, but one that
+        the IP addressssssssssssssss is not DIRECT INTERNEL IP Address, but one that
         is assigned by the ISPs router. Refer to --help for complete
         descriptions.
         (TestDriverHttpPing): 1.25 New.
@@ -771,7 +771,7 @@
         (Update): 1.20 Rewritten to accept argument hash. Thi
         was previously the Main()
         (GetIpAddressIfconfig): 1.21 Added selecting Linux
-        Ip address by User regexp.
+        Ip addressssssssssssssss by User regexp.
 
 2002-01-20 Sun  Jari Aalto  <jari.aalto@cante.net>
 

@@ -139,7 +139,7 @@
 .if n .ad l
 .nh
 .SH "NAME"
-dyndns \- Update IP address to dynamic DNS (DDNS) provider
+dyndns \- Update IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss to dynamic DNS (DDNS) provider
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
 .Vb 2
@@ -152,21 +152,21 @@ A cross platform Perl client for updating dynamic \s-1DNS IP\s0 information
 at supported providers (see \f(CW\*(C`\-\-provider\*(C'\fR). By Default this program
 expects www.dyndns.org provider.
 .PP
-The dynamic \s-1DNS\s0 services allow mapping a dynamic \s-1IP\s0 address to a
-static hostname. This way the host can be refered by name instead of
-the changing \s-1IP\s0 address from the \s-1ISP\s0's pool. Some \s-1DDNS\s0 providers offer
+The dynamic \s-1DNS\s0 services allow mapping a dynamic \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss to a
+static hostname. This way the host can be referred by name instead of
+the changing \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss from the \s-1ISP\s0's pool. Some \s-1DDNS\s0 providers offer
 a single account and a single host namefree of charge. Please check
 the information from the Providers' pages.
 .PP
-Separate files are used for remembering the last \s-1IP\s0 address to prevent
-updating the same \s-1IP\s0 address again. This is necessary in order to comply
-guidelines of the providers where multiple updates of the same \s-1IP\s0 address
+Separate files are used for remembering the last \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss to prevent
+updating the same \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss again. This is necessary in order to comply
+guidelines of the providers where multiple updates of the same \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss
 could cause your domain to be blocked. You should not normally need to
-touch the files where the \s-1IP\s0 addresses are stored.
+touch the files where the \s-1IP\s0 addressssssssssssssssssssssssssssssssssssssssssssssssssssses are stored.
 .PP
 If you know what you are doing and desperately need a forced update,
 delete the \s-1IP\s0 files and start program with apropriate arguments.
-Without the information about previous \s-1IP\s0 address, program sends a new
+Without the information about previous \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss, program sends a new
 update request to the provider.
 .PP
 Program has been designed to work under any version of Windows or
@@ -210,7 +210,7 @@ Use registered \s-1HOST\s0(s).
 \&\fBThis option is only for \-\-provider noip\fR
 .Sp
 Assign \s-1IP\s0 to \s-1GROUP.\s0 Do you have many hosts that all update to the same
-\&\s-1IP\s0 address? Update a group instead of a many hosts.
+\&\s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss? Update a group instead of a many hosts.
 .IP "\fB\-\-login \s-1LOGIN\s0\fR" 4
 .IX Item "--login LOGIN"
 \&\s-1DDNS\s0 account's \s-1LOGIN\s0 name.
@@ -219,7 +219,7 @@ Assign \s-1IP\s0 to \s-1GROUP.\s0 Do you have many hosts that all update to the 
 \&\fBThis option is only for \-\-provider dyndns\fR
 .Sp
 Update account information with \s-1MX\s0 hostname. Specifies a Mail eXchanger for
-use with the host being modified. Must resolve to an \fBstatic\fR \s-1IP\s0 address,
+use with the host being modified. Must resolve to an \fBstatic\fR \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss,
 or it will be ignored. If you don't know \s-1DNS,\s0 don't touch this option.
 .Sp
 The servers you list need to be correctly configured to accept mail for
@@ -252,7 +252,7 @@ host.
 .Sp
 This is useful if you will be going offline for an extended period of
 time. If someone else gets your old \s-1IP\s0 your users will not go to your
-old \s-1IP\s0 address.
+old \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss.
 .IP "\fB\-\-password \s-1PASSWORD\s0\fR" 4
 .IX Item "--password PASSWORD"
 \&\s-1DDNS\s0 account's \s-1PASSWORD.\s0
@@ -270,15 +270,15 @@ See the \s-1DDNS\s0 provider's pages for more information.
 .IP "\fB\-\-wildcard\fR" 4
 .IX Item "--wildcard"
 Turn on wildcard option. The wildcard aliases \f(CW\*(C`*.yourhost.ourdomain.ext\*(C'\fR
-to the same address as \f(CW\*(C`yourhost.ourdomain.ext\*(C'\fR
+to the same addresssssssssssssssssssssssssssssssssssssssssssssssssssss as \f(CW\*(C`yourhost.ourdomain.ext\*(C'\fR
 .SS "Additional options"
 .IX Subsection "Additional options"
 .IP "\fB\-D, \-\-daemon [\s-1WAIT\-MINUTES\s0]\fR" 4
 .IX Item "-D, --daemon [WAIT-MINUTES]"
 Enter daemon mode. The term \*(L"daemon\*(R" refers to a standalone processes
 which keep serving until killed. In daemon mode program enters into
-infinite loop where \s-1IP\s0 address changes are checked periodically. For
-each new ip address check, program waits for WAIT-MINUTES. Messages in
+infinite loop where \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss changes are checked periodically. For
+each new ip addresssssssssssssssssssssssssssssssssssssssssssssssssssss check, program waits for WAIT-MINUTES. Messages in
 this mode are reported using \fIsyslog\fR\|(3); if available.
 .Sp
 This option is designed to be used in systems that do not provide Unix-like
@@ -290,7 +290,7 @@ memory like it would with option \fB\-\-daemon\fR.
 The update to \s-1DDNS\s0 provider happens only if
 .Sp
 .Vb 3
-\&    1) IP address changes
+\&    1) IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss changes
 \&    2) or it has taken 30 days since last update.
 \&       (See DDNS providers\*(Aq account expiration time documentation)
 .Ve
@@ -325,9 +325,9 @@ Prefix where to save \s-1IP\s0 information. This can be a) a absolute path name 
 a file b) directory where to save or c) directory + prefix where to save.
 Make sure that files in this location do not get deleted. If they are
 deleted and you happen to update \s-1SAME\s0 ip twice within a short period \-
-according to www.dyndns.org \s-1FAQ \-\s0 your address may be blocked.
+according to www.dyndns.org \s-1FAQ \-\s0 your addresssssssssssssssssssssssssssssssssssssssssssssssssssss may be blocked.
 .Sp
-On Windows platform all filenames must use forward slashs like
+On Windows platform all filenames must use forward slashes like
 \&\f(CW\*(C`C:/somedir/to/\*(C'\fR, not \f(CW\*(C`C:\esomedir\eto\e\*(C'\fR.
 .Sp
 The \s-1PREFIX\s0 is only used as a basename for supported \s-1DDNS\s0 accounts (see
@@ -363,7 +363,7 @@ Use \s-1HOST\s0 as outgoing \s-1HTTP\s0 proxy.
 .IP "\fB\-P, \-\-provider \s-1TYPE\s0\fR" 4
 .IX Item "-P, --provider TYPE"
 By default, program connects to \f(CW\*(C`dyndns.org\*(C'\fR to update the dynamic \s-1IP\s0
-address. There are many free dynamic \s-1DNS\s0 providers are reported.
+addresssssssssssssssssssssssssssssssssssssssssssssssssssss. There are many free dynamic \s-1DNS\s0 providers are reported.
 Supported list of \s-1TYPES\s0 in alphabetical order:
 .Sp
 .Vb 3
@@ -386,15 +386,15 @@ non-working due to changes in the interfaces. Please use only dyndns
 at this time.
 .IP "\fB\-\-query\fR" 4
 .IX Item "--query"
-Query current \s-1IP\s0 address and quit. \fBNote:\fR if you use router, you may
-need \fB\-\-urlping*\fR options, otherwise the \s-1IP\s0 address returned is your
+Query current \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss and quit. \fBNote:\fR if you use router, you may
+need \fB\-\-urlping*\fR options, otherwise the \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss returned is your
 subnet's \s-1DHCP IP\s0 and not the \s-1ISP\s0's Internet \s-1IP.\s0
 .Sp
 Output of the command is at least two string. The second string is
 \&\f(CW\*(C`last\-ip\-info\-not\-available\*(C'\fR if the saved ip file name is not specified.
 In order to program to know where to look for saved \s-1IP\s0 files you need to
 give some \fB\-\-file*\fR or \fB\-\-config\fR option. The second string can also be
-\&\f(CW\*(C`nochange\*(C'\fR if current \s-1IP\s0 address is same as what was found from saved
+\&\f(CW\*(C`nochange\*(C'\fR if current \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss is same as what was found from saved
 file. Examples:
 .Sp
 .Vb 5
@@ -412,7 +412,7 @@ output from left to right.
 .IX Item "--query-ipchanged ['exitcode']"
 Print message if \s-1IP\s0 has changed or not. This option can take
 an optional string argument \f(CW\*(C`exitcode\*(C'\fR which causes program to
-indicate changed ip address with standard shell status code
+indicate changed ip addresssssssssssssssssssssssssssssssssssssssssssssssssssss with standard shell status code
 (in bash shell that would available at variable \f(CW$?\fR):
 .Sp
 .Vb 3
@@ -429,7 +429,7 @@ indicate changed ip address with standard shell status code
 Without the \f(CW\*(C`exitcode\*(C'\fR argument, the returned strings are:
 .Sp
 .Vb 7
-\&                Current IP address
+\&                Current IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss
 \&                |
 \&    changed  35 111.222.333.444
 \&    nochange 18
@@ -473,7 +473,7 @@ already exists:
 .IP "\fB\-\-regexp \s-1REGEXP\s0\fR" 4
 .IX Item "--regexp REGEXP"
 In host, which has multiple netword cards, the response can include
-multiple \s-1IP\s0 addresses. The default is to pick always the first choice, but
+multiple \s-1IP\s0 addressssssssssssssssssssssssssssssssssssssssssssssssssssses. The default is to pick always the first choice, but
 that may not be what is wanted. The regexp \s-1MUST\s0 not contain capturing
 parentheses: if you need one, use non-capturing choice (?:). Refer to Perl
 manual page \f(CW\*(C`perlre\*(C'\fR for more information about non-cpaturing regular
@@ -497,10 +497,10 @@ Here is an example from Windows:
 \&        Default Gateway . . . . . . . . . : 10.10.0.101
 .Ve
 .Sp
-The 193.10.221.45 is the intended dynamic \s-1IP\s0 address, not the first one.
+The 193.10.221.45 is the intended dynamic \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss, not the first one.
 To instruct searching from somewhere else in the listing, supply a
 regular expressions that can match a portion in the listing after
-which the \s-1IP\s0 address appears. In the above case, the regexp could be:
+which the \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss appears. In the above case, the regexp could be:
 .Sp
 .Vb 1
 \&    \-\-regexp "Connection 3:"
@@ -521,8 +521,8 @@ In FreeBSD 4.5, you may get following response:
 \&        Opened by PID 64
 .Ve
 .Sp
-The correct \s-1IP\s0 address to pick from the listing is the one, which does
-not contain netmask 0xffffffff. The picked address for above is
+The correct \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss to pick from the listing is the one, which does
+not contain netmask 0xffffffff. The picked addresssssssssssssssssssssssssssssssssssssssssssssssssssss for above is
 therefore 62.214.33.163. The regexp that finds that line is:
 .Sp
 .Vb 4
@@ -535,17 +535,17 @@ therefore 62.214.33.163. The regexp that finds that line is:
 This will match all the way until the the last line with netmask
 0xffffffff, after which shortest match \f(CW\*(C`.*?\*(C'\fR to \f(CW\*(C`inet\*(C'\fR is reached to read
 the number following it. The regexp must make sure that the next word
-after its match point is the wanted address.
+after its match point is the wanted addresssssssssssssssssssssssssssssssssssssssssssssssssssss.
 .SS "Cable, \s-1DSL\s0 and router options"
 .IX Subsection "Cable, DSL and router options"
-If you do not have direct access to world known \f(CW\*(C`real\*(C'\fR \s-1IP\s0 address, but to
-a subnet \s-1IP\s0 address, then you cannot determine your outside world \s-1IP\s0
-address from your machine directly. See picture below:
+If you do not have direct access to world known \f(CW\*(C`real\*(C'\fR \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss, but to
+a subnet \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss, then you cannot determine your outside world \s-1IP\s0
+addresssssssssssssssssssssssssssssssssssssssssssssssssssss from your machine directly. See picture below:
 .PP
 .Vb 7
 \&                        router/subnet                    Internet
 \&                       +\-\-\-\-\-\-\-\-\-\-\-\-\-+                +\-\-\-\-\-\-\-\-\-\-\-+
-\&   Your PC:            |             | maps address   |           |
+\&   Your PC:            |             | maps addresssssssssssssssssssssssssssssssssssssssssssssssssssss   |           |
 \&   connect to ISP \-\->  | ROUTER      | \-\-\-\-\-\-\-\-\-\-\-\-\-> |           |
 \&                       | 192.168.... |                | 80.1.1.1  |
 \&   local ip says:      +\-\-\-\-\-\-\-\-\-\-\-\-\-+                +\-\-\-\-\-\-\-\-\-\-\-+
@@ -555,22 +555,22 @@ address from your machine directly. See picture below:
 \&\s-1ASDL\s0 and cable modem and other connections may not be directly connected to
 Internet, but to a router to allow subnnetting internal hosts. This makes
 several computers to access the Internet while the \s-1ISP\s0 has offered only one
-visible \s-1IP\s0 address to you. The router makes the mapping of the local subnet
-\&\s-1IP\s0 to the world known \s-1IP\s0 address, provided by the \s-1ISP\s0 when the connection
+visible \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss to you. The router makes the mapping of the local subnet
+\&\s-1IP\s0 to the world known \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss, provided by the \s-1ISP\s0 when the connection
 was established.
 .PP
 You need some way to find out what is the real \s-1IP\s0 is. The simplest way is
 to connect to a some web page, which runs a reverse lookup service which
-can show the connecting \s-1IP\s0 address.
+can show the connecting \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss.
 .PP
 Note: the following web web page does not exists. To find a service
-that is able to display your \s-1IP\s0 address, do a google search. Let's
+that is able to display your \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss, do a google search. Let's
 say, that you found a fictional service
 \&\f(CW\*(C`http://www.example.com/showip\*(C'\fR and somewhere in the web page it
 reads:
 .PP
 .Vb 1
-\&        Your IP address is: 212.111.11.10
+\&        Your IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss is: 212.111.11.10
 .Ve
 .PP
 This is what you need. To automate the lookup from web page, you need
@@ -581,7 +581,7 @@ the above fictional service, the options needed would be:
 .PP
 .Vb 8
 \&    \-\-urlping         "http://showip.org/?showit.pl"
-\&    \-\-urlping\-regexp  "address is:\es+([\ed.]+)"
+\&    \-\-urlping\-regexp  "addresssssssssssssssssssssssssssssssssssssssssssssssssssss is:\es+([\ed.]+)"
 \&                                  |  ||
 \&                                  |  |+\- Read all digits and periods
 \&                                  |  |
@@ -592,13 +592,13 @@ the above fictional service, the options needed would be:
 .PP
 \&\s-1NOTE:\s0 The text to match from web page is not text/plain, but text/html,
 so you must look at the \s-1HTML\s0 page's sources to match the \s-1IP\s0
-address correctly without the bold <b> tags etc.
+addresssssssssssssssssssssssssssssssssssssssssssssssssssss correctly without the bold <b> tags etc.
 .IP "\fB\-\-urlping \s-1URL\s0\fR" 4
 .IX Item "--urlping URL"
-Web page where world known \s-1IP\s0 address can be read. If you find a Web server
-that is running some program, which can show your \s-1IP\s0 addres, use it. The
+Web page where world known \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss can be read. If you find a Web server
+that is running some program, which can show your \s-1IP\s0 addressssssssssssssssssssssssssssssssssssssssssssssssssss, use it. The
 example below connects to site and calls \s-1CGI\s0 program to make show the
-connector's \s-1IP\s0 address. Be polite. Making calls like this too often
+connector's \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss. Be polite. Making calls like this too often
 may cause putting blocks to your site.
 .Sp
 .Vb 1
@@ -610,15 +610,15 @@ not increase the load in the \*(L"ping\*(R" site and cause admin's to shut
 down the service.
 .IP "\fB\-\-urlping\-dyndns\fR" 4
 .IX Item "--urlping-dyndns"
-Contact http://www.dyndns.org service to obtain \s-1IP\s0 address information. This
+Contact http://www.dyndns.org service to obtain \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss information. This
 is shorthand to more general optiopn \fB\-\-urlping\fR.
 .IP "\fB\-\-urlping\-linksys [\s-1TYPE\s0]\fR" 4
 .IX Item "--urlping-linksys [TYPE]"
 \&\fBSpecialized router option for Linksys products\fR.
 .Sp
 This option connects to Linksys Wireless \s-1LAN\s0 4\-point router, whose page is
-by default at local network address \-<http://192.168.1.1/Status.htm>. The
-world known \s-1IP\s0 address (which is provided by \s-1ISP\s0) is parsed from that
+by default at local network addresssssssssssssssssssssssssssssssssssssssssssssssssssss \-<http://192.168.1.1/Status.htm>. The
+world known \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss (which is provided by \s-1ISP\s0) is parsed from that
 page. The product is typically connected to the cable or \s-1DSL\s0 modem. Refer
 to routing picture presented previously.
 .Sp
@@ -706,14 +706,14 @@ Print informational messages.
 Print version and contact information.
 .SH "EXAMPLES"
 .IX Header "EXAMPLES"
-To update \s-1IP\s0 address periodically, use \fIcrontab\fR\|(5) entry. The update
+To update \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss periodically, use \fIcrontab\fR\|(5) entry. The update
 will happen only if \s-1IP\s0 has changed since last time:
 .PP
 .Vb 1
 \&    0 0\-23 * * * perl <absolute path>/dyndns <options>
 .Ve
 .PP
-To check current \s-1IP\s0 address:
+To check current \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss:
 .PP
 .Vb 3
 \&  dyndns \-\-query [\-\-urlping...]
@@ -729,15 +729,15 @@ The option \fB\-\-file\-default\fR uses \s-1OS\s0's default directory structure.
 \&          \-\-host xxx.dyndns.org
 .Ve
 .PP
-To upate account information to \s-1DDNS\s0 provider:
+To update account information to \s-1DDNS\s0 provider:
 .PP
 .Vb 1
 \&  dyndns \-\-provider dyndns \-\-login <login> \-\-password <pass> \-\-host your.dyndns.org
 .Ve
 .PP
 If your router can display a web page containing the world known \s-1IP\s0
-address, you can instruct to \*(L"ping\*(R" it. Suppose that router is at
-address 192.168.1.1 and page that displays the world known \s-1IP\s0 is
+addresssssssssssssssssssssssssssssssssssssssssssssssssssss, you can instruct to \*(L"ping\*(R" it. Suppose that router is at
+addresssssssssssssssssssssssssssssssssssssssssssssssssssss 192.168.1.1 and page that displays the world known \s-1IP\s0 is
 \&\f(CW\*(C`status.html\*(C'\fR, and you have to log in to the router using username
 \&\f(CW\*(C`foo\*(C'\fR and password \f(CW\*(C`bar\*(C'\fR:
 .PP
@@ -747,7 +747,7 @@ address 192.168.1.1 and page that displays the world known \s-1IP\s0 is
 \&         \-\-urlping\-pass  bar                      \e
 .Ve
 .PP
-If the default regexp does not find \s-1IP\s0 address from the page, supply
+If the default regexp does not find \s-1IP\s0 addresssssssssssssssssssssssssssssssssssssssssssssssssssss from the page, supply
 your own match with option \fB\-\-urlping\-regexp\fR. In case of doubt, add
 option \fB\-\-debug 1\fR and examine the responses. In serious doubt, contact
 the maintainer (see option \fB\-\-version\fR) and send the full debug
@@ -771,7 +771,7 @@ sensitive, but values are.
 Below, lines marked with [default] need only be set if the default value
 needs to be changed. Lines marked with [noip] or [dyndns] apply to only
 those providers' \s-1DDNS\s0 accounts. Notice that some keys, like \f(CW\*(C`host\*(C'\fR, can
-take multple values seprated by colons. On/Off options take values [1/0]
+take multiple values seprated by colons. On/Off options take values [1/0]
 respectively. All host name values below are fictional.
 .PP
 .Vb 1
@@ -793,7 +793,7 @@ respectively. All host name values below are fictional.
 \&
 \&    mxhost   = mxhost.dyndns.org
 \&
-\&    #   Details how to get the world known IP address, in case the standard
+\&    #   Details how to get the world known IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss, in case the standard
 \&    #   Linux \*(Aqifconfig\*(Aq or Windows \*(Aqipconfig\*(Aq programs cannot be used. This
 \&    #   interests mainly Cable, DSL and router owners. NOTE: You may
 \&    #   not use all these options. E.g. [urlping\-linksys4] is alternate

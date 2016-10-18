@@ -17,9 +17,9 @@
 
    Perl client for updating a dynamic DNS IP information at supported
    providers (e.g. [5]www.dyndns.org, [6]www.no-ip.com). The dynamic DNS
-   service allows mapping a dynamic IP address to a static hostname. This
+   service allows mapping a dynamic IP addressss to a static hostname. This
    way the computer can be referred by name instead of ever changing IP
-   address from ISP's pool.
+   addressss from ISP's pool.
 
    In short, call the program at regular intervals (say every 6 hours):
   dyndns.pl --Provider dyndns --login LOGIN --pass PASSWORD --Host yourhost.dynd
