@@ -1,5 +1,7 @@
 NAME
-    dyndns - Update IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss to dynamic DNS (DDNS) provider
+    dyndns - Update IP
+    addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+    sssssssssssssssssssssssssssssssssssssssss to dynamic DNS (DDNS) provider
 
 SYNOPSIS
         dyndns --login LOGIN --password PASSWORD \
@@ -10,21 +12,34 @@ DESCRIPTION
     supported providers (see "--provider"). By Default this program expects
     www.dyndns.org provider.
 
-    The dynamic DNS services allow mapping a dynamic IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss to a static
-    hostname. This way the host can be referred by name instead of the
-    changing IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss from the ISP's pool. Some DDNS providers offer a
-    single account and a single host namefree of charge. Please check the
-    information from the Providers' pages.
+    The dynamic DNS services allow mapping a dynamic IP
+    addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+    sssssssssssssssssssssssssssssssssssssssss to a static hostname. This way
+    the host can be referred by name instead of the changing IP
+    addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+    sssssssssssssssssssssssssssssssssssssssss from the ISP's pool. Some DDNS
+    providers offer a single account and a single host namefree of charge.
+    Please check the information from the Providers' pages.
 
-    Separate files are used for remembering the last IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss to prevent
-    updating the same IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss again. This is necessary in order to comply
-    guidelines of the providers where multiple updates of the same IP
-    addresssssssssssssssssssssssssssssssssssssssssssssssssssss could cause your domain to be blocked. You should not normally
-    need to touch the files where the IP addressssssssssssssssssssssssssssssssssssssssssssssssssssses are stored.
+    Separate files are used for remembering the last IP
+    addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+    sssssssssssssssssssssssssssssssssssssssss to prevent updating the same
+    IP
+    addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+    sssssssssssssssssssssssssssssssssssssssss again. This is necessary in
+    order to comply guidelines of the providers where multiple updates of
+    the same IP
+    addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+    sssssssssssssssssssssssssssssssssssssssss could cause your domain to be
+    blocked. You should not normally need to touch the files where the IP
+    addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+    ssssssssssssssssssssssssssssssssssssssssses are stored.
 
     If you know what you are doing and desperately need a forced update,
     delete the IP files and start program with apropriate arguments. Without
-    the information about previous IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss, program sends a new update
+    the information about previous IP
+    addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+    sssssssssssssssssssssssssssssssssssssssss, program sends a new update
     request to the provider.
 
     Program has been designed to work under any version of Windows or Linux,
@@ -65,7 +80,10 @@ OPTIONS
         This option is only for --provider noip
 
         Assign IP to GROUP. Do you have many hosts that all update to the
-        same IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss? Update a group instead of a many hosts.
+        same IP
+        addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        sssssssssssssssssssssssssssssssssssssssssssss? Update a group
+        instead of a many hosts.
 
     --login LOGIN
         DDNS account's LOGIN name.
@@ -75,8 +93,10 @@ OPTIONS
 
         Update account information with MX hostname. Specifies a Mail
         eXchanger for use with the host being modified. Must resolve to an
-        static IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss, or it will be ignored. If you don't know DNS,
-        don't touch this option.
+        static IP
+        addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        sssssssssssssssssssssssssssssssssssssssssssss, or it will be
+        ignored. If you don't know DNS, don't touch this option.
 
         The servers you list need to be correctly configured to accept mail
         for your hostname, or this will do no good. Setting up a server as
@@ -109,7 +129,9 @@ OPTIONS
 
         This is useful if you will be going offline for an extended period
         of time. If someone else gets your old IP your users will not go to
-        your old IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss.
+        your old IP
+        addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        sssssssssssssssssssssssssssssssssssssssssssss.
 
     --password PASSWORD
         DDNS account's PASSWORD.
@@ -127,17 +149,23 @@ OPTIONS
 
     --wildcard
         Turn on wildcard option. The wildcard aliases
-        "*.yourhost.ourdomain.ext" to the same addresssssssssssssssssssssssssssssssssssssssssssssssssssss as
+        "*.yourhost.ourdomain.ext" to the same
+        addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        sssssssssssssssssssssssssssssssssssssssssssss as
         "yourhost.ourdomain.ext"
 
   Additional options
     -D, --daemon [WAIT-MINUTES]
         Enter daemon mode. The term "daemon" refers to a standalone
         processes which keep serving until killed. In daemon mode program
-        enters into infinite loop where IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss changes are checked
-        periodically. For each new ip addresssssssssssssssssssssssssssssssssssssssssssssssssssss check, program waits for
-        WAIT-MINUTES. Messages in this mode are reported using syslog(3); if
-        available.
+        enters into infinite loop where IP
+        addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        sssssssssssssssssssssssssssssssssssssssssssss changes are checked
+        periodically. For each new ip
+        addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        sssssssssssssssssssssssssssssssssssssssssssss check, program waits
+        for WAIT-MINUTES. Messages in this mode are reported using
+        syslog(3); if available.
 
         This option is designed to be used in systems that do not provide
         Unix-like cron capabilities (e.g under Windows OS). It is better to
@@ -147,7 +175,7 @@ OPTIONS
 
         The update to DDNS provider happens only if
 
-            1) IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss changes
+            1) IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss changes
             2) or it has taken 30 days since last update.
                (See DDNS providers' account expiration time documentation)
 
@@ -181,7 +209,8 @@ OPTIONS
         where to save. Make sure that files in this location do not get
         deleted. If they are deleted and you happen to update SAME ip twice
         within a short period - according to www.dyndns.org FAQ - your
-        addresssssssssssssssssssssssssssssssssssssssssssssssssssss may be blocked.
+        addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        sssssssssssssssssssssssssssssssssssssssssssss may be blocked.
 
         On Windows platform all filenames must use forward slashes like
         "C:/somedir/to/", not "C:\somedir\to\".
@@ -213,8 +242,11 @@ OPTIONS
 
     -P, --provider TYPE
         By default, program connects to "dyndns.org" to update the dynamic
-        IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss. There are many free dynamic DNS providers are reported.
-        Supported list of TYPES in alphabetical order:
+        IP
+        addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        sssssssssssssssssssssssssssssssssssssssssssss. There are many free
+        dynamic DNS providers are reported. Supported list of TYPES in
+        alphabetical order:
 
             hnorg       No domain name limists
                         Basic DDNS service is free (as of 2003-10-02)
@@ -234,16 +266,22 @@ OPTIONS
         at this time.
 
     --query
-        Query current IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss and quit. Note: if you use router, you may
-        need --urlping* options, otherwise the IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss returned is your
+        Query current IP
+        addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        sssssssssssssssssssssssssssssssssssssssssssss and quit. Note: if you
+        use router, you may need --urlping* options, otherwise the IP
+        addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        sssssssssssssssssssssssssssssssssssssssssssss returned is your
         subnet's DHCP IP and not the ISP's Internet IP.
 
         Output of the command is at least two string. The second string is
         "last-ip-info-not-available" if the saved ip file name is not
         specified. In order to program to know where to look for saved IP
         files you need to give some --file* or --config option. The second
-        string can also be "nochange" if current IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss is same as what
-        was found from saved file. Examples:
+        string can also be "nochange" if current IP
+        addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        sssssssssssssssssssssssssssssssssssssssssssss is same as what was
+        found from saved file. Examples:
 
             100.197.1.6 last-ip-info-not-available
             100.197.1.6 100.197.1.7
@@ -258,8 +296,10 @@ OPTIONS
     --query-ipchanged ['exitcode']
         Print message if IP has changed or not. This option can take an
         optional string argument "exitcode" which causes program to indicate
-        changed ip addresssssssssssssssssssssssssssssssssssssssssssssssssssss with standard shell status code (in bash shell
-        that would available at variable $?):
+        changed ip
+        addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        sssssssssssssssssssssssssssssssssssssssssssss with standard shell
+        status code (in bash shell that would available at variable $?):
 
             $ dyndns --query-ipchange exitcode --file-default \
               --provider dyndns --host xxx.dyndns.org
@@ -272,7 +312,7 @@ OPTIONS
 
         Without the "exitcode" argument, the returned strings are:
 
-                        Current IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss
+                        Current IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
                         |
             changed  35 111.222.333.444
             nochange 18
@@ -311,11 +351,14 @@ OPTIONS
 
     --regexp REGEXP
         In host, which has multiple netword cards, the response can include
-        multiple IP addressssssssssssssssssssssssssssssssssssssssssssssssssssses. The default is to pick always the first
-        choice, but that may not be what is wanted. The regexp MUST not
-        contain capturing parentheses: if you need one, use non-capturing
-        choice (?:). Refer to Perl manual page "perlre" for more information
-        about non-cpaturing regular expression parentheses.
+        multiple IP
+        addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        ssssssssssssssssssssssssssssssssssssssssssssses. The default is to
+        pick always the first choice, but that may not be what is wanted.
+        The regexp MUST not contain capturing parentheses: if you need one,
+        use non-capturing choice (?:). Refer to Perl manual page "perlre"
+        for more information about non-cpaturing regular expression
+        parentheses.
 
         Here is an example from Windows:
 
@@ -333,11 +376,15 @@ OPTIONS
                 Subnet Mask . . . . . . . . . . . : 255.255.0.0
                 Default Gateway . . . . . . . . . : 10.10.0.101
 
-        The 193.10.221.45 is the intended dynamic IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss, not the first
-        one. To instruct searching from somewhere else in the listing,
-        supply a regular expressions that can match a portion in the listing
-        after which the IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss appears. In the above case, the regexp
-        could be:
+        The 193.10.221.45 is the intended dynamic IP
+        addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        sssssssssssssssssssssssssssssssssssssssssssss, not the first one. To
+        instruct searching from somewhere else in the listing, supply a
+        regular expressions that can match a portion in the listing after
+        which the IP
+        addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        sssssssssssssssssssssssssssssssssssssssssssss appears. In the above
+        case, the regexp could be:
 
             --regexp "Connection 3:"
 
@@ -354,9 +401,14 @@ OPTIONS
                 inet 62.214.33.163 --> 62.214.32.1 netmask 0xff000000
                 Opened by PID 64
 
-        The correct IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss to pick from the listing is the one, which
-        does not contain netmask 0xffffffff. The picked addresssssssssssssssssssssssssssssssssssssssssssssssssssss for above is
-        therefore 62.214.33.163. The regexp that finds that line is:
+        The correct IP
+        addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        sssssssssssssssssssssssssssssssssssssssssssss to pick from the
+        listing is the one, which does not contain netmask 0xffffffff. The
+        picked
+        addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        sssssssssssssssssssssssssssssssssssssssssssss for above is therefore
+        62.214.33.163. The regexp that finds that line is:
 
             --regexp ".*0xffffffff.*?inet"
                        |            |
@@ -366,16 +418,24 @@ OPTIONS
         This will match all the way until the the last line with netmask
         0xffffffff, after which shortest match ".*?" to "inet" is reached to
         read the number following it. The regexp must make sure that the
-        next word after its match point is the wanted addresssssssssssssssssssssssssssssssssssssssssssssssssssss.
+        next word after its match point is the wanted
+        addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        sssssssssssssssssssssssssssssssssssssssssssss.
 
   Cable, DSL and router options
-    If you do not have direct access to world known "real" IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss, but
-    to a subnet IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss, then you cannot determine your outside world IP
-    addresssssssssssssssssssssssssssssssssssssssssssssssssssss from your machine directly. See picture below:
+    If you do not have direct access to world known "real" IP
+    addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+    sssssssssssssssssssssssssssssssssssssssss, but to a subnet IP
+    addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+    sssssssssssssssssssssssssssssssssssssssss, then you cannot determine
+    your outside world IP
+    addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+    sssssssssssssssssssssssssssssssssssssssss from your machine directly.
+    See picture below:
 
                             router/subnet                    Internet
                            +-------------+                +-----------+
-       Your PC:            |             | maps addresssssssssssssssssssssssssssssssssssssssssssssssssssss   |           |
+       Your PC:            |             | maps addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss   |           |
        connect to ISP -->  | ROUTER      | -------------> |           |
                            | 192.168.... |                | 80.1.1.1  |
        local ip says:      +-------------+                +-----------+
@@ -384,20 +444,28 @@ OPTIONS
     ASDL and cable modem and other connections may not be directly connected
     to Internet, but to a router to allow subnnetting internal hosts. This
     makes several computers to access the Internet while the ISP has offered
-    only one visible IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss to you. The router makes the mapping of the
-    local subnet IP to the world known IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss, provided by the ISP when
-    the connection was established.
+    only one visible IP
+    addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+    sssssssssssssssssssssssssssssssssssssssss to you. The router makes the
+    mapping of the local subnet IP to the world known IP
+    addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+    sssssssssssssssssssssssssssssssssssssssss, provided by the ISP when the
+    connection was established.
 
     You need some way to find out what is the real IP is. The simplest way
     is to connect to a some web page, which runs a reverse lookup service
-    which can show the connecting IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss.
+    which can show the connecting IP
+    addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+    sssssssssssssssssssssssssssssssssssssssss.
 
     Note: the following web web page does not exists. To find a service that
-    is able to display your IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss, do a google search. Let's say, that
-    you found a fictional service "http://www.example.com/showip" and
-    somewhere in the web page it reads:
+    is able to display your IP
+    addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+    sssssssssssssssssssssssssssssssssssssssss, do a google search. Let's
+    say, that you found a fictional service "http://www.example.com/showip"
+    and somewhere in the web page it reads:
 
-            Your IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss is: 212.111.11.10
+            Your IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss is: 212.111.11.10
 
     This is what you need. To automate the lookup from web page, you need to
     instruct the program to connect to URL page and tell how to read the ip
@@ -406,7 +474,7 @@ OPTIONS
     above fictional service, the options needed would be:
 
         --urlping         "http://showip.org/?showit.pl"
-        --urlping-regexp  "addresssssssssssssssssssssssssssssssssssssssssssssssssssss is:\s+([\d.]+)"
+        --urlping-regexp  "addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss is:\s+([\d.]+)"
                                       |  ||
                                       |  |+- Read all digits and periods
                                       |  |
@@ -415,15 +483,24 @@ OPTIONS
                                       +- expect any number of whitespaces
 
     NOTE: The text to match from web page is not text/plain, but text/html,
-    so you must look at the HTML page's sources to match the IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss
-    correctly without the bold <b> tags etc.
+    so you must look at the HTML page's sources to match the IP
+    addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+    sssssssssssssssssssssssssssssssssssssssss correctly without the bold <b>
+    tags etc.
 
     --urlping URL
-        Web page where world known IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss can be read. If you find a Web
-        server that is running some program, which can show your IP addressssssssssssssssssssssssssssssssssssssssssssssssssss,
-        use it. The example below connects to site and calls CGI program to
-        make show the connector's IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss. Be polite. Making calls like
-        this too often may cause putting blocks to your site.
+        Web page where world known IP
+        addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        sssssssssssssssssssssssssssssssssssssssssssss can be read. If you
+        find a Web server that is running some program, which can show your
+        IP
+        addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        ssssssssssssssssssssssssssssssssssssssssssss, use it. The example
+        below connects to site and calls CGI program to make show the
+        connector's IP
+        addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        sssssssssssssssssssssssssssssssssssssssssssss. Be polite. Making
+        calls like this too often may cause putting blocks to your site.
 
             http://www.dyndns.org/cgi-bin/check_ip.cgi
 
@@ -432,18 +509,24 @@ OPTIONS
         down the service.
 
     --urlping-dyndns
-        Contact http://www.dyndns.org service to obtain IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss
-        information. This is shorthand to more general optiopn --urlping.
+        Contact http://www.dyndns.org service to obtain IP
+        addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        sssssssssssssssssssssssssssssssssssssssssssss information. This is
+        shorthand to more general optiopn --urlping.
 
     --urlping-linksys [TYPE]
         Specialized router option for Linksys products.
 
         This option connects to Linksys Wireless LAN 4-point router, whose
-        page is by default at local network addresssssssssssssssssssssssssssssssssssssssssssssssssssss
-        -<http://192.168.1.1/Status.htm>. The world known IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss (which
-        is provided by ISP) is parsed from that page. The product is
-        typically connected to the cable or DSL modem. Refer to routing
-        picture presented previously.
+        page is by default at local network
+        addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        sssssssssssssssssssssssssssssssssssssssssssss
+        -<http://192.168.1.1/Status.htm>. The world known IP
+        addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        sssssssssssssssssssssssssssssssssssssssssssss (which is provided by
+        ISP) is parsed from that page. The product is typically connected to
+        the cable or DSL modem. Refer to routing picture presented
+        previously.
 
         If the default login and password has been changed, options
         --urlping-login and --urlping-password must be supplied
@@ -521,12 +604,16 @@ OPTIONS
         Print version and contact information.
 
 EXAMPLES
-    To update IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss periodically, use crontab(5) entry. The update will
-    happen only if IP has changed since last time:
+    To update IP
+    addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+    sssssssssssssssssssssssssssssssssssssssss periodically, use crontab(5)
+    entry. The update will happen only if IP has changed since last time:
 
         0 0-23 * * * perl <absolute path>/dyndns <options>
 
-    To check current IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss:
+    To check current IP
+    addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+    sssssssssssssssssssssssssssssssssssssssss:
 
       dyndns --query [--urlping...]
                      |
@@ -543,19 +630,24 @@ EXAMPLES
       dyndns --provider dyndns --login <login> --password <pass> --host your.dyndns.org
 
     If your router can display a web page containing the world known IP
-    addresssssssssssssssssssssssssssssssssssssssssssssssssssss, you can instruct to "ping" it. Suppose that router is at
-    addresssssssssssssssssssssssssssssssssssssssssssssssssssss 192.168.1.1 and page that displays the world known IP is
-    "status.html", and you have to log in to the router using username "foo"
-    and password "bar":
+    addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+    sssssssssssssssssssssssssssssssssssssssss, you can instruct to "ping"
+    it. Suppose that router is at
+    addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+    sssssssssssssssssssssssssssssssssssssssss 192.168.1.1 and page that
+    displays the world known IP is "status.html", and you have to log in to
+    the router using username "foo" and password "bar":
 
       dyndns --urlping http://192.168.1.1/Status.html \
              --urlping-login foo                      \
              --urlping-pass  bar                      \
 
-    If the default regexp does not find IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss from the page, supply
-    your own match with option --urlping-regexp. In case of doubt, add
-    option --debug 1 and examine the responses. In serious doubt, contact
-    the maintainer (see option --version) and send the full debug output.
+    If the default regexp does not find IP
+    addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+    sssssssssssssssssssssssssssssssssssssssss from the page, supply your own
+    match with option --urlping-regexp. In case of doubt, add option --debug
+    1 and examine the responses. In serious doubt, contact the maintainer
+    (see option --version) and send the full debug output.
 
     Tip: if you run a local web server, provider "www.dyndns.org" can direct
     calls to it. See option "--wildcard" to enable `*.your.dyndns.org'
@@ -575,8 +667,8 @@ CONFIGURATION FILE
     Below, lines marked with [default] need only be set if the default value
     needs to be changed. Lines marked with [noip] or [dyndns] apply to only
     those providers' DDNS accounts. Notice that some keys, like "host", can
-    take multiple values seprated by colons. On/Off options take values [1/0]
-    respectively. All host name values below are fictional.
+    take multiple values seprated by colons. On/Off options take values
+    [1/0] respectively. All host name values below are fictional.
 
         # /etc/dyndns/dyndns.conf
 
@@ -596,7 +688,7 @@ CONFIGURATION FILE
 
         mxhost   = mxhost.dyndns.org
 
-        #   Details how to get the world known IP addresssssssssssssssssssssssssssssssssssssssssssssssssssss, in case the standard
+        #   Details how to get the world known IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss, in case the standard
         #   Linux 'ifconfig' or Windows 'ipconfig' programs cannot be used. This
         #   interests mainly Cable, DSL and router owners. NOTE: You may
         #   not use all these options. E.g. [urlping-linksys4] is alternate
