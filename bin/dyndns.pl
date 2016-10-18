@@ -40,9 +40,9 @@
 #       is listed in http://support.dyndns.org/dyndns/clients/devel/query.shtml
 #       and look like this:
 #
-#       http://username:password@members.dyndns.org/nic/update?system=dyndns&hostname=yourhost.ourdomain.ext,yourhost2.dyndns.org& myip=ipaddressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss&wildcard=OFF&mx=mail.exchanger.ext&backmx=NO&offline=NO
+#       http://username:password@members.dyndns.org/nic/update?system=dyndns&hostname=yourhost.ourdomain.ext,yourhost2.dyndns.org& myip=ipaddress&wildcard=OFF&mx=mail.exchanger.ext&backmx=NO&offline=NO
 #
-#       GET /nic/update?system=statdns&hostname=yourhost.ourdomain.ext,yourhost2.dyndns.org &myip=ipaddressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss&wildcard=OFF&mx=mail.exchanger.ext&backmx=NO&offline=NO HTTP/1.1
+#       GET /nic/update?system=statdns&hostname=yourhost.ourdomain.ext,yourhost2.dyndns.org &myip=ipaddress&wildcard=OFF&mx=mail.exchanger.ext&backmx=NO&offline=NO HTTP/1.1
 #       Host: members.dyndns.org
 #       Authorization: Basic username:pass (note: username:pass must be encoded in base64)
 #       User-Agent: myclient/1.0 me@null.net
@@ -210,7 +210,7 @@ sub Initialize ()
          , 3 => "Bad authorization (password)"
          , 4 => "Bad authorization (user)"
          , 6 => "Acocunt has been banned for violating terms of service"
-         , 7 => "Ip is a private network addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"
+         , 7 => "Ip is a private network address"
          , 8 => "Host or acocunt has been disabled by the provider"
          , 9 => "Cannot update, because it is a web redirect"
         , 10 => "Group does not exist"
@@ -248,7 +248,7 @@ sub Initialize ()
         #   abuse code for more information.
         #
         #   Note that "update complete" messages will be followed by the IP
-        #   addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss updated for confirmation purposes. This value will be
+        #   address updated for confirmation purposes. This value will be
         #   space-separated from the update code.
 
         , "good"        => "Ok, update succeeded."
@@ -401,7 +401,7 @@ sub InitializeModules ()
 
 =head1 NAME
 
-dyndns - Update IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss to dynamic DNS (DDNS) provider
+dyndns - Update IP address to dynamic DNS (DDNS) provider
 
 =head1 SYNOPSIS
 
@@ -414,21 +414,21 @@ A cross platform Perl client for updating dynamic DNS IP information
 at supported providers (see C<--provider>). By Default this program
 expects www.dyndns.org provider.
 
-The dynamic DNS services allow mapping a dynamic IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss to a
+The dynamic DNS services allow mapping a dynamic IP address to a
 static hostname. This way the host can be referred by name instead of
-the changing IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss from the ISP's pool. Some DDNS providers offer
+the changing IP address from the ISP's pool. Some DDNS providers offer
 a single account and a single host namefree of charge. Please check
 the information from the Providers' pages.
 
-Separate files are used for remembering the last IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss to prevent
-updating the same IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss again. This is necessary in order to comply
-guidelines of the providers where multiple updates of the same IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+Separate files are used for remembering the last IP address to prevent
+updating the same IP address again. This is necessary in order to comply
+guidelines of the providers where multiple updates of the same IP address
 could cause your domain to be blocked. You should not normally need to
-touch the files where the IP addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssses are stored.
+touch the files where the IP addresses are stored.
 
 If you know what you are doing and desperately need a forced update,
 delete the IP files and start program with apropriate arguments.
-Without the information about previous IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss, program sends a new
+Without the information about previous IP address, program sends a new
 update request to the provider.
 
 Program has been designed to work under any version of Windows or
@@ -475,7 +475,7 @@ Use registered HOST(s).
 B<This option is only for --provider noip>
 
 Assign IP to GROUP. Do you have many hosts that all update to the same
-IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss? Update a group instead of a many hosts.
+IP address? Update a group instead of a many hosts.
 
 =item B<--login LOGIN>
 
@@ -486,7 +486,7 @@ DDNS account's LOGIN name.
 B<This option is only for --provider dyndns>
 
 Update account information with MX hostname. Specifies a Mail eXchanger for
-use with the host being modified. Must resolve to an B<static> IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss,
+use with the host being modified. Must resolve to an B<static> IP address,
 or it will be ignored. If you don't know DNS, don't touch this option.
 
 The servers you list need to be correctly configured to accept mail for
@@ -521,7 +521,7 @@ host.
 
 This is useful if you will be going offline for an extended period of
 time. If someone else gets your old IP your users will not go to your
-old IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss.
+old IP address.
 
 =item B<--password PASSWORD>
 
@@ -542,7 +542,7 @@ See the DDNS provider's pages for more information.
 =item B<--wildcard>
 
 Turn on wildcard option. The wildcard aliases C<*.yourhost.ourdomain.ext>
-to the same addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss as C<yourhost.ourdomain.ext>
+to the same address as C<yourhost.ourdomain.ext>
 
 =back
 
@@ -554,8 +554,8 @@ to the same addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
 
 Enter daemon mode. The term "daemon" refers to a standalone processes
 which keep serving until killed. In daemon mode program enters into
-infinite loop where IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss changes are checked periodically. For
-each new ip addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss check, program waits for WAIT-MINUTES. Messages in
+infinite loop where IP address changes are checked periodically. For
+each new ip address check, program waits for WAIT-MINUTES. Messages in
 this mode are reported using syslog(3); if available.
 
 This option is designed to be used in systems that do not provide Unix-like
@@ -566,7 +566,7 @@ memory like it would with option B<--daemon>.
 
 The update to DDNS provider happens only if
 
-    1) IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss changes
+    1) IP address changes
     2) or it has taken 30 days since last update.
        (See DDNS providers' account expiration time documentation)
 
@@ -600,7 +600,7 @@ Prefix where to save IP information. This can be a) a absolute path name to
 a file b) directory where to save or c) directory + prefix where to save.
 Make sure that files in this location do not get deleted. If they are
 deleted and you happen to update SAME ip twice within a short period -
-according to www.dyndns.org FAQ - your addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss may be blocked.
+according to www.dyndns.org FAQ - your address may be blocked.
 
 On Windows platform all filenames must use forward slashes like
 C<C:/somedir/to/>, not C<C:\somedir\to\>.
@@ -635,7 +635,7 @@ Use HOST as outgoing HTTP proxy.
 =item B<-P, --provider TYPE>
 
 By default, program connects to C<dyndns.org> to update the dynamic IP
-addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss. There are many free dynamic DNS providers are reported.
+address. There are many free dynamic DNS providers are reported.
 Supported list of TYPES in alphabetical order:
 
     hnorg       No domain name limists
@@ -657,15 +657,15 @@ at this time.
 
 =item B<--query>
 
-Query current IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss and quit. B<Note:> if you use router, you may
-need B<--urlping*> options, otherwise the IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss returned is your
+Query current IP address and quit. B<Note:> if you use router, you may
+need B<--urlping*> options, otherwise the IP address returned is your
 subnet's DHCP IP and not the ISP's Internet IP.
 
 Output of the command is at least two string. The second string is
 C<last-ip-info-not-available> if the saved ip file name is not specified.
 In order to program to know where to look for saved IP files you need to
 give some B<--file*> or B<--config> option. The second string can also be
-C<nochange> if current IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss is same as what was found from saved
+C<nochange> if current IP address is same as what was found from saved
 file. Examples:
 
     100.197.1.6 last-ip-info-not-available
@@ -682,7 +682,7 @@ output from left to right.
 
 Print message if IP has changed or not. This option can take
 an optional string argument C<exitcode> which causes program to
-indicate changed ip addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss with standard shell status code
+indicate changed ip address with standard shell status code
 (in bash shell that would available at variable C<$?>):
 
     $ dyndns --query-ipchange exitcode --file-default \
@@ -696,7 +696,7 @@ indicate changed ip addresssssssssssssssssssssssssssssssssssssssssssssssssssssss
 
 Without the C<exitcode> argument, the returned strings are:
 
-                Current IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+                Current IP address
                 |
     changed  35 111.222.333.444
     nochange 18
@@ -737,7 +737,7 @@ already exists:
 =item B<--regexp REGEXP>
 
 In host, which has multiple netword cards, the response can include
-multiple IP addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssses. The default is to pick always the first choice, but
+multiple IP addresses. The default is to pick always the first choice, but
 that may not be what is wanted. The regexp MUST not contain capturing
 parentheses: if you need one, use non-capturing choice (?:). Refer to Perl
 manual page C<perlre> for more information about non-cpaturing regular
@@ -759,10 +759,10 @@ Here is an example from Windows:
         Subnet Mask . . . . . . . . . . . : 255.255.0.0
         Default Gateway . . . . . . . . . : 10.10.0.101
 
-The 193.10.221.45 is the intended dynamic IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss, not the first one.
+The 193.10.221.45 is the intended dynamic IP address, not the first one.
 To instruct searching from somewhere else in the listing, supply a
 regular expressions that can match a portion in the listing after
-which the IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss appears. In the above case, the regexp could be:
+which the IP address appears. In the above case, the regexp could be:
 
     --regexp "Connection 3:"
 
@@ -779,8 +779,8 @@ In FreeBSD 4.5, you may get following response:
         inet 62.214.33.163 --> 62.214.32.1 netmask 0xff000000
         Opened by PID 64
 
-The correct IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss to pick from the listing is the one, which does
-not contain netmask 0xffffffff. The picked addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss for above is
+The correct IP address to pick from the listing is the one, which does
+not contain netmask 0xffffffff. The picked address for above is
 therefore 62.214.33.163. The regexp that finds that line is:
 
     --regexp ".*0xffffffff.*?inet"
@@ -791,19 +791,19 @@ therefore 62.214.33.163. The regexp that finds that line is:
 This will match all the way until the the last line with netmask
 0xffffffff, after which shortest match C<.*?> to C<inet> is reached to read
 the number following it. The regexp must make sure that the next word
-after its match point is the wanted addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss.
+after its match point is the wanted address.
 
 =back
 
 =head2 Cable, DSL and router options
 
-If you do not have direct access to world known C<real> IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss, but to
-a subnet IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss, then you cannot determine your outside world IP
-addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss from your machine directly. See picture below:
+If you do not have direct access to world known C<real> IP address, but to
+a subnet IP address, then you cannot determine your outside world IP
+address from your machine directly. See picture below:
 
                         router/subnet                    Internet
                        +-------------+                +-----------+
-   Your PC:            |             | maps addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss   |           |
+   Your PC:            |             | maps address   |           |
    connect to ISP -->  | ROUTER      | -------------> |           |
                        | 192.168.... |                | 80.1.1.1  |
    local ip says:      +-------------+                +-----------+
@@ -812,21 +812,21 @@ addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
 ASDL and cable modem and other connections may not be directly connected to
 Internet, but to a router to allow subnnetting internal hosts. This makes
 several computers to access the Internet while the ISP has offered only one
-visible IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss to you. The router makes the mapping of the local subnet
-IP to the world known IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss, provided by the ISP when the connection
+visible IP address to you. The router makes the mapping of the local subnet
+IP to the world known IP address, provided by the ISP when the connection
 was established.
 
 You need some way to find out what is the real IP is. The simplest way is
 to connect to a some web page, which runs a reverse lookup service which
-can show the connecting IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss.
+can show the connecting IP address.
 
 Note: the following web web page does not exists. To find a service
-that is able to display your IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss, do a google search. Let's
+that is able to display your IP address, do a google search. Let's
 say, that you found a fictional service
 C<http://www.example.com/showip> and somewhere in the web page it
 reads:
 
-        Your IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss is: 212.111.11.10
+        Your IP address is: 212.111.11.10
 
 This is what you need. To automate the lookup from web page, you need
 to instruct the program to connect to URL page and tell how to read
@@ -835,7 +835,7 @@ page C<perlre> if you are unfamiliar with the regular expressions. For
 the above fictional service, the options needed would be:
 
     --urlping         "http://showip.org/?showit.pl"
-    --urlping-regexp  "addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss is:\s+([\d.]+)"
+    --urlping-regexp  "address is:\s+([\d.]+)"
                                   |  ||
                                   |  |+- Read all digits and periods
                                   |  |
@@ -845,16 +845,16 @@ the above fictional service, the options needed would be:
 
 NOTE: The text to match from web page is not text/plain, but text/html,
 so you must look at the HTML page's sources to match the IP
-addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss correctly without the bold <b> tags etc.
+address correctly without the bold <b> tags etc.
 
 =over 4
 
 =item B<--urlping URL>
 
-Web page where world known IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss can be read. If you find a Web server
-that is running some program, which can show your IP addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss, use it. The
+Web page where world known IP address can be read. If you find a Web server
+that is running some program, which can show your IP address, use it. The
 example below connects to site and calls CGI program to make show the
-connector's IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss. Be polite. Making calls like this too often
+connector's IP address. Be polite. Making calls like this too often
 may cause putting blocks to your site.
 
     http://www.dyndns.org/cgi-bin/check_ip.cgi
@@ -865,7 +865,7 @@ down the service.
 
 =item B<--urlping-dyndns>
 
-Contact http://www.dyndns.org service to obtain IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss information. This
+Contact http://www.dyndns.org service to obtain IP address information. This
 is shorthand to more general optiopn B<--urlping>.
 
 =item B<--urlping-linksys [TYPE]>
@@ -873,8 +873,8 @@ is shorthand to more general optiopn B<--urlping>.
 B<Specialized router option for Linksys products>.
 
 This option connects to Linksys Wireless LAN 4-point router, whose page is
-by default at local network addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss -<http://192.168.1.1/Status.htm>. The
-world known IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss (which is provided by ISP) is parsed from that
+by default at local network address -<http://192.168.1.1/Status.htm>. The
+world known IP address (which is provided by ISP) is parsed from that
 page. The product is typically connected to the cable or DSL modem. Refer
 to routing picture presented previously.
 
@@ -973,12 +973,12 @@ Print version and contact information.
 
 =head1 EXAMPLES
 
-To update IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss periodically, use crontab(5) entry. The update
+To update IP address periodically, use crontab(5) entry. The update
 will happen only if IP has changed since last time:
 
     0 0-23 * * * perl <absolute path>/dyndns <options>
 
-To check current IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss:
+To check current IP address:
 
   dyndns --query [--urlping...]
                  |
@@ -995,8 +995,8 @@ To update account information to DDNS provider:
   dyndns --provider dyndns --login <login> --password <pass> --host your.dyndns.org
 
 If your router can display a web page containing the world known IP
-addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss, you can instruct to "ping" it. Suppose that router is at
-addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss 192.168.1.1 and page that displays the world known IP is
+address, you can instruct to "ping" it. Suppose that router is at
+address 192.168.1.1 and page that displays the world known IP is
 C<status.html>, and you have to log in to the router using username
 C<foo> and password C<bar>:
 
@@ -1004,7 +1004,7 @@ C<foo> and password C<bar>:
          --urlping-login foo                      \
          --urlping-pass  bar                      \
 
-If the default regexp does not find IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss from the page, supply
+If the default regexp does not find IP address from the page, supply
 your own match with option B<--urlping-regexp>. In case of doubt, add
 option B<--debug 1> and examine the responses. In serious doubt, contact
 the maintainer (see option B<--version>) and send the full debug
@@ -1050,7 +1050,7 @@ respectively. All host name values below are fictional.
 
     mxhost   = mxhost.dyndns.org
 
-    #   Details how to get the world known IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss, in case the standard
+    #   Details how to get the world known IP address, in case the standard
     #   Linux 'ifconfig' or Windows 'ipconfig' programs cannot be used. This
     #   interests mainly Cable, DSL and router owners. NOTE: You may
     #   not use all these options. E.g. [urlping-linksys4] is alternate
@@ -2454,7 +2454,7 @@ sub ConfigFileRead ($)
 #
 #   DESCRIPTION
 #
-#       Return file where to save the IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss based on values like
+#       Return file where to save the IP address based on values like
 #       ethernet card, provider and update system type.
 #
 #   INPUT PARAMETERS
@@ -2464,7 +2464,7 @@ sub ConfigFileRead ($)
 #       $absolute   if set, then the PREFIX is considered absolute
 #                   if it's not a directory, do not try to add
 #                   ethernet strings etc.
-#       $hostRef    List of hosts whose IP addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssses are in question.
+#       $hostRef    List of hosts whose IP addresses are in question.
 #
 #   RETURN VALUES
 #
@@ -2518,7 +2518,7 @@ sub IPfileNamePath (; $$$)
             @host  and  $HOST = join '-', @host;
         }
 
-        #   Last saved IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss is in this file
+        #   Last saved IP address is in this file
         #   For multiple network cards, store each one for separate card.
         #   Updates for 'statdns', are different than for 'dyndns'
 
@@ -2622,14 +2622,14 @@ sub IPfileNameGlobbed ()
 #
 #   DESCRIPTION
 #
-#       Check valid IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss.
+#       Check valid IP address.
 #
 #   INPUT PARAMETERS
 #
 #       $ip
 #       $intenet    [optional] If set, consider Internal 192.*  and 10.*
-#                   addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssses valid too. Normally these are not Internet
-#                   addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssses, but used only for local subnets.
+#                   addresses valid too. Normally these are not Internet
+#                   addresses, but used only for local subnets.
 #       $subnet     If set, consider subnet IPs valid (192.x.x.x etc).
 #
 #   RETURN VALUES
@@ -2987,12 +2987,12 @@ sub IsFileOld ($)
 #
 #   DESCRIPTION
 #
-#       Connect to a HTTP page from where IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss can be read
+#       Connect to a HTTP page from where IP address can be read
 #
 #   INPUT PARAMETERS
 #
 #       $url     Call string
-#       $regexp  How to read the IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+#       $regexp  How to read the IP address
 #       $login   [optional] how to log in to a secured page
 #       $pass    [optional] how to log in to a secured page
 #
@@ -3079,7 +3079,7 @@ sub HttpPing (%)
 #
 #   DESCRIPTION
 #
-#       Connect to a www.dyndns.org and get outbound IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss.
+#       Connect to a www.dyndns.org and get outbound IP address.
 #
 #   INPUT PARAMETERS
 #
@@ -3087,7 +3087,7 @@ sub HttpPing (%)
 #
 #   RETURN VALUES
 #
-#       $ip     IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+#       $ip     IP address
 #
 # ****************************************************************************
 
@@ -3108,7 +3108,7 @@ sub HttpPingDyndns ()
 #
 #   DESCRIPTION
 #
-#       Connect to a Linksys WLAN router, and get outbound IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss.
+#       Connect to a Linksys WLAN router, and get outbound IP address.
 #       See http://www.linksys.com/
 #
 #       This function is for "Wireless AP Router w/4 port Switch"
@@ -3121,7 +3121,7 @@ sub HttpPingDyndns ()
 #
 #   RETURN VALUES
 #
-#       $ip     IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+#       $ip     IP address
 #
 # ****************************************************************************
 
@@ -3174,7 +3174,7 @@ sub HttpPingWlanLinksysBEFW11S4 (; $$)
     {
         #   v2
         #   There is actually TWO similar lines, the first one is LAN
-        #   and the other is WAN ip addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss. The ".*" at front forces
+        #   and the other is WAN ip address. The ".*" at front forces
         #   to pick the last.
 
         $regexp = '.*IP +Address:.+?font[^>]+>+([\d.]+)';
@@ -3193,7 +3193,7 @@ sub HttpPingWlanLinksysBEFW11S4 (; $$)
 #
 #   DESCRIPTION
 #
-#       Connect to a Linksys Model WRT54GL router, and get outbound IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss.
+#       Connect to a Linksys Model WRT54GL router, and get outbound IP address.
 #
 #   INPUT PARAMETERS
 #
@@ -3202,7 +3202,7 @@ sub HttpPingWlanLinksysBEFW11S4 (; $$)
 #
 #   RETURN VALUES
 #
-#       $ip     IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+#       $ip     IP address
 #
 # ****************************************************************************
 
@@ -3287,19 +3287,19 @@ sub Ping ($)
 #
 #   DESCRIPTION
 #
-#       Return last used ip addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss.
+#       Return last used ip address.
 #
 #       http://support.dyndns.org/dyndns/faq.shtml
 #
 #       A Dynamic DNS hostname only needs to
-#       be updated when your IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss has changed. Any updates more
-#       frequently than this - from the same IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss - will be
+#       be updated when your IP address has changed. Any updates more
+#       frequently than this - from the same IP address - will be
 #       considered abusive by the update system and may result in your
 #       hostname becoming blocked. Any script which runs periodically
 #       should check to make sure that the IP has actually changed before
 #       making an update, or the host will become blocked. An exception to
-#       this is for users with mostly static IP addresssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssses; you may update
-#       24-30 days after your previous update with the same IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss to
+#       this is for users with mostly static IP addresses; you may update
+#       24-30 days after your previous update with the same IP address to
 #       "touch" the record and prevent it from expiring. Users will receive
 #       an e-mail notification if a host has been unchanged for 28 days.
 #
@@ -3657,17 +3657,17 @@ sub FileWriteCheckIP ($)
 #
 #   DESCRIPTION
 #
-#       Parse Ip addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss from INPUT by searching REGEXP line.
-#       IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss must be the first numeric expression.
+#       Parse Ip address from INPUT by searching REGEXP line.
+#       IP address must be the first numeric expression.
 #
 #   INPUT PARAMETERS
 #
-#       $           regexp. Submatch 1 must contain the IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss portion.
+#       $           regexp. Submatch 1 must contain the IP address portion.
 #       @           List of lines to search. Typically command's output.
 #
 #   RETURN VALUES
 #
-#       $           ip addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+#       $           ip address
 #
 # ****************************************************************************
 
@@ -3804,17 +3804,17 @@ sub CmdError ( $ $ @ )
 #   DESCRIPTION
 #
 #       Get current IP by running COMMAND and searching for line
-#       matching REGEXP. The IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss must be the first numeric
+#       matching REGEXP. The IP address must be the first numeric
 #       expression in the found REGEXP line.
 #
 #   INPUT PARAMETERS
 #
-#       $           Command  which return IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-#       @           Regular expressions to find line containing IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss.
+#       $           Command  which return IP address
+#       @           Regular expressions to find line containing IP address.
 #
 #   RETURN VALUES
 #
-#       $           ip addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+#       $           ip address
 #
 # ****************************************************************************
 
@@ -3855,7 +3855,7 @@ sub GetIpAddressGenericParser ( $ @ )
 #
 #   RETURN VALUES
 #
-#       $           ip addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+#       $           ip address
 #
 # ****************************************************************************
 
@@ -3918,7 +3918,7 @@ sub GetIpAddressWin32 (; $)
 #
 #   DESCRIPTION
 #
-#       Get current IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss information from ethernet CARD.
+#       Get current IP address information from ethernet CARD.
 #       Global variable OPT_ETHERNET can be set via command line option.
 #
 #   INPUT PARAMETERS
@@ -3943,7 +3943,7 @@ sub GetIpAddressIfconfig ()
     #       RX packets:38180 errors:0 dropped:0 overruns:0 frame:0
     #       TX packets:12211 errors:0 dropped:0 overruns:0 carrier:1
     #       collisions:46 txqueuelen:100
-    #       Interrupt:11 Base addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss:0xec00
+    #       Interrupt:11 Base address:0xec00
 
     # my $re = '(?sm)inet[ \t]+addr:[ \t]*(\d[\d.]+)';
 
@@ -3988,7 +3988,7 @@ sub GetIpAddressIfconfig ()
 #
 #   DESCRIPTION
 #
-#       Get current IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss information. Dies if cannot detect ip address.
+#       Get current IP address information. Dies if cannot detect ip address.
 #
 #   INPUT PARAMETERS
 #
@@ -4055,7 +4055,7 @@ sub GetIpAddress ()
     }
     else
     {
-        die "$id: Don't know how to get your IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss in this OS [$OSNAME]."
+        die "$id: Don't know how to get your IP address in this OS [$OSNAME]."
             , "Please contain maintainer and let him "
             , "know your system name + command + result where to get ip "
             , "information."
@@ -4064,7 +4064,7 @@ sub GetIpAddress ()
 
     unless ( $ret )
     {
-        my $msg = "$id: [EXIT] Can't read IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss. Please turn on --debug.";
+        my $msg = "$id: [EXIT] Can't read IP address. Please turn on --debug.";
 
         Log $msg;
         die $msg;
@@ -4077,19 +4077,19 @@ sub GetIpAddress ()
 #
 #   DESCRIPTION
 #
-#       Return NEW ip addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss if it has been changed.
+#       Return NEW ip address if it has been changed.
 #
 #   INPUT PARAMETERS
 #
-#       $file           File to read IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss info
+#       $file           File to read IP address info
 #       $query          if true, do not complain about previous IP
 #
 #   RETURN VALUES
 #
 #       (IP, "nochange") "nochange" added if the IP adderess has not changed.
-#       (IP, IP)         First argument is the new IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss.
+#       (IP, IP)         First argument is the new IP address.
 #                        The second argument may be missing if there is no
-#                        record of old addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss.
+#                        record of old address.
 #
 # ****************************************************************************
 
@@ -4128,7 +4128,7 @@ sub GetIpAddressInfo (%)
     }
     else
     {
-        $verb  and  print "$id: Could not get IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss. ",
+        $verb  and  print "$id: Could not get IP address. ",
                           , "Please run --debug\n";
     }
 
@@ -4692,7 +4692,7 @@ function ShowAlert(M)
                 else
                         str = hstatrouter2.noip + mode + hstatrouter2.server;
         }
-//              str = "Can not get a IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss from " + mode + " server";
+//              str = "Can not get a IP address from " + mode + " server";
         else if(M == "NEG_FAIL")
                 str = mode + hstatrouter2.negfail;
 //              str = mode + " negotication fail";
@@ -5247,7 +5247,7 @@ eth0      Link encap:Ethernet  HWaddr 00:10:5A:64:8D:32
             RX packets:38180 errors:0 dropped:0 overruns:0 frame:0
             TX packets:12211 errors:0 dropped:0 overruns:0 carrier:1
             collisions:46 txqueuelen:100
-            Interrupt:11 Base addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss:0xec00';
+            Interrupt:11 Base address:0xec00';
 
     Banner();
 
@@ -5487,7 +5487,7 @@ sub HTTPheaderSet ( $ $ )
 #
 #   DESCRIPTION
 #
-#       Update new IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss.
+#       Update new IP address.
 #
 #   INPUT PARAMETERS
 #
@@ -5668,7 +5668,7 @@ EOF
 #
 #   DESCRIPTION
 #
-#       Update new IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss.
+#       Update new IP address.
 #
 #   INPUT PARAMETERS
 #
@@ -5738,7 +5738,7 @@ EOF
     #   other users on the internet. This is useful if you will be
     #   going offline for an extended period of time. If someone else
     #   gets your old IP your users will not go to your old IP
-    #   addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss.
+    #   address.
 
     if ( $OFFLINE eq "YES" )
     {
@@ -5803,7 +5803,7 @@ EOF
 #
 #   DESCRIPTION
 #
-#       Update new IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss.
+#       Update new IP address.
 #
 #   INPUT PARAMETERS
 #
@@ -5873,7 +5873,7 @@ EOF
     #   other users on the internet. This is useful if you will be
     #   going offline for an extended period of time. If someone else
     #   gets your old IP your users will not go to your old IP
-    #   addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss.
+    #   address.
 
     if ( $OFFLINE eq "YES" )
     {
@@ -5930,7 +5930,7 @@ EOF
 #
 #   DESCRIPTION
 #
-#       Write IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss to a file. does nothing if program is running
+#       Write IP address to a file. does nothing if program is running
 #       in test or query mode.
 #
 #   INPUT PARAMETERS
@@ -5965,7 +5965,7 @@ sub RunUpdateIPWrite ( $$ )
         }
         else
         {
-            Log "Invalid IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss $ip";
+            Log "Invalid IP address $ip";
         }
     }
 
@@ -5980,7 +5980,7 @@ sub RunUpdateIPWrite ( $$ )
 #
 #   INPUT PARAMETERS
 #
-#       $       IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+#       $       IP address
 #
 #   RETURN VALUES
 #
@@ -6181,7 +6181,7 @@ sub ProcessUpdateOne ( % )
         if ($days < 1)
         {
             my $msg = "$id: [WARN] It is not allowed to update same IP "
-                . "addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss twice [$ip]. "
+                . "address twice [$ip]. "
                 . "Trying to do so in a short period of time (< 15 min) "
                 . "might possibly cause the provider to block the domain "
                 . "for further attemps. "
@@ -6532,7 +6532,7 @@ sub Main ()
     if ( exists $ENV{DYNDNS_PL_CFG} )
     {
         #   Older versions of this program used a single file to
-        #   store the IP addressssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss. The variable is no longer read.
+        #   store the IP address. The variable is no longer read.
 
         warn "$PROGRAM_NAME: [UPGRADE NOTE] Non-supported environment "
             , "variable DYNDNS_PL_CFG found. Please migrate to the "
