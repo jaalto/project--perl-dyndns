@@ -67,7 +67,7 @@
 #   The following variable is updated by Emacs setup whenever
 #   this file is saved.
 
-our $VERSION = '2014.0708.1537';
+our $VERSION = '2016.1021.1306';
 
 # ****************************************************************************
 #
@@ -427,7 +427,7 @@ could cause your domain to be blocked. You should not normally need to
 touch the files where the IP addresses are stored.
 
 If you know what you are doing and desperately need a forced update,
-delete the IP files and start program with apropriate arguments.
+delete the IP files and start program with appropriate arguments.
 Without the information about previous IP address, program sends a new
 update request to the provider.
 
@@ -1077,7 +1077,7 @@ respectively. All host name values below are fictional.
     proxy    = myproxy.myisp.net    # set only if needed for HTTP calls
 
     #   Hou need this option only if you have multiple ethernet cards.
-    #   After which regexp the IP number appers in ifconfig(1) listing?
+    #   After which regexp the IP number appears in ifconfig(1) listing?
 
     regexp   = .*0xffffffff.*?inet
 
